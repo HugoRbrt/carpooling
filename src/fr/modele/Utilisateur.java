@@ -1,7 +1,7 @@
 package fr.modele;
 
-// importe la classe Scanner du package java.util
-import java.util.Scanner; 
+import java.util.Scanner; // importe la classe Scanner du package java.util
+import java.util.LinkedList;
 
 public class Utilisateur extends Modele implements Statement{
     private String email;
@@ -9,10 +9,11 @@ public class Utilisateur extends Modele implements Statement{
     private String prenom;
     private String villeDeResidence;
     private String mdp;
-    private float porteMonnaie;
+    private double porteMonnaie;
+    private LinkedList<Vehicule> conduit;
     private LinkedList<Troncon> emprunte;
     private LinkedList<Trajet> propose;
-    private LinkedList<Vehicule> conduit;
+   
 
     public Utilisateur(String email, String nom, String prenom, String villeDeResidence, String motDePasse) {
         this.email = email;
@@ -21,6 +22,9 @@ public class Utilisateur extends Modele implements Statement{
         this.villeDeResidence = villeDeResidence;
         this.mdp = motDePasse;
         this.porteMonnaie = 0.0;
+        this.conduit = new LinkedList<Vehicule>();  //ou new LinkedList<>(); ?
+        this.propose = new LinkedList<Trajet>();    //ou new LinkedList<>(); ?
+        this.emprunte = new LinkedList<Troncon>();  //ou new LinkedList<>(); ?
     }
 
     public void printInfoUtilisateur(String email) {
@@ -84,7 +88,7 @@ public class Utilisateur extends Modele implements Statement{
         }
     }
 
-    public float getPorteMonnaie() {
+    public double getPorteMonnaie() {
         System.out.println("Mon solde est de : " + this.porteMonnaie + " €");
         return this.porteMonnaie;
     }

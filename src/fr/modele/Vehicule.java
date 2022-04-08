@@ -1,5 +1,7 @@
 package fr.modele;
 
+import java.util.LinkedList;
+
 public class Vehicule extends Modele implements Statement{
     private String immatriculation;
     private String marque;
@@ -10,58 +12,77 @@ public class Vehicule extends Modele implements Statement{
     private Utilisateur ConduitPar;
     private LinkedList<Trajet> assure;
 
-    public Vehicule(String immatriculation, String marque, String modele, int puissanceFiscale, int placeVehicule, Energie energieUtilisee, Utilisateur conduitPar)
+    public Vehicule(String immatriculation, String marque, String modele, int puissanceFiscale, int placeVehicule, Energie energieUtilisee, Utilisateur conduitPar) {
+        this.immatriculation = immatriculation;
+        this.marque = marque;
+        this.modele = modele;
+        this.puissanceFiscale = puissanceFiscale;
+        this.placeVehicule = placeVehicule;
+        this.energieUtilisee = energieUtilisee;
+        this.ConduitPar = conduitPar;
+    }
 
-    public Vehicule(String immatriculation){
-        //TODO
+    public void printVehicule(String immatriculation){
+        System.out.println("Immatriculation = " + this.immatriculation);
+        System.out.println("Marque = " + this.marque);
+        System.out.println("Modèle = " + this.modele);
+        System.out.println("Puissance fiscale = " + this.puissanceFiscale);
+        System.out.println("Place disponibles pour passager = " + this.placeVehicule);
+        System.out.println("Energie utilisée = " + this.energieUtilisee.getEnergieUtilisee());
     }
 
     public String getImmatriculation(){
-        //TODO
+        System.out.println("Immatriculation = " + this.immatriculation);
+        return this.immatriculation;
     }
 
     public void setImmatriculation(String immatriculation){
-        //TODO
+        this.immatriculation = immatriculation;
     }
 
     public String getMarque(){
-        //TODO
+        System.out.println("Marque = " + this.marque);
+        return this.marque;
     }
 
     public void setMarque(String marque){
-        //TODO
+        this.marque = marque;
     }
 
     public String getModele(){
-        //TODO
+        System.out.println("Modèle = " + this.modele);
+        return this.modele;
     }
 
     public void setModele(String modele){
-        //TODO
+        this.modele = modele;
     }
 
     public int getPuissanceFiscale(){
-        //TODO
+        System.out.println("Puissance fiscale = " + this.puissanceFiscale);
+        return this.puissanceFiscale;
     }
 
     public void setPuissanceFiscale(int puissanceFiscale){
-        //TODO
+        this.puissanceFiscale = puissanceFiscale;
     }
 
     public int getPlacevehicule(){
-        //TODO
+        System.out.println("Place disponibles pour passager = " + this.placeVehicule);
+        return this.placeVehicule;
     }
 
     public void setPlaceVehicule(int placeVehicule){
-        //TODO
+        this.placeVehicule = placeVehicule;
     }
 
     public Energie getEnergieUtilisee(){
-        //TODO
+        System.out.println("Energie utilisée = " + this.energieUtilisee.getEnergieUtilisee());
+        return this.energieUtilisee;
     }
 
-    public void setEnergieUtilisee(int energieUtilisee){
-        //TODO
+    public void setEnergieUtilisee(String energieUtilisee){
+        this.energieUtilisee.setEnergieUtilisee(energieUtilisee);
     }
 
     public Utilisateur getConduitPar(){
