@@ -11,7 +11,6 @@ public class Utilisateur extends Modele implements Statement{
     private String mdp;
     private double porteMonnaie;
     private LinkedList<Vehicule> conduit;
-    private LinkedList<Troncon> emprunte;
     private LinkedList<Trajet> propose;
    
 
@@ -24,7 +23,6 @@ public class Utilisateur extends Modele implements Statement{
         this.porteMonnaie = 0.0;
         this.conduit = new LinkedList<Vehicule>();  //ou new LinkedList<>(); ?
         this.propose = new LinkedList<Trajet>();    //ou new LinkedList<>(); ?
-        this.emprunte = new LinkedList<Troncon>();  //ou new LinkedList<>(); ?
     }
 
     public void printInfoUtilisateur(String email) {
@@ -97,27 +95,19 @@ public class Utilisateur extends Modele implements Statement{
         this.porteMonnaie = this.porteMonnaie + montant;
     }
 
-    public LinkedList<Troncon> getEmprunte() {
-        //TODO
-    }
-
-    public void addEmprunte(Troncon troncon) {
-        //TODO
-    }
-
-    public LinkedList<Trajet> getPropose() {
-        //TODO
-    }
-
-    public void addPropose(Trajet trajet) {
-        //TODO
-    }
-
     public LinkedList<Vehicule> getConduit() {
-        //TODO
+        this.conduit.listIterator();
     }
 
     public void addConduit(Vehicule vehicule) {
-        //TODO
+        this.conduit.add(vehicule);
+    }
+
+    public LinkedList<Trajet> getPropose() {
+        this.propose.listIterator();
+    }
+
+    public void addPropose(Trajet trajet) {
+        this.propose.add(trajet);
     }
 }

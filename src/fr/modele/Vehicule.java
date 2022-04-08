@@ -9,20 +9,20 @@ public class Vehicule extends Modele implements Statement{
     private int puissanceFiscale;
     private int placeVehicule;
     private Energie energieUtilisee;
-    private Utilisateur ConduitPar;
+    private LinkedList<Utilisateur> conduitPar;
     private LinkedList<Trajet> assure;
 
-    public Vehicule(String immatriculation, String marque, String modele, int puissanceFiscale, int placeVehicule, Energie energieUtilisee, Utilisateur conduitPar) {
+    public Vehicule(String immatriculation, String marque, String modele, int puissanceFiscale, int placeVehicule, Energie energieUtilisee, LinkedList<Utilisateur> conducteurs) {
         this.immatriculation = immatriculation;
         this.marque = marque;
         this.modele = modele;
         this.puissanceFiscale = puissanceFiscale;
         this.placeVehicule = placeVehicule;
         this.energieUtilisee = energieUtilisee;
-        this.ConduitPar = conduitPar;
+        this.conduitPar = conducteurs;
     }
 
-    public void printVehicule(String immatriculation){
+    public void printVehicule(){
         System.out.println("Immatriculation = " + this.immatriculation);
         System.out.println("Marque = " + this.marque);
         System.out.println("Modèle = " + this.modele);
@@ -82,7 +82,7 @@ public class Vehicule extends Modele implements Statement{
     }
 
     public void setEnergieUtilisee(String energieUtilisee){
-        this.energieUtilisee.setEnergieUtilisee(energieUtilisee);
+        this.energieUtilisee.setEnergie(energieUtilisee);
     }
 
     public Utilisateur getConduitPar(){
