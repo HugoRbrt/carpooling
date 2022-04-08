@@ -1,3 +1,5 @@
+package fr.controleur.GestionBDD;
+
 import java.sql.*;
 
 public class MiseAJour{

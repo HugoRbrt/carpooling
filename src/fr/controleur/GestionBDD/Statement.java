@@ -1,10 +1,12 @@
+package fr.controleur.GestionBDD;
+
 import java.sql.*;
 
 /**
  * Contenir la requête SQL et la transmettre à la base de données.
  */
 
-public class Statement {
+public interface Statement {
         //méthode de création des requetes
         public prepareStatement() {
             //TODO

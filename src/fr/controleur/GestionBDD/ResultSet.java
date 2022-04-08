@@ -1,4 +1,5 @@
-import javafx.*; //autre module possible
+package fr.controleur.GestionBDD;
+
 import javax.swing.*;
 
 /**
