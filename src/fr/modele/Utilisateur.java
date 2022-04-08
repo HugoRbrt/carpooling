@@ -1,70 +1,96 @@
 package fr.modele;
 
+// importe la classe Scanner du package java.util
+import java.util.Scanner; 
+
 public class Utilisateur extends Modele implements Statement{
     private String email;
     private String nom;
     private String prenom;
     private String villeDeResidence;
-    private String motDePasse;
-    private int porteMonnaie;
+    private String mdp;
+    private float porteMonnaie;
     private LinkedList<Troncon> emprunte;
     private LinkedList<Trajet> propose;
     private LinkedList<Vehicule> conduit;
 
     public Utilisateur(String email, String nom, String prenom, String villeDeResidence, String motDePasse) {
-        //TODO
+        this.email = email;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.villeDeResidence = villeDeResidence;
+        this.mdp = motDePasse;
+        this.porteMonnaie = 0.0;
     }
 
-    public Utilisateur(String email) {
-        //TODO
+    public void printInfoUtilisateur(String email) {
+        System.out.println("email = " + this.email);
+        System.out.println("nom = " + this.nom);
+        System.out.println("prenom = " + this.prenom);
+        System.out.println("ville de résidence = " + this.villeDeResidence);
+        System.out.println("porte monnaie = " + this.porteMonnaie);
+        //System.out.println("mes véhicules sont : ");
     }
 
     public String getEmail() {
-        //TODO
+        System.out.println("email = " + this.email);
+        return this.email;
     }
 
     public void setEmail(String email) {
-        //TODO
+        this.email = email;
     }
 
     public String getNom() {
-        //TODO
+        System.out.println("nom = " + this.nom);
+        return this.nom;
     }
 
     public void setNom(String nom) {
-        //TODO
+        this.nom = nom;
     }
 
     public String getPrenom() {
-        //TODO
+        System.out.println("prenom = " + this.prenom);
+        return this.prenom;
     }
 
     public void setPrenom(String prenom) {
-        //TODO
+        this.prenom = prenom;
     }
 
     public String getVilleDeResidence() {
-        //TODO
+        System.out.println("j'habite la ville de : " + this.villeDeResidence);
+        return this.villeDeResidence;
     }
 
     public void setVilleDeResidence(String villeDeResidence) {
-        //TODO
+        this.villeDeResidence = villeDeResidence;
     }
 
     public String getMotDePasse() {
-        //TODO
+        System.out.println("mdp = " + this.mdp);
+        return this.mdp;
     }
 
     public void setMotDePasse(String motDePasse) {
-        //TODO
+        System.out.println("saisissez votre ancien mot de passe : ");
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        if(str.equals(this.mdp)) {
+            this.mdp = motDePasse;
+        } else {
+            System.out.println("ancien mot de passe incorrect");
+        }
     }
 
-    public int getPorteMonnaie() {
-        //TODO
+    public float getPorteMonnaie() {
+        System.out.println("Mon solde est de : " + this.porteMonnaie + " €");
+        return this.porteMonnaie;
     }
 
-    public void setPorteMonnaie(int porteMonnaie) {
-        //TODO
+    public void addPorteMonnaie(float montant) {
+        this.porteMonnaie = this.porteMonnaie + montant;
     }
 
     public LinkedList<Troncon> getEmprunte() {

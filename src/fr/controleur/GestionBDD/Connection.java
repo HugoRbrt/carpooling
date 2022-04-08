@@ -1,14 +1,17 @@
-public class Connection {
-    //méthode de création des requetes
-    public prepareStatement() {
-        //TODO
-    }
+import java.sql.*;
 
-    //méthodes de création des requêtes
-    public createStatement(/*param1, param2 ..*/) {
-        //TODO
+/**
+ * Réaliser la connexion et l'authentification à la base de données.
+ */
+
+public class Connection {
+    /* Méthode qui crée une connexion à la BD */
+    private Connection connect() /*throws SQLException*/ {
+        System.out.print("Connecting to the database... "); 
+        Connection conn = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWD);
+        System.out.println("connected");
+        return conn;
     }
-    
 
     @override
     //de la classe Connection qui existe déjà ?
