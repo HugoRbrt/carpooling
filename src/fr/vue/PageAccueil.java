@@ -1,3 +1,5 @@
+package fr.vue;
+
 import javax.swing.*;
 
 public class PageAccueil {
