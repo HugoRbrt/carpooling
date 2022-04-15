@@ -1,4 +1,6 @@
 .DS_Store
+.idea
+*.iml
 ChangeDemo.java
 SimpleQuery.java
 SimpleTrans.java
@@ -6,4 +8,3 @@ DateQuery.java
 ReqParam.java
 TestSequences.txt
 TraitementStrings.txt
-ojdb6.jar
