@@ -10,7 +10,7 @@ public class MyConnection {
     static final String USERNAME = "roberthu";
     static final String PASSWD = "roberthu";
     static final String URL = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
-    private Connection conn;
+    public Connection conn;
    
     /* Méthode qui crée une connexion à la BD */
     public MyConnection() {
