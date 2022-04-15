@@ -1,10 +1,10 @@
-package fr.controleur.GestionBDD;
+/*package fr.controleur.GestionBDD;
 
 import javax.swing.*;
 
-/**
+
  * Parcourir les informations retournées par la base de données dans le cas d'une sélection de données
- */
+ 
 
 public class ResultSet {
     //récupération des attributs
@@ -15,9 +15,11 @@ public class ResultSet {
 
     //navigation dans les résultats
     public void next() {
-        //TODO
+
     }
     public void previous() {
-        //TODO
+     
     }
 }
+*/
+//TODO : supprimer cette classe car déja implémentée

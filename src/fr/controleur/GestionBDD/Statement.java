@@ -1,4 +1,4 @@
-package fr.controleur.GestionBDD;
+package src.fr.controleur.GestionBDD;
 
 import java.sql.*;
 
@@ -7,14 +7,16 @@ import java.sql.*;
  */
 
 public interface Statement {
-        //méthode de création des requetes
-        public prepareStatement() {
+    PreparedStatement stmt = conn.prepareStatement("select * from system.LesSalles  where NBPLACES >? and NOM  like ?"); 
+
+    // méthode de création des requetes
+    public prepareStatement() {
             //TODO
         }
-    
-        //méthodes de création des requêtes
-        public createStatement(/*param1, param2 ..*/) {
+
+    // méthodes de création des requêtes
+    public createStatement(/*param1, param2 ..*/) {
             //TODO
         }
-        
+
 }

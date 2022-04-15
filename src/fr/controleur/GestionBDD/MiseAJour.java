@@ -1,4 +1,4 @@
-package fr.controleur.GestionBDD;
+package src.fr.controleur.GestionBDD;
 
 import java.sql.*;
 

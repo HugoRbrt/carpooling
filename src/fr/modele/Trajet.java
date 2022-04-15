@@ -1,4 +1,4 @@
-package fr.modele;
+package src.fr.modele;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ public class Trajet extends Modele implements Statement{
     private String villeArrivee;
     private double[] gpsDepart = new double[2];    // [ latitudeDepart ; longitudeDepart ]
     private double[] gpsArrivee = new double[2];   // [ latitudeArrivee; longitudeArrivee ]
-    // private String immatriculation;
+    //private String immatriculation;
     private Vehicule assurePar;
     private int nbPlacesDisponibles;
     private Utilisateur proposePar;

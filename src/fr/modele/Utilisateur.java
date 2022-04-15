@@ -1,9 +1,9 @@
-package fr.modele;
+package src.fr.modele;
 
 import java.util.Scanner; // importe la classe Scanner du package java.util
 import java.util.LinkedList;
 
-public class Utilisateur extends Modele implements Statement{
+public class Utilisateur extends Modele {
     private String email;
     private String nom;
     private String prenom;

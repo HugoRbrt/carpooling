@@ -31,6 +31,7 @@ public class MyConnection {
         } catch (SQLException e) {
             System.err.println("failed");
             e.printStackTrace(System.err);
+            this.conn = null;
         }
     }
         

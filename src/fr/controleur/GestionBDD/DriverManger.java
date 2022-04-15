@@ -1,10 +1,10 @@
-package fr.controleur.GestionBDD;
+package src.fr.controleur.GestionBDD;
 
 import java.sql.*;
 
 // Paquetages pour la surveillance de tables
 import oracle.jdbc.*;
-import oracle.jdbc.dcn.*;
+//import oracle.jdbc.dcn.*;
 import java.util.Properties;
 
 /**
@@ -12,9 +12,7 @@ import java.util.Properties;
  */
 
 public class DriverManger {
-    static final String USERNAME = "roberthu";
-    static final String PASSWD = "roberthu";
-    static final String URL = "jdbc:oracle:thin:@oracle1.ensimag.fr:1521:oracle1";
+
 
     /* Objet obligatoire à conserver pour pouvoir arrêter la surveillance (correspond au thread de surveillance) */
     private DatabaseChangeRegistration dcr = null;

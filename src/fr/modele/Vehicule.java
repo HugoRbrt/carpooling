@@ -1,8 +1,8 @@
-package fr.modele;
+package src.fr.modele;
 
 import java.util.LinkedList;
 
-public class Vehicule extends Modele implements Statement{
+public class Vehicule extends Modele{
     private String immatriculation;
     private String marque;
     private String modele;
