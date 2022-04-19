@@ -1,6 +1,15 @@
+# macOS files
 .DS_Store
-.idea
+
+# IDE files
+*.idea
 *.iml
+*.vscode
+
+# Maven files
+target
+
+# Project files
 ChangeDemo.java
 SimpleQuery.java
 SimpleTrans.java
