@@ -74,4 +74,18 @@ public class MyConnection {
     public ArrayList<String []> getMyTrajet(String email){
     	return trajet.getMyTrajet(email);
     }
+    public boolean deleteTrajet(int idTrajet) {
+    	return trajet.deleteTrajet(idTrajet);
+    }
+    public int addTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart) {
+    	return trajet.addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
+    }
+    
+    //VehiculeController method
+    public boolean addVehicule(String email, String Immatriculation, String Marque, String Modele, int pfiscale, int placeVehicule, String Energieutilise) {
+    	return vehicule.addVehicule(email, Immatriculation, Marque, Modele, pfiscale, placeVehicule, Energieutilise);
+    }
+    public ArrayList<String> getMyVehicule(String email){
+    	return vehicule.getMyVehicule(email);
+    }
 }
