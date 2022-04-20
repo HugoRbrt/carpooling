@@ -80,4 +80,23 @@ public class UtilisateurController{
     	return nb!=0; //return true only if we have 1 or more line with the right email/mdp
 	}
     
+    public boolean CheckEmail(String email){
+    	PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("SELECT EMAIL FROM UTILISATEUR WHERE EMAIL = ?");
+			pstmt.setString(1, email);
+		} catch (SQLException e1) {
+            System.err.println("failed to create new prepareStatement (CheckEmailAndMDP)");
+			e1.printStackTrace();
+		}
+		int nb = 0;
+    	try {
+			nb = pstmt.executeUpdate();
+		} catch (SQLException e) {
+            System.err.println("failed to executeUpdate (CheckEmailAndMDP)");
+			e.printStackTrace();
+		}
+    	return nb!=0; //return true only if we have 1 or more line with the right email/mdp
+	}
+    
 }

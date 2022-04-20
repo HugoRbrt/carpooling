@@ -66,6 +66,9 @@ public class MyConnection {
     public boolean CheckEmailAndMDP(String email, String mdp) {
     	return user.CheckEmailAndMDP(email, mdp);
     }
+    public boolean CheckEmail(String email) {
+    	return user.CheckEmail(email);
+    }
     
     //TrajetController method
     public ArrayList<String []> getMyTrajet(String email){
