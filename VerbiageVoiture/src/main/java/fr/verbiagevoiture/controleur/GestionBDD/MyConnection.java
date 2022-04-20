@@ -1,6 +1,7 @@
 package fr.verbiagevoiture.controleur.GestionBDD;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Réaliser la connexion et l'authentification à la base de données.
@@ -17,7 +18,7 @@ public class MyConnection {
     public TrajetController trajet;
     public EnergieController energie;
    
-    /* Méthode qui crée une connexion à la BD */
+    // Méthode qui crée une connexion à la BD
     public MyConnection() {
         try{
             // Chargement du driver Oracle
@@ -45,6 +46,7 @@ public class MyConnection {
         energie = new EnergieController(conn);
     }
     
+    //fermeture de la connexion
     public void closeConnection() throws SQLException {
     	try {
             System.out.print("closing connection to the database... "); 
@@ -65,4 +67,8 @@ public class MyConnection {
     	return user.CheckEmailAndMDP(email, mdp);
     }
     
+    //TrajetController method
+    public ArrayList<String []> getMyTrajet(String email){
+    	return trajet.getMyTrajet(email);
+    }
 }
