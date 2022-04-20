@@ -1,5 +1,12 @@
 package fr.verbiagevoiture.controleur.GestionBDD;
 
-public class EnergieController extends MyConnection{
+import java.sql.Connection;
+
+public class EnergieController{
+    public Connection conn;
+    
+    public EnergieController(Connection c) {
+    	conn = c;
+    }
     // requetes spécifiques
 }

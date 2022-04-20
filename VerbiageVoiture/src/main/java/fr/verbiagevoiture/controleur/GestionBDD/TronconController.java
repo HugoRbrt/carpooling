@@ -2,10 +2,10 @@ package fr.verbiagevoiture.controleur.GestionBDD;
 
 import java.sql.Connection;
 
-public class VehiculeController{
+public class TronconController{
     public Connection conn;
     
-    public VehiculeController(Connection c) {
+    public TronconController(Connection c) {
     	conn = c;
     }
     // requetes spécifiques

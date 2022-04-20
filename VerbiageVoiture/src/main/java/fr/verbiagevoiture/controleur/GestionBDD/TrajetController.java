@@ -1,6 +1,13 @@
 package fr.verbiagevoiture.controleur.GestionBDD;
 
-public class TrajetController extends MyConnection{
+import java.sql.Connection;
+
+public class TrajetController{
+    public Connection conn;
+    
+    public TrajetController(Connection c) {
+    	conn = c;
+    }
     
 }
 
