@@ -23,9 +23,12 @@ public class UtilisateurController extends MyConnection{
 public void CheckEmailAndMDP(){
 
 }
-SELECT , email, MDP
+
+/*
+SELECT , email, MDP // Tristan : ici j'ai commencé à renseigner le texte pour faire une première requete
  FROM Utilisateur
   WHERE email == email_entré;
    AND MDP = mdp_entré
+ */
 
 }

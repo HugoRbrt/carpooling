@@ -1,4 +1,4 @@
-package fr.verbiagevoiture.controleur.GestionBDD;
+/*package fr.verbiagevoiture.controleur.GestionBDD;
 
 import java.sql.*;
 
@@ -85,3 +85,4 @@ public class Requete {
 
 
 }
+/*

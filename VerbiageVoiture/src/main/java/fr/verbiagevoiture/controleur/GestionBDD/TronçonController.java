@@ -1,5 +1,5 @@
 package fr.verbiagevoiture.controleur.GestionBDD;
 
-public class TronçonController extends Connection{
+public class TronçonController extends MyConnection{
     // requetes spécifiques
 }

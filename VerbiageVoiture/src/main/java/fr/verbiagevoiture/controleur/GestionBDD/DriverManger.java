@@ -1,5 +1,5 @@
-package fr.verbiagevoiture.controleur.GestionBDD;
-
+/*package fr.verbiagevoiture.controleur.GestionBDD;
+//TODO : ce document est il utile ? -> si non le supprimer
 import java.sql.*;
 
 // Paquetages pour la surveillance de tables
@@ -11,7 +11,7 @@ import java.util.Properties;
  * Charger et configurer le driver de la base de données
  */
 
-public class DriverManger {
+public class DriverManager {
 
 
     /* Objet obligatoire à conserver pour pouvoir arrêter la surveillance (correspond au thread de surveillance) */
@@ -24,3 +24,4 @@ public class DriverManger {
 
     
 }
+/*
