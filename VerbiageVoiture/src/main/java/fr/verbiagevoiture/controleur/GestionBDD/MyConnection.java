@@ -96,10 +96,16 @@ public class MyConnection {
     }
     
     //VehiculeController method
-    public boolean addVehicule(String email, String Immatriculation, String Marque, String Modele, int pfiscale, int placeVehicule, String Energieutilise) {
-    	return vehicule.addVehicule(email, Immatriculation, Marque, Modele, pfiscale, placeVehicule, Energieutilise);
+    public boolean addVehicule(String email, String Immatriculation, String Marque, String Modele, int pfiscale, int placeVehicule, String energieUtilise) {
+    	return vehicule.addVehicule(email, Immatriculation, Marque, Modele, pfiscale, placeVehicule, energieUtilise);
     }
-    public ArrayList<String> getMyVehicule(String email){
-    	return vehicule.getMyVehicule(email);
+    public boolean addVehicule(String Immatriculation, String Marque, String Modele, int pfiscale, int placeVehicule, String energieUtilise) {
+    	return vehicule.addVehicule(user.myEmail, Immatriculation, Marque, Modele, pfiscale, placeVehicule, energieUtilise);
+    }
+    public ArrayList<String> getMyVehicule(){
+    	return vehicule.getMyVehicule(user.myEmail);
+    }
+    public ArrayList<String> getMyVehicule(String mail){
+    	return vehicule.getMyVehicule(mail);
     }
 }

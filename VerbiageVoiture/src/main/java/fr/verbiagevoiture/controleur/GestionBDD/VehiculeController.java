@@ -55,21 +55,10 @@ public class VehiculeController{
 			e1.printStackTrace();
 		}
 
-		ResultSet rset = null;
 		try {
-		    rset =  pstmt.executeQuery();
+			vehicleAdded =  1==pstmt.executeUpdate();
 		} catch (SQLException e) {
             System.err.println("failed to executeQuery (addVehicule)");
-			e.printStackTrace();
-		}
-		try {
-			//TODO verifier les valeurs de retour possible d'un insert into
-			//pour le moment : si INSERT reussi : valeur de retour (rset.next() == true)
-			//				   si INSERT pas reussi : pas de valeur de retour (rset.next() == false)
-			
-			vehicleAdded = rset.next(); // if rset.next is false, it means that an error occurs 
-		}catch (SQLException e) {
-            System.err.println("failed to access to ResultSet.next (addVehicule)");
 			e.printStackTrace();
 		}
 		if(vehicleAdded) {//we add the vehicle  in CONDUIT only if vehicle was added in table VEHICULE
@@ -86,27 +75,15 @@ public class VehiculeController{
 				e1.printStackTrace();
 			}
 
-			ResultSet rset2 = null;
 			try {
-			    rset2 =  pstmt2.executeQuery();
+				vehicleAdded =  1==pstmt2.executeUpdate();
 			} catch (SQLException e) {
 	            System.err.println("failed to executeQuery (addVehicule) 2");
-				e.printStackTrace();
-			}
-			try {
-				//TODO verifier les valeurs de retour possible d'un insert into
-				//pour le moment : si INSERT reussi : valeur de retour (rset.next() == true)
-				//				   si INSERT pas reussi : pas de valeur de retour (rset.next() == false)
-				
-				vehicleAdded = rset2.next(); // if rset.next is false, it means that an error occurs 
-			}catch (SQLException e) {
-	            System.err.println("failed to access to ResultSet.next (addVehicule) 2");
 				e.printStackTrace();
 			}
 			
 		}
 		try {
-			rset.close();
 		    conn.commit(); // on valide les modifications de la base
 		} catch (SQLException e) {
             System.err.println("failed to close & commit (creerUtilisateur)");
@@ -121,7 +98,16 @@ public class VehiculeController{
     	ArrayList<String> myVehicule = new ArrayList<String>();
     	PreparedStatement pstmt = null;
     	try {
-    		pstmt = conn.prepareStatement("SELECT IMMATRICULATION  FROM CONDUIT WHERE EMAIL = ?");
+			if(conn.isClosed()) {
+				System.out.print("CONNEXION FERME");
+			}
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+    	
+    	try {
+    		pstmt = conn.prepareStatement("SELECT IMMATRICULATION FROM CONDUIT WHERE EMAIL = ? ");
     		pstmt.setString(1, email);
     	} catch (SQLException e1) {
     	    System.err.println("failed to create new prepareStatement (getMyVehicule)");

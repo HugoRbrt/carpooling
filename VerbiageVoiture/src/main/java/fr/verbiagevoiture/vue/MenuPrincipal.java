@@ -91,7 +91,7 @@ public class MenuPrincipal {
 		btnRechercheTronon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMenuPrincipal.close();
+				ChangeWindow();
 				RechercheParcours window = new RechercheParcours();
 				window.open();
 			}
@@ -103,8 +103,8 @@ public class MenuPrincipal {
 		btnMesVhicules.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMenuPrincipal.close();
-				ListeVehicules window = new ListeVehicules();
+				ChangeWindow();
+				ListeVehicules window = new ListeVehicules(myco);
 				window.open();
 			}
 		});
@@ -115,7 +115,7 @@ public class MenuPrincipal {
 		btnMesTrajets.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMenuPrincipal.close();
+				ChangeWindow();
 				ListeTrajets window = new ListeTrajets();
 				window.open();
 			}
@@ -127,7 +127,7 @@ public class MenuPrincipal {
 		btnMesTrononsEmprunts.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMenuPrincipal.close();
+				ChangeWindow();
 				ListeTroncons window = new ListeTroncons();
 				window.open();
 			}
