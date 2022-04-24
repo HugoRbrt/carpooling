@@ -33,35 +33,37 @@ public class VehiculeController{
     }
     public boolean addVehicule(String email, String Immatriculation, String Marque, String Modele, int pfiscale, int placeVehicule, String Energieutilise) {
     	boolean vehicleAdded = false;
+    	boolean alreadyExist = false;
     	//verification that the vehicle does not already exist
     	if(VehiculeAlreadyExist(Immatriculation)) {
-    		System.out.println("Vehicule Already Exist");
-    		return false;
+    		alreadyExist = true;
+    	}
+    	else {//we add the vehicule into table vehicule only if this vehicule doesn't already exist
+    		//add vehicle in table VEHICULE
+        	PreparedStatement pstmt = null;
+    		try {
+    	    	pstmt = conn.prepareStatement(
+    		    		"INSERT INTO VEHICULE VALUES (?, ?, ?, ?, ?, ?)");
+    			pstmt.setString(1, Immatriculation);
+    			pstmt.setString(2, Marque);
+    			pstmt.setString(3, Modele);
+    			pstmt.setInt(4, pfiscale);
+    			pstmt.setInt(5, placeVehicule);
+    			pstmt.setString(6, Energieutilise);
+    		} catch (SQLException e1) {
+                System.err.println("failed to create new prepareStatement (addVehicule)");
+    			e1.printStackTrace();
+    		}
+
+    		try {
+    			vehicleAdded =  1==pstmt.executeUpdate();
+    		} catch (SQLException e) {
+                System.err.println("failed to executeQuery (addVehicule)");
+    			e.printStackTrace();
+    		}
     	}
     	
-    	//add vehicle in table VEHICULE
-    	PreparedStatement pstmt = null;
-		try {
-	    	pstmt = conn.prepareStatement(
-		    		"INSERT INTO VEHICULE VALUES (?, ?, ?, ?, ?, ?)");
-			pstmt.setString(1, Immatriculation);
-			pstmt.setString(2, Marque);
-			pstmt.setString(3, Modele);
-			pstmt.setInt(4, pfiscale);
-			pstmt.setInt(5, placeVehicule);
-			pstmt.setString(6, Energieutilise);
-		} catch (SQLException e1) {
-            System.err.println("failed to create new prepareStatement (addVehicule)");
-			e1.printStackTrace();
-		}
-
-		try {
-			vehicleAdded =  1==pstmt.executeUpdate();
-		} catch (SQLException e) {
-            System.err.println("failed to executeQuery (addVehicule)");
-			e.printStackTrace();
-		}
-		if(vehicleAdded) {//we add the vehicle  in CONDUIT only if vehicle was added in table VEHICULE
+		if(vehicleAdded || alreadyExist) {//we add the vehicle  in CONDUIT only if vehicle was added in table VEHICULE or if it already exist (we add a user on his vehicule)
 			
 			//add vehicle in table CONDUIT
 	    	PreparedStatement pstmt2 = null;
