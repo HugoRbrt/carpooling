@@ -144,8 +144,8 @@ public class MenuPrincipal {
 		btnMonSolde.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMenuPrincipal.close();
-				Solde window = new Solde();
+				ChangeWindow();
+				Solde window = new Solde(myco);
 				window.open();
 			}
 		});

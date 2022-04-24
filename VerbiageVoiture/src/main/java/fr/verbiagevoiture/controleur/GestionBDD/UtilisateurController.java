@@ -46,9 +46,8 @@ public class UtilisateurController{
 		
 		boolean accountAdded = false;
 		try {
-			//TODO verifier les valeurs de retour possible d'un insert into
-			//pour le moment : si INSERT reussi : valeur de retour (rset.next() == true)
-			//				   si INSERT pas reussi : pas de valeur de retour (rset.next() == false)
+			//si INSERT reussi : valeur de retour (rset.next() == true)
+			//si INSERT pas reussi : pas de valeur de retour (rset.next() == false)
 			
 			accountAdded = rset.next(); // if rset.next is false, it means that an error occurs 
 		}catch (SQLException e) {
@@ -116,5 +115,87 @@ public class UtilisateurController{
 		}
     	return nb!=0; //return true only if we have 1 or more line with the right email/mdp
 	}
+    
+    public boolean RechargerSolde(int valeur) {
+    	if(myEmail.isBlank() || valeur<=0) {
+    		return false;
+    	}
+    	System.out.println("debut..");
+
+    	PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("UPDATE UTILISATEUR SET PORTE_MONNAIE = PORTE_MONNAIE + ? WHERE EMAIL = ?");
+			pstmt.setInt(1, valeur);
+			pstmt.setString(2, myEmail);
+		} catch (SQLException e1) {
+            System.err.println("failed to create new prepareStatement (RechargerSolde)");
+			e1.printStackTrace();
+		}
+    	System.out.println("milieu..");
+		int nb = 0;
+    	try {
+			nb = pstmt.executeUpdate();
+		} catch (SQLException e) {
+            System.err.println("failed to executeUpdate (RechargerSolde)");
+			e.printStackTrace();
+		}
+    	System.out.println("fin..");
+		try {
+		    conn.commit(); // on valide les modifications de la base
+		} catch (SQLException e) {
+            System.err.println("failed to commit (RechargerSolde)");
+			e.printStackTrace();
+		}
+    	return nb==1;
+    }
+    public boolean RechargerSolde(int valeur, String email) {
+    	myEmail = email;
+    	return RechargerSolde(valeur);
+    }
+    
+    public String AfficherSolde(String email) {
+    	myEmail = email;
+    	if(myEmail.isBlank()) {
+    		return new String();
+    	}
+
+    	PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("SELECT PORTE_MONNAIE FROM UTILISATEUR WHERE EMAIL = ?");
+			pstmt.setString(1, myEmail);
+		} catch (SQLException e1) {
+            System.err.println("failed to create new prepareStatement (AfficherSolde)");
+			e1.printStackTrace();
+		}
+		ResultSet rset = null;
+    	try {
+    		rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+            System.err.println("failed to executeUpdate (AfficherSolde)");
+			e.printStackTrace();
+		}
+    	String value = "";
+    	//response analysis
+    	try {
+        	while(rset.next()) {
+        		value = rset.getString(1);
+        	}
+    	}  catch (SQLException e) {
+            System.err.println("failed for the access to  ResultSet (AfficherSolde)");
+            e.printStackTrace(System.err);
+        }
+    	//close
+    	try {
+    		rset.close();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to close (AfficherSolde)");
+    		e.printStackTrace();
+    	}
+    	return value;
+    }
+    
+    public String AfficherSolde() {
+    	return AfficherSolde(myEmail);
+    }
     
 }

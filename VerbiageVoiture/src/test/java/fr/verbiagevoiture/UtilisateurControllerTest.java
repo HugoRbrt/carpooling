@@ -64,6 +64,17 @@ public class UtilisateurControllerTest
         }else {
         	System.out.println("[KO] utilisateur existe PAS");
         } 
+
+        System.out.println("	ajout de 10€ a rbrthg@gmail.co : ");
+        if(myUser.RechargerSolde(10,"rbrthg@gmail.com")) {
+        	System.out.println("[OK] ajout reussi");
+        }else {
+        	System.out.println("[KO] echec de l'ajout");
+        } 
+
+        System.out.println("	afficher solde de rbrthg@gmail.co : ");
+        System.out.println(myUser.AfficherSolde("rbrthg@gmail.com"));
+        
         
         
         

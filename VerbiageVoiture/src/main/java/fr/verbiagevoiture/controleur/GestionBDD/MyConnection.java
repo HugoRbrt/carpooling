@@ -69,6 +69,20 @@ public class MyConnection {
     public boolean CheckEmail(String email) {
     	return user.CheckEmail(email);
     }
+    public boolean RechargerSolde(int valeur) {
+    	return user.RechargerSolde(valeur);
+    }
+    public boolean RechargerSolde(int valeur, String email) {
+    	return user.RechargerSolde(valeur, email);
+    }
+    public String AfficherSolde(String email) {
+    	return user.AfficherSolde(email);
+    }
+    public String AfficherSolde() {
+    	return user.AfficherSolde();
+    }
+    
+    
     
     //TrajetController method
     public ArrayList<String []> getMyTrajet(String email){

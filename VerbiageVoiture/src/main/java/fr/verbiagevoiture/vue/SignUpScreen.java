@@ -137,7 +137,8 @@ public class SignUpScreen {
 				boolean success = SignUp();
 				if(success == true) {
 					ChangeWindow();
-					new MenuPrincipal(myco);
+					MenuPrincipal window = new MenuPrincipal(myco);
+					window.open();
 				}
 				else {
 					System.out.println("creation de compte impossible (un champ est vide ET/OU l'adresse email existe déjà pour un autre compte)");
