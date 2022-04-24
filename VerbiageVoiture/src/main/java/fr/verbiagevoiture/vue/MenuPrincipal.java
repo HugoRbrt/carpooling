@@ -1,10 +1,18 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+
+import java.sql.SQLException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,14 +22,21 @@ import org.eclipse.swt.events.MouseEvent;
 public class MenuPrincipal {
 
 	protected Shell shlMenuPrincipal;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public MenuPrincipal (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		myco = new MyConnection();
 		try {
-			MenuPrincipal window = new MenuPrincipal();
+			MenuPrincipal window = new MenuPrincipal(myco);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,6 +63,21 @@ public class MenuPrincipal {
 	 */
 	protected void createContents() {
 		shlMenuPrincipal = new Shell();
+		shlMenuPrincipal.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlMenuPrincipal.setSize(700, 500);
 		shlMenuPrincipal.setText("Menu Principal - VerbiageVoiture");
 		
@@ -122,6 +152,12 @@ public class MenuPrincipal {
 		btnMonSolde.setText("Mon solde");
 		btnMonSolde.setBounds(268, 394, 175, 40);
 
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlMenuPrincipal.close();
+		changeWindow = false;
 	}
 
 }

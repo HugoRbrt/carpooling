@@ -5,13 +5,20 @@ import java.sql.*;
 
 public class UtilisateurController{
     public Connection conn;
+    public String myEmail;
     
     public UtilisateurController(Connection c) {
     	conn = c;
     }
         
     public boolean creerUtilisateur(String email, String nom, String prenom, String villeDeResidence, String mdp){
-    	if(CheckEmailAndMDP(email, mdp)) { // check if the account already exist 
+    	//check if the fields are corrects
+    	if(email.isBlank() || nom.isBlank() || prenom.isBlank() || villeDeResidence.isBlank() || mdp.isBlank() ) {
+    		return false;
+    	}
+    	myEmail = email;
+    	
+    	if(CheckEmail(email)) { // check if the account already exist 
     		return  false;
     	}
     	
@@ -61,6 +68,12 @@ public class UtilisateurController{
 	}
     
     public boolean CheckEmailAndMDP(String email, String mdp){
+    	//check if the fields are corrects
+    	if(email.isBlank() || mdp.isBlank()) {
+    		return false;
+    	}
+    	myEmail = email;
+    	
     	PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("SELECT EMAIL FROM UTILISATEUR WHERE EMAIL = ? AND MDP = ? ");
@@ -81,6 +94,11 @@ public class UtilisateurController{
 	}
     
     public boolean CheckEmail(String email){
+    	//check if the field is correcrt
+    	if(email.isBlank()) {
+    		return false;
+    	}
+    	myEmail = email;
     	PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("SELECT EMAIL FROM UTILISATEUR WHERE EMAIL = ?");
