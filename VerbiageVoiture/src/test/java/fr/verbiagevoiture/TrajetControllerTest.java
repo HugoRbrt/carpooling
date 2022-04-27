@@ -72,6 +72,13 @@ public class TrajetControllerTest
         	System.out.println("[KO] echec de l'ajout ");
         }
         
+        System.out.println("affichage des troncon emprunte par test");
+        ArrayList<int []> value2 = myUser.getTronconEmprunte("test");
+    	System.out.print("test emprunte :");
+        for(int i=0;i<value2.size();i++) {
+        	System.out.print("\nTrajet "+value2.get(i)[0]+" troncon n°"+value2.get(i)[1]);
+        }
+    	System.out.println(".");
         
         System.out.println(" suppression du trajet et des troncons de ima ");
         if(myUser.deleteTrajetwithTroncon(newId2)) {

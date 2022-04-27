@@ -132,6 +132,12 @@ public class MyConnection {
     public boolean addEmprunte(int numTroncon, int idTrajet) {
     	return troncon.addEmprunte(numTroncon, idTrajet, user.myEmail);
     }
+    public ArrayList<int []> getTronconEmprunte(String email){
+    	return troncon.getTronconEmprunte(email);
+    }
+    public ArrayList<int []> getTronconEmprunte(){
+    	return troncon.getTronconEmprunte(user.myEmail);
+    }
     
     //multi controller
     public boolean deleteTrajetwithTroncon(int idTrajet) {
