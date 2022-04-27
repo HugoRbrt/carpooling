@@ -104,7 +104,7 @@ public class MyConnection {
     	return trajet.deleteTroncon(numTroncon, idTrajet);
     }
     public int getNumberTroncon(int idTrajet) {
-    	return trajet.getNumberTroncon(idTrajet);
+    	return troncon.getNumberTroncon(idTrajet);
     }
     
     
@@ -122,6 +122,17 @@ public class MyConnection {
     	return vehicule.getMyVehicule(mail);
     }
 
+    //tronconController method
+    public boolean deleteEmprunte(int idTrajet) {
+    	return troncon.deleteEmprunte(idTrajet);
+    }
+    public boolean addEmprunte(int numTroncon, int idTrajet, String email) {
+    	return troncon.addEmprunte(numTroncon, idTrajet, email);
+    }
+    public boolean addEmprunte(int numTroncon, int idTrajet) {
+    	return troncon.addEmprunte(numTroncon, idTrajet, user.myEmail);
+    }
+    
     //multi controller
     public boolean deleteTrajetwithTroncon(int idTrajet) {
     	boolean success = deleteTrajet(idTrajet);
@@ -132,6 +143,7 @@ public class MyConnection {
     		success = deleteTroncon(i, idTrajet);
     		if(!success) {return success;}
     	}
+    	deleteEmprunte(idTrajet);	//if one of this troncon was booked, we delete the booking
     	return success;
     }
 

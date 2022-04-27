@@ -218,44 +218,6 @@ public class TrajetController{
     	//return 
     	return b;
     }
-    public int getNumberTroncon(int idTrajet) {
-    	//query creation
-    	PreparedStatement pstmt = null;
-    	try {
-    		pstmt = conn.prepareStatement("SELECT COUNT(*)  FROM TRONCON WHERE IDTRAJET = ?");
-    		pstmt.setInt(1, idTrajet);
-    	} catch (SQLException e1) {
-    	    System.err.println("failed to create new prepareStatement (getNumberTroncon)");
-    		e1.printStackTrace();
-    	}
-    	
-    	//query execution
-    	ResultSet rset = null;
-    	try {
-    	    rset =  pstmt.executeQuery();
-    	} catch (SQLException e) {
-    	    System.err.println("failed to executeQuery (getNumberTroncon)");
-    		e.printStackTrace();
-    	}
-    	int value = 0;
-    	//response analysis
-    	try {
-    		while(rset.next()) {
-        		value = rset.getInt(1);
-    			System.out.print("valeur:"+value);
-    		}
-    	}  catch (SQLException e) {
-            System.err.println("failed for the access to  ResultSet (getMyTrajet)");
-            e.printStackTrace(System.err);
-        }
-    	//close
-    	try {
-    		rset.close();
-    	} catch (SQLException e) {
-    	    System.err.println("failed to close (getMyTrajet)");
-    		e.printStackTrace();
-    	}
-    	return value;
-    }
+    
     
 }  

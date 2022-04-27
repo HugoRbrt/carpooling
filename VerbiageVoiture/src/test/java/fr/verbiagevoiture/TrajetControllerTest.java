@@ -64,12 +64,23 @@ public class TrajetControllerTest
         	System.out.println("[KO] echec de l'ajout ");
         }
         
+        System.out.println("test emprunte le troncon 2 ");
+        boolean b = myUser.addEmprunte(2, newId2, "test");
+        if(b) {
+        	System.out.println("[OK] ajout effectué");
+        }else {
+        	System.out.println("[KO] echec de l'ajout ");
+        }
+        
+        
         System.out.println(" suppression du trajet et des troncons de ima ");
         if(myUser.deleteTrajetwithTroncon(newId2)) {
         	System.out.println("[OK] suppression effectué");
         }else {
         	System.out.println("[KO] echec de la supression");
         }
+        
+        
         
         /*
         System.out.println(" suppression du troncon num 1 du trajet 1 ");
