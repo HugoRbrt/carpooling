@@ -22,3 +22,6 @@ DateQuery.java
 ReqParam.java
 TestSequences.txt
 TraitementStrings.txt
+
+# bin directory
+VerbiageVoiture/bin/
