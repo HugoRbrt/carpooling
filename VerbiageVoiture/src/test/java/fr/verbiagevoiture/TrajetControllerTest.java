@@ -19,21 +19,10 @@ public class TrajetControllerTest
         }else {
         	System.out.println("[KO] echec de l'ajout ");
         }
-    	
-        System.out.println(" affichage des trajets de AA123AA  ");
-        ArrayList<String []> array = myUser.getMyTrajet("AA123AA@gmail.com");
-        String [] value;
-        while(!array.isEmpty()) {
-        	value = array.remove(0);
-        	System.out.println("IDTRAJET:" + value[0] +
-        			" PLACE_DEPART:" + value[1] +
-        			" IMMATRICULATION:" +value[2] +
-        			" DATE_ARRIVEE:" + value[3] +
-        			" DATE_DEPART:" + value[4] );
-        }
         
         System.out.println(" affichage des trajets de BB123BB  ");
-        array = myUser.getMyTrajet("BB123BB@gmail.com");
+        ArrayList<String []> array = myUser.getMyTrajet("BB123BB@gmail.com");
+        String [] value;
         while(!array.isEmpty()) {
         	value = array.remove(0);
         	System.out.println("IDTRAJET:" + value[0] +
@@ -50,6 +39,54 @@ public class TrajetControllerTest
         	System.out.println("[KO] echec de la supression");
         }
         
+
+        System.out.println(" ajout du trajet de ima  ");
+        int newId2 = myUser.addTrajet(3, "ima", "test", 1, 10);
+        if(newId2 != -1) {
+        	System.out.println("[OK] ajout effectué");
+        }else {
+        	System.out.println("[KO] echec de l'ajout ");
+        }
+        
+        System.out.println(" ajout du 1er troncon associé  ");
+        newId = myUser.addTroncon(1, newId2, "49:51:2:19", "48:23:4:30", "Paris", "Brest", 6*60*60 , 100);
+        if(newId != -1) {
+        	System.out.println("[OK] ajout effectué");
+        }else {
+        	System.out.println("[KO] echec de l'ajout ");
+        }
+        
+        System.out.println(" ajout du 2eme troncon associé  ");
+        newId = myUser.addTroncon(2, newId2, "48:23:4:30", "20:12:13:49", "Brest", "Lille", 4*60*60 , 0);
+        if(newId != -1) {
+        	System.out.println("[OK] ajout effectué");
+        }else {
+        	System.out.println("[KO] echec de l'ajout ");
+        }
+        
+        System.out.println(" suppression du trajet et des troncons de ima ");
+        if(myUser.deleteTrajetwithTroncon(newId2)) {
+        	System.out.println("[OK] suppression effectué");
+        }else {
+        	System.out.println("[KO] echec de la supression");
+        }
+        
+        /*
+        System.out.println(" suppression du troncon num 1 du trajet 1 ");
+        if(myUser.deleteTroncon(1, 1)) {
+        	System.out.println("[OK] suppression effectué");
+        }else {
+        	System.out.println("[KO] echec de la supression");
+        }
+        
+        System.out.println(" suppression du trajet de BB123BB (ID ="+newId+") ");
+        if(myUser.deleteTrajet(newId)) {
+        	System.out.println("[OK] suppression effectué");
+        }else {
+        	System.out.println("[KO] echec de la supression");
+        }
+        */
+        
         //fermeture
         try {
             myUser.closeConnection();
@@ -57,6 +94,8 @@ public class TrajetControllerTest
             System.err.println("failed closure connexion ");
             e.printStackTrace(System.err);
         }
+        
+        
         
     }
 }

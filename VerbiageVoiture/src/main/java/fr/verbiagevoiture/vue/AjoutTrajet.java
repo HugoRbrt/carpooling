@@ -1,10 +1,19 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
@@ -15,8 +24,17 @@ import org.eclipse.swt.events.MouseEvent;
 public class AjoutTrajet {
 
 	protected Shell shlNouveauTrajet;
-	private Text text_2;
-	private Text text_4;
+	private Text nbPlaces;
+	private Text nbTroncon;
+	private Combo vehicule;
+	private DateTime dateDep;
+	private DateTime timeDep;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public AjoutTrajet (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -24,7 +42,7 @@ public class AjoutTrajet {
 	 */
 	public static void main(String[] args) {
 		try {
-			AjoutTrajet window = new AjoutTrajet();
+			AjoutTrajet window = new AjoutTrajet(myco);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,6 +69,21 @@ public class AjoutTrajet {
 	 */
 	protected void createContents() {
 		shlNouveauTrajet = new Shell();
+		shlNouveauTrajet.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlNouveauTrajet.setSize(700, 500);
 		shlNouveauTrajet.setText("Nouveau trajet - VerbiageVoiture");
 		
@@ -78,8 +111,8 @@ public class AjoutTrajet {
 		lblEmail_1_1.setAlignment(SWT.RIGHT);
 		lblEmail_1_1.setBounds(10, 223, 286, 29);
 		
-		text_2 = new Text(shlNouveauTrajet, SWT.BORDER);
-		text_2.setBounds(302, 228, 270, 20);
+		nbPlaces = new Text(shlNouveauTrajet, SWT.BORDER);
+		nbPlaces.setBounds(302, 228, 270, 20);
 		
 		Label lblEmail_1_2 = new Label(shlNouveauTrajet, SWT.NONE);
 		lblEmail_1_2.setText("Véhicule");
@@ -93,24 +126,30 @@ public class AjoutTrajet {
 		lblEmail_1_3.setAlignment(SWT.RIGHT);
 		lblEmail_1_3.setBounds(10, 323, 286, 29);
 		
-		text_4 = new Text(shlNouveauTrajet, SWT.BORDER);
-		text_4.setBounds(302, 328, 270, 20);
+		nbTroncon = new Text(shlNouveauTrajet, SWT.BORDER);
+		nbTroncon.setBounds(302, 328, 270, 20);
 		
-		Combo combo = new Combo(shlNouveauTrajet, SWT.READ_ONLY);
-		combo.setItems(new String[] {"Voiture 1", "Voiture 2", "Voiture 3"});
-		combo.setBounds(302, 273, 270, 22);
+		vehicule = new Combo(shlNouveauTrajet, SWT.READ_ONLY);
+		//TODO : afficher la liste des véhicules
+		ArrayList<String> listVehicule = myco.getMyVehicule();
+		String[] arrayVehicule = new String[listVehicule.size()];
+		for(int i = 0; i < listVehicule.size(); i++) {
+			arrayVehicule[i] = listVehicule.get(i);
+		}
+		vehicule.setItems(arrayVehicule);
+		vehicule.setBounds(302, 273, 270, 22);
 		
-		DateTime dateTime = new DateTime(shlNouveauTrajet, SWT.BORDER);
-		dateTime.setBounds(302, 127, 270, 28);
+		dateDep = new DateTime(shlNouveauTrajet, SWT.BORDER);
+		dateDep.setBounds(302, 127, 270, 28);
 		
-		DateTime dateTime_1 = new DateTime(shlNouveauTrajet, SWT.BORDER | SWT.TIME | SWT.SHORT);
-		dateTime_1.setBounds(302, 174, 270, 28);
+		timeDep = new DateTime(shlNouveauTrajet, SWT.BORDER | SWT.TIME | SWT.SHORT);
+		timeDep.setBounds(302, 174, 270, 28);
 		
 		Button btnSuivant = new Button(shlNouveauTrajet, SWT.NONE);
 		btnSuivant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlNouveauTrajet.close();
+				ChangeWindow();
 				AjoutTroncon window = new AjoutTroncon();
 				window.open();
 			}
@@ -122,13 +161,19 @@ public class AjoutTrajet {
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlNouveauTrajet.close();
-				MenuPrincipal window = new MenuPrincipal();
+				ChangeWindow();
+				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}
 		});
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setBounds(590, 436, 96, 27);
 
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlNouveauTrajet.close();
+		changeWindow = false;
 	}
 }

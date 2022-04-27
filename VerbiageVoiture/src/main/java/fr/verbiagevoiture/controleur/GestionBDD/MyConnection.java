@@ -88,12 +88,25 @@ public class MyConnection {
     public ArrayList<String []> getMyTrajet(String email){
     	return trajet.getMyTrajet(email);
     }
+    public ArrayList<String []> getMyTrajet(){
+    	return trajet.getMyTrajet(user.myEmail);
+    }
     public boolean deleteTrajet(int idTrajet) {
     	return trajet.deleteTrajet(idTrajet);
     }
     public int addTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart) {
     	return trajet.addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     }
+    public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
+    	return trajet.addTroncon(numTroncon,idTrajet, gpsDep, gpsAr, villeDep, villeAr, temps, tempsAttente);
+    }
+    public boolean deleteTroncon(int numTroncon, int idTrajet) {
+    	return trajet.deleteTroncon(numTroncon, idTrajet);
+    }
+    public int getNumberTroncon(int idTrajet) {
+    	return trajet.getNumberTroncon(idTrajet);
+    }
+    
     
     //VehiculeController method
     public boolean addVehicule(String email, String Immatriculation, String Marque, String Modele, int pfiscale, int placeVehicule, String energieUtilise) {
@@ -108,4 +121,18 @@ public class MyConnection {
     public ArrayList<String> getMyVehicule(String mail){
     	return vehicule.getMyVehicule(mail);
     }
+
+    //multi controller
+    public boolean deleteTrajetwithTroncon(int idTrajet) {
+    	boolean success = deleteTrajet(idTrajet);
+    	if(!success) {return success;}
+    	//TODO : get number of troncon for this trajet
+    	int nbTroncon = getNumberTroncon(idTrajet);
+    	for(int i=1;i<=nbTroncon;i++) {
+    		success = deleteTroncon(i, idTrajet);
+    		if(!success) {return success;}
+    	}
+    	return success;
+    }
+
 }

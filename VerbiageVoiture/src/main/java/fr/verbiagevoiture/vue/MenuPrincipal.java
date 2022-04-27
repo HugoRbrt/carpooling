@@ -116,7 +116,7 @@ public class MenuPrincipal {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				ChangeWindow();
-				ListeTrajets window = new ListeTrajets();
+				ListeTrajets window = new ListeTrajets(myco);
 				window.open();
 			}
 		});

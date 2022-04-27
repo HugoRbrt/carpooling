@@ -1,10 +1,19 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -15,9 +24,15 @@ import org.eclipse.swt.events.MouseEvent;
 public class ListeTrajets {
 
 	protected Shell shlMesTrajets;
-	private Text text;
-	private Text text_1;
-	private Text text_2;
+	private Text confirmationDep;
+	private Text confirmationAr;
+	private Text annulation;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public ListeTrajets (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -25,7 +40,7 @@ public class ListeTrajets {
 	 */
 	public static void main(String[] args) {
 		try {
-			ListeTrajets window = new ListeTrajets();
+			ListeTrajets window = new ListeTrajets(myco);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +67,21 @@ public class ListeTrajets {
 	 */
 	protected void createContents() {
 		shlMesTrajets = new Shell();
+		shlMesTrajets.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlMesTrajets.setSize(700, 500);
 		shlMesTrajets.setText("Mes trajets - VerbiageVoiture");
 		
@@ -62,7 +92,17 @@ public class ListeTrajets {
 		lblMesTrajets.setBounds(173, 50, 344, 57);
 		
 		Label lblListeDesTrajets = new Label(shlMesTrajets, SWT.WRAP);
-		lblListeDesTrajets.setText("Liste des trajets incluant les tronçons retournée grâce à la méthode toString()");
+		ArrayList<String []> listMyTrajet = myco.getMyTrajet();
+		String MyTrajets = new String();
+		System.out.print("valeur : " + listMyTrajet.size());
+		for(int i = 0; i < listMyTrajet.size(); i++) {
+			MyTrajets+="numero : ";MyTrajets+=listMyTrajet.get(i)[0];
+			MyTrajets+=", à : ";MyTrajets+=listMyTrajet.get(i)[4];
+			MyTrajets+=", immatriculé : ";MyTrajets+=listMyTrajet.get(i)[2];MyTrajets+=".\n";
+		}
+		System.out.print("string : " + MyTrajets);
+		
+		lblListeDesTrajets.setText(MyTrajets.toString());
 		lblListeDesTrajets.setFont(SWTResourceManager.getFont("Arial", 11, SWT.NORMAL));
 		lblListeDesTrajets.setBounds(10, 110, 680, 290);
 		
@@ -70,8 +110,8 @@ public class ListeTrajets {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMesTrajets.close();
-				MenuPrincipal window = new MenuPrincipal();
+				ChangeWindow();
+				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}
 		});
@@ -82,8 +122,8 @@ public class ListeTrajets {
 		btnAjouterUnTrajet.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMesTrajets.close();
-				AjoutTrajet window = new AjoutTrajet();
+				ChangeWindow();
+				AjoutTrajet window = new AjoutTrajet(myco);
 				window.open();
 			}
 		});
@@ -100,8 +140,8 @@ public class ListeTrajets {
 		lblConfirmationDpartTrajet.setBounds(10, 407, 170, 20);
 		lblConfirmationDpartTrajet.setText("Confirmation départ trajet n°");
 		
-		text = new Text(shlMesTrajets, SWT.BORDER);
-		text.setBounds(186, 406, 64, 19);
+		confirmationDep = new Text(shlMesTrajets, SWT.BORDER);
+		confirmationDep.setBounds(186, 406, 64, 19);
 		
 		Button btnValider = new Button(shlMesTrajets, SWT.NONE);
 		btnValider.setBounds(253, 400, 70, 27);
@@ -112,8 +152,8 @@ public class ListeTrajets {
 		lblConfirmationArriveTrajet.setText("Confirmation arrivée trajet n°");
 		lblConfirmationArriveTrajet.setBounds(387, 407, 170, 20);
 		
-		text_1 = new Text(shlMesTrajets, SWT.BORDER);
-		text_1.setBounds(563, 406, 64, 19);
+		confirmationAr = new Text(shlMesTrajets, SWT.BORDER);
+		confirmationAr.setBounds(563, 406, 64, 19);
 		
 		Button btnValider_1 = new Button(shlMesTrajets, SWT.NONE);
 		btnValider_1.setText("Valider");
@@ -124,13 +164,35 @@ public class ListeTrajets {
 		lblAnnulationTrajetN.setAlignment(SWT.RIGHT);
 		lblAnnulationTrajetN.setBounds(210, 440, 120, 20);
 		
-		text_2 = new Text(shlMesTrajets, SWT.BORDER);
-		text_2.setBounds(334, 435, 64, 19);
+		annulation = new Text(shlMesTrajets, SWT.BORDER);
+		annulation.setBounds(334, 435, 64, 19);
 		
-		Button btnValider_2 = new Button(shlMesTrajets, SWT.NONE);
-		btnValider_2.setText("Valider");
-		btnValider_2.setBounds(404, 433, 70, 27);
+		Button btnValider_annulation = new Button(shlMesTrajets, SWT.NONE);
+		btnValider_annulation.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				//TODO : success prend la valeur de retour de la suppression
+				boolean success = deleteTrajetwithTroncon();
+				if(success) {
+					ChangeWindow();
+					ListeTrajets window = new ListeTrajets(myco);
+					open();
+				}
+			}
+		});
+		btnValider_annulation.setText("Valider");
+		btnValider_annulation.setBounds(404, 433, 70, 27);
 
+	}
+	
+	protected boolean deleteTrajetwithTroncon() {
+		return myco.deleteTrajetwithTroncon(Integer.parseInt(annulation.getText()));
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlMesTrajets.close();
+		changeWindow = false;
 	}
 
 }
