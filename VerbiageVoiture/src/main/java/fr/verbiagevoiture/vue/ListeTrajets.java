@@ -173,7 +173,8 @@ public class ListeTrajets {
 				boolean success = deleteTrajetwithTroncon();
 				if(success) {
 					ChangeWindow();
-					open();
+					ListeTrajets window = new ListeTrajets(myco);
+					window.open();
 				}
 			}
 		});

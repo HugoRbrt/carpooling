@@ -147,6 +147,7 @@ public class TrajetController{
     	return b;
     }
     
+<<<<<<< HEAD
   //return the numero_troncon which was created (-1 if it was impossible)
     public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
     	//coordonnees gps : degre:minute:degre:minute
@@ -267,6 +268,5 @@ public class TrajetController{
     	return myTrajet;
     	
     }
-    
     
 }  

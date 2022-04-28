@@ -6,19 +6,16 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
-
-import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
-
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import java.sql.SQLException;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
 public class AjoutTroncon {
 
@@ -140,11 +137,11 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDarrive.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDarrive.setBounds(10, 248, 291, 29);
 		
-		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLat.setBounds(307, 253, 125, 20);
 		gpsArLat.setDigits(6);
 		gpsArLat.setMaximum(999999999);
-		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLong.setBounds(433, 253, 125, 20);
 		gpsArLong.setDigits(6);
 		gpsArLat.setMaximum(999999999);
