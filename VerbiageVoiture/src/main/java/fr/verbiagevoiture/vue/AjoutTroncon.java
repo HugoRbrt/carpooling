@@ -87,7 +87,7 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDe.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDe.setBounds(10, 203, 291, 29);
 		
-		text_2 = new Text(shlNouveauTroncon, SWT.BORDER);
+		text_2 = new Text(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		text_2.setBounds(307, 208, 250, 20);
 		
 		Label lblCoordonnesGpsDarrive = new Label(shlNouveauTroncon, SWT.NONE);
