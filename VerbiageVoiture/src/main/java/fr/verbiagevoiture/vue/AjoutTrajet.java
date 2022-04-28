@@ -162,7 +162,7 @@ public class AjoutTrajet {
 					tr.add(window);
 					window.open();
 				}
-				for(int i=1;i<=k;i++) {//we verify that each troncon were validated
+				for(int i=0;i<k;i++) {//we verify that each troncon were validated
 					if(!tr.get(i).validate) {
 						return;
 					}
