@@ -17,13 +17,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.widgets.Spinner;
 
 public class ListeTroncons {
 
 	protected Shell shlMesTroncons;
-	private Text numTronconPaiement;
-	private Text numTronconMonte;
-	private Text numTronconDescente;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
 	
@@ -110,9 +108,6 @@ public class ListeTroncons {
 		lblPayerLeTronon.setBounds(10, 432, 140, 19);
 		lblPayerLeTronon.setText("Payer le tronçon n°");
 		
-		numTronconPaiement = new Text(shlMesTroncons, SWT.BORDER);
-		numTronconPaiement.setBounds(144, 438, 100, 19);
-		
 		Button btnPayer = new Button(shlMesTroncons, SWT.NONE);
 		btnPayer.addMouseListener(new MouseAdapter() {
 			@Override
@@ -130,9 +125,6 @@ public class ListeTroncons {
 		lblConfirmationMonteTronon.setAlignment(SWT.RIGHT);
 		lblConfirmationMonteTronon.setBounds(10, 404, 193, 20);
 		
-		numTronconMonte = new Text(shlMesTroncons, SWT.BORDER);
-		numTronconMonte.setBounds(209, 403, 64, 19);
-		
 		Button btnValider = new Button(shlMesTroncons, SWT.NONE);
 		btnValider.setText("Valider");
 		btnValider.setBounds(276, 397, 70, 27);
@@ -142,12 +134,18 @@ public class ListeTroncons {
 		lblConfirmationDescenteTronon.setAlignment(SWT.RIGHT);
 		lblConfirmationDescenteTronon.setBounds(352, 404, 195, 20);
 		
-		numTronconDescente = new Text(shlMesTroncons, SWT.BORDER);
-		numTronconDescente.setBounds(553, 403, 64, 19);
-		
 		Button btnValider_1 = new Button(shlMesTroncons, SWT.NONE);
 		btnValider_1.setText("Valider");
 		btnValider_1.setBounds(620, 397, 70, 27);
+		
+		Spinner numTronconPaiement = new Spinner(shlMesTroncons, SWT.BORDER);
+		numTronconPaiement.setBounds(145, 435, 99, 22);
+		
+		Spinner numTronconMontee = new Spinner(shlMesTroncons, SWT.BORDER);
+		numTronconMontee.setBounds(209, 402, 61, 22);
+		
+		Spinner numTronconDescente = new Spinner(shlMesTroncons, SWT.BORDER);
+		numTronconDescente.setBounds(553, 402, 61, 22);
 
 	}
 	
@@ -156,5 +154,4 @@ public class ListeTroncons {
 		shlMesTroncons.close();
 		changeWindow = false;
 	}
-
 }
