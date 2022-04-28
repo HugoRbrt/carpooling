@@ -157,12 +157,12 @@ public class AjoutTrajet {
 				shlNouveauTrajet.setEnabled(false);
 				int k = nbTroncon.getSelection();
 				ArrayList<AjoutTroncon> tr = new ArrayList<AjoutTroncon>();
-				for(int i=1;i<=k;i++) {
+				for(int i=0;i<k;i++) {
 					AjoutTroncon window = new AjoutTroncon(myco);
 					tr.add(window);
 					window.open();
 				}
-				for(int i=1;i<=k;i++) {//we verify that each troncon were validated
+				for(int i=0;i<k;i++) {//we verify that each troncon were validated
 					if(!tr.get(i).validate) {
 						return;
 					}
