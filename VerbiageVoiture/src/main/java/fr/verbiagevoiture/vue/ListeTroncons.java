@@ -94,7 +94,7 @@ public class ListeTroncons {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMesTroncons.close();
+				ChangeWindow();
 				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}

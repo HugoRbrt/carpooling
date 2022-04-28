@@ -118,7 +118,6 @@ public class PaiementTroncon {
 		btnRecharger.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlPaiementTroncon.close();
 				ChangeWindow();
 				Solde window = new Solde(myco);
 				window.open();
@@ -131,7 +130,6 @@ public class PaiementTroncon {
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlPaiementTroncon.close();
 				ChangeWindow();
 				ListeTroncons window = new ListeTroncons(myco);
 				window.open();
