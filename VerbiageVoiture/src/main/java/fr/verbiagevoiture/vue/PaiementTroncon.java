@@ -12,6 +12,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
@@ -19,10 +20,18 @@ public class PaiementTroncon {
 
 	protected Shell shlPaiementTroncon;
 	protected static MyConnection myco;
+	private ArrayList<int []> res;
+	private int idTrajet;
+	protected float prix;
+	float monSolde;
 	protected boolean changeWindow = false;
 
-	public PaiementTroncon (MyConnection m) {
+	public PaiementTroncon (MyConnection m, float value, ArrayList<int []> r, int id) {
+		idTrajet = id;
+		res = r;
+		prix = value;
 		myco = m;
+		monSolde = Float.parseFloat(myco.AfficherSolde());
 	}
 
 	/**
@@ -31,7 +40,7 @@ public class PaiementTroncon {
 	 */
 	public static void main(String[] args) {
 		try {
-			PaiementTroncon window = new PaiementTroncon(new MyConnection());
+			PaiementTroncon window = new PaiementTroncon(new MyConnection(), 0, null, -1);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,7 +99,7 @@ public class PaiementTroncon {
 		Label lblXx = new Label(shlPaiementTroncon, SWT.NONE);
 		lblXx.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
 		lblXx.setBounds(396, 140, 150, 34);
-		lblXx.setText("xx €");
+		lblXx.setText(monSolde+" €");
 		
 		Label lblPrixPayer = new Label(shlPaiementTroncon, SWT.NONE);
 		lblPrixPayer.setAlignment(SWT.RIGHT);
@@ -99,7 +108,7 @@ public class PaiementTroncon {
 		lblPrixPayer.setBounds(203, 203, 131, 34);
 		
 		Label lblXx_1 = new Label(shlPaiementTroncon, SWT.NONE);
-		lblXx_1.setText("xx €");
+		lblXx_1.setText(prix+" €");
 		lblXx_1.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
 		lblXx_1.setBounds(396, 203, 150, 34);
 		
@@ -107,8 +116,30 @@ public class PaiementTroncon {
 		btnPayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				Message window = new Message("Vous ne possédez pas un solde suffisant pour pouvoir payer ce tronçon !");
-				window.open();
+				
+				
+				if(monSolde>=prix) {
+
+					myco.DebiterSolde(prix);
+					for(int i=0;i<res.size();i++) {
+						if(res.get(i)[0]==idTrajet){
+							myco.deleteEmprunte(res.get(i)[1],res.get(i)[0]);
+						}
+					}
+					
+					ChangeWindow();
+					MenuPrincipal window = new MenuPrincipal(myco);
+					window.open();
+				}
+				else {
+					
+					Message window = new Message("Vous ne possédez pas un solde suffisant pour pouvoir payer ce tronçon !");
+					window.open();
+
+					ChangeWindow();
+					Solde window2 = new Solde(myco);
+					window2.open();
+				}
 			}
 		});
 		btnPayer.setBounds(238, 324, 96, 27);

@@ -23,6 +23,8 @@ public class ListeTroncons {
 
 	protected Shell shlMesTroncons;
 	private ArrayList<int []> res;
+	private Spinner trajet_number;
+	private Spinner troncon_number;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
 	
@@ -121,9 +123,27 @@ public class ListeTroncons {
 		btnPayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				ChangeWindow();
-				PaiementTroncon window = new PaiementTroncon(myco);
-				window.open();
+				if(!trajet_number.getText().isBlank()) {
+					System.out.print("go...");
+					int idTrajet = trajet_number.getSelection();
+					System.out.println("idTrajet:"+idTrajet);
+					float prix = 0;
+					for(int i=0;i<res.size();i++) {
+						if(res.get(i)[0]==idTrajet){
+							prix+=myco.coutTroncon(res.get(i)[1],res.get(i)[0]);
+						}
+					}
+					System.out.print("prix:"+prix);
+					if(prix>0) {
+						
+						ChangeWindow();
+						PaiementTroncon window = new PaiementTroncon(myco, prix, res, idTrajet);
+						window.open();
+						
+					}
+					
+					
+				}
 			}
 		});
 		btnPayer.setBounds(242, 430, 96, 27);
@@ -142,7 +162,7 @@ public class ListeTroncons {
 		lblTrajetN.setBounds(10, 397, 65, 18);
 		lblTrajetN.setText("Trajet n°");
 		
-		Spinner trajet_number = new Spinner(shlMesTroncons, SWT.BORDER);
+		trajet_number = new Spinner(shlMesTroncons, SWT.BORDER);
 		trajet_number.setBounds(81, 397, 80, 22);
 		
 		Label lblTronconN = new Label(shlMesTroncons, SWT.NONE);
@@ -150,7 +170,7 @@ public class ListeTroncons {
 		lblTronconN.setBounds(170, 397, 100, 18);
 		lblTronconN.setText("du tronçon n°");
 		
-		Spinner troncon_number = new Spinner(shlMesTroncons, SWT.BORDER);
+		troncon_number = new Spinner(shlMesTroncons, SWT.BORDER);
 		troncon_number.setBounds(276, 397, 80, 22);
 
 	}

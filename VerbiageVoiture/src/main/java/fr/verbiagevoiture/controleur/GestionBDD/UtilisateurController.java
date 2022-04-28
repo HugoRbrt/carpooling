@@ -148,6 +148,42 @@ public class UtilisateurController{
 		}
     	return nb==1;
     }
+    public boolean DebiterSolde(float valeur, String email) {
+    	myEmail = email;
+    	return RechargerSolde(valeur);
+    }
+    public boolean DebiterSolde(float valeur) {
+    	if(myEmail.isBlank() || valeur<=0) {
+    		return false;
+    	}
+    	System.out.println("debut..");
+
+    	PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("UPDATE UTILISATEUR SET PORTE_MONNAIE = PORTE_MONNAIE - ? WHERE EMAIL = ?");
+			pstmt.setFloat(1, valeur);
+			pstmt.setString(2, myEmail);
+		} catch (SQLException e1) {
+            System.err.println("failed to create new prepareStatement (RechargerSolde)");
+			e1.printStackTrace();
+		}
+    	System.out.println("milieu..");
+		int nb = 0;
+    	try {
+			nb = pstmt.executeUpdate();
+		} catch (SQLException e) {
+            System.err.println("failed to executeUpdate (RechargerSolde)");
+			e.printStackTrace();
+		}
+    	System.out.println("fin..");
+		try {
+		    conn.commit(); // on valide les modifications de la base
+		} catch (SQLException e) {
+            System.err.println("failed to commit (RechargerSolde)");
+			e.printStackTrace();
+		}
+    	return nb==1;
+    }
     public boolean RechargerSolde(float valeur, String email) {
     	myEmail = email;
     	return RechargerSolde(valeur);

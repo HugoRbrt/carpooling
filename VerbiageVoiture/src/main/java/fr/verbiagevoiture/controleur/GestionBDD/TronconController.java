@@ -224,9 +224,10 @@ public class TronconController{
     	//response analysis
     	try {
     		while(rset.next()) {
+    			System.out.println("next...");
         		value[0] = rset.getFloat(1);
         		value[1] = rset.getInt(2);
-        		value[1] = rset.getInt(3);
+        		value[2] = rset.getFloat(3);
     		}
     	}  catch (SQLException e) {
             System.err.println("failed for the access to  ResultSet (coutTroncon)");
@@ -239,8 +240,8 @@ public class TronconController{
     	    System.err.println("failed to close (coutTroncon)");
     		e.printStackTrace();
     	}
-    	
-    	prix = (float) (value[0]*value[1]*0.1*value[2]);
+    	System.out.println("NRJ:"+value[0]+" P:"+value[1]+" dist:"+value[2]);
+    	prix = (value[0]*value[1]*(float)0.1*value[2]);
     	
     	return prix;
     }

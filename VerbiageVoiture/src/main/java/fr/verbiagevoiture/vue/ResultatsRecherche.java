@@ -130,12 +130,9 @@ public class ResultatsRecherche {
 							indice = i;
 						}
 					}
-					System.out.println("indice:"+indice);
 					if(indice>=0) {
 						for(int k=Integer.valueOf(res.get(indice)[1]);k<=Integer.valueOf(res.get(indice)[2]);k++) {
-							if(Emprunte(k,idTrajet)) {
-								System.out.println("ajoute!");
-							}
+							Emprunte(k,idTrajet);
 						}
 						ChangeWindow();
 						MenuPrincipal window = new MenuPrincipal(myco);

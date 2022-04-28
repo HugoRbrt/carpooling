@@ -77,6 +77,12 @@ public class MyConnection {
     public boolean RechargerSolde(float valeur, String email) {
     	return user.RechargerSolde(valeur, email);
     }
+    public boolean DebiterSolde(float valeur) {
+    	return user.DebiterSolde(valeur);
+    }
+    public boolean DebiterSolde(float valeur, String email) {
+    	return user.DebiterSolde(valeur, email);
+    }
     public String AfficherSolde(String email) {
     	return user.AfficherSolde(email);
     }
