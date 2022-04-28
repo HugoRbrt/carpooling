@@ -15,12 +15,14 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
 public class ListeTroncons {
 
 	protected Shell shlMesTroncons;
+	private ArrayList<int []> res;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
 	
@@ -45,6 +47,7 @@ public class ListeTroncons {
 	 * Open the window.
 	 */
 	public void open() {
+		res = myco.getTronconEmprunte();
 		Display display = Display.getDefault();
 		createContents();
 		shlMesTroncons.open();
@@ -86,7 +89,14 @@ public class ListeTroncons {
 		lblMesTronons.setBounds(173, 31, 344, 57);
 		
 		Label lblListeDesTronons = new Label(shlMesTroncons, SWT.WRAP);
-		lblListeDesTronons.setText("Liste des tronçons empruntés en tant qu'usager retournée grâce à la méthode toString()");
+
+		String MyTrajets = new String();
+		for(int i = 0; i < res.size(); i++) {
+			MyTrajets+="id : ";MyTrajets+=res.get(i)[0];
+			MyTrajets+="du troncon : ";MyTrajets+=res.get(i)[1];MyTrajets+=".\n";
+		}
+		
+		lblListeDesTronons.setText(MyTrajets);
 		lblListeDesTronons.setFont(SWTResourceManager.getFont("Arial", 11, SWT.NORMAL));
 		lblListeDesTronons.setBounds(10, 91, 680, 300);
 		

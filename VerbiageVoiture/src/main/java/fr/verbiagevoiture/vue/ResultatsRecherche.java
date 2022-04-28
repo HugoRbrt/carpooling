@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
-import org.eclipse.swt.graphics.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -67,7 +66,6 @@ public class ResultatsRecherche {
 	 */
 	protected void createContents() {
 		shlResultatsRecherche = new Shell();
-		shlResultatsRecherche.setBackground(new Color(70, 150, 230));
 		shlResultatsRecherche.addListener(SWT.Close, new Listener() {
 		      public void handleEvent(Event event) {
 		    	  if(!changeWindow) {
