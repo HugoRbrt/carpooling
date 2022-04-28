@@ -92,7 +92,7 @@ public class MenuPrincipal {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				ChangeWindow();
-				RechercheParcours window = new RechercheParcours();
+				RechercheParcours window = new RechercheParcours(myco);
 				window.open();
 			}
 		});

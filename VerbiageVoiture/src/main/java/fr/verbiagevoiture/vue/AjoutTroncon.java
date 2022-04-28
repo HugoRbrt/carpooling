@@ -140,11 +140,11 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDarrive.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDarrive.setBounds(10, 248, 291, 29);
 		
-		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLat.setBounds(307, 253, 125, 20);
 		gpsArLat.setDigits(6);
 		gpsArLat.setMaximum(999999999);
-		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLong.setBounds(433, 253, 125, 20);
 		gpsArLong.setDigits(6);
 		gpsArLat.setMaximum(999999999);
