@@ -49,7 +49,7 @@ public class TrajetControllerTest
         }
         
         System.out.println(" ajout du 1er troncon associé  ");
-        newId = myUser.addTroncon(1, newId2, "49:51:2:19", "48:23:4:30", "Paris", "Brest", 6*60*60 , 100);
+        newId = myUser.addTroncon(1, newId2, "49.51:2.19", "48.23:4.30", "Paris", "Brest", 6*60*60 , 100);
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -57,7 +57,7 @@ public class TrajetControllerTest
         }
         
         System.out.println(" ajout du 2eme troncon associé  ");
-        newId = myUser.addTroncon(2, newId2, "48:23:4:30", "20:12:13:49", "Brest", "Lille", 4*60*60 , 0);
+        newId = myUser.addTroncon(2, newId2, "48.23:4.30", "20.12:13.49", "Brest", "Lille", 4*60*60 , 0);
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
