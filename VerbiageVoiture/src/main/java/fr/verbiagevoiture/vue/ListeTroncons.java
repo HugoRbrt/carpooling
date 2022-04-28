@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class ListeTroncons {
 
@@ -103,12 +105,12 @@ public class ListeTroncons {
 		btnRetour.setText("Retour");
 		btnRetour.setBounds(594, 430, 96, 27);
 		
-		Label lblPayerLeTronon = new Label(shlMesTroncons, SWT.NONE);
-		lblPayerLeTronon.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
-		lblPayerLeTronon.setBounds(10, 432, 140, 19);
-		lblPayerLeTronon.setText("Payer le tronçon n°");
-		
 		Button btnPayer = new Button(shlMesTroncons, SWT.NONE);
+		btnPayer.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		btnPayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
@@ -117,35 +119,32 @@ public class ListeTroncons {
 				window.open();
 			}
 		});
-		btnPayer.setBounds(250, 430, 96, 27);
+		btnPayer.setBounds(242, 430, 96, 27);
 		btnPayer.setText("Payer");
 		
-		Label lblConfirmationMonteTronon = new Label(shlMesTroncons, SWT.NONE);
-		lblConfirmationMonteTronon.setText("Confirmation montée tronçon n°");
-		lblConfirmationMonteTronon.setAlignment(SWT.RIGHT);
-		lblConfirmationMonteTronon.setBounds(10, 404, 193, 20);
+		Button btnValiderMontee = new Button(shlMesTroncons, SWT.NONE);
+		btnValiderMontee.setText("Valider Montée");
+		btnValiderMontee.setBounds(10, 430, 110, 27);
 		
-		Button btnValider = new Button(shlMesTroncons, SWT.NONE);
-		btnValider.setText("Valider");
-		btnValider.setBounds(276, 397, 70, 27);
+		Button btnValiderDescente = new Button(shlMesTroncons, SWT.NONE);
+		btnValiderDescente.setText("Valider Descente");
+		btnValiderDescente.setBounds(126, 430, 110, 27);
 		
-		Label lblConfirmationDescenteTronon = new Label(shlMesTroncons, SWT.NONE);
-		lblConfirmationDescenteTronon.setText("Confirmation descente tronçon n°");
-		lblConfirmationDescenteTronon.setAlignment(SWT.RIGHT);
-		lblConfirmationDescenteTronon.setBounds(352, 404, 195, 20);
+		Label lblTrajetN = new Label(shlMesTroncons, SWT.NONE);
+		lblTrajetN.setFont(SWTResourceManager.getFont("Arial", 16, SWT.NORMAL));
+		lblTrajetN.setBounds(10, 397, 65, 18);
+		lblTrajetN.setText("Trajet n°");
 		
-		Button btnValider_1 = new Button(shlMesTroncons, SWT.NONE);
-		btnValider_1.setText("Valider");
-		btnValider_1.setBounds(620, 397, 70, 27);
+		Spinner trajet_number = new Spinner(shlMesTroncons, SWT.BORDER);
+		trajet_number.setBounds(81, 397, 80, 22);
 		
-		Spinner numTronconPaiement = new Spinner(shlMesTroncons, SWT.BORDER);
-		numTronconPaiement.setBounds(145, 435, 99, 22);
+		Label lblTronconN = new Label(shlMesTroncons, SWT.NONE);
+		lblTronconN.setFont(SWTResourceManager.getFont("Arial", 16, SWT.NORMAL));
+		lblTronconN.setBounds(170, 397, 100, 18);
+		lblTronconN.setText("du tronçon n°");
 		
-		Spinner numTronconMontee = new Spinner(shlMesTroncons, SWT.BORDER);
-		numTronconMontee.setBounds(209, 402, 61, 22);
-		
-		Spinner numTronconDescente = new Spinner(shlMesTroncons, SWT.BORDER);
-		numTronconDescente.setBounds(553, 402, 61, 22);
+		Spinner troncon_number = new Spinner(shlMesTroncons, SWT.BORDER);
+		troncon_number.setBounds(276, 397, 80, 22);
 
 	}
 	

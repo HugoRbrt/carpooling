@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import fr.verbiagevoiture.controleur.IntToTimestamp;
+import fr.verbiagevoiture.controleur.ToTimestamp;
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
 import org.eclipse.swt.widgets.Combo;
@@ -197,7 +197,7 @@ public class AjoutTrajet {
 	
 	protected boolean ajoutTrajet(ArrayList<AjoutTroncon> tr){
 		//TODO : gestion des dates arrive/depart
-		return myco.ajoutTrajet( nbPlaces.getSelection(),  vehicule.getText(), IntToTimestamp.convert(2022,6,17,9,30), IntToTimestamp.convert(dateDep.getYear(),dateDep.getMonth(),dateDep.getDay(),dateDep.getHours(),dateDep.getMinutes()), tr);
+		return myco.ajoutTrajet( nbPlaces.getSelection(),  vehicule.getText(), ToTimestamp.fromInt(2022,6,17,9,30), ToTimestamp.fromDateTime(dateDep, timeDep), tr);
 	}
 	
 	protected void ChangeWindow() {
