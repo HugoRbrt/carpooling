@@ -42,7 +42,7 @@ public class AjoutTrajet {
 	 */
 	public static void main(String[] args) {
 		try {
-			AjoutTrajet window = new AjoutTrajet(myco);
+			AjoutTrajet window = new AjoutTrajet(new MyConnection());
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,14 +149,20 @@ public class AjoutTrajet {
 		btnSuivant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				ChangeWindow();
+				if(nbPlaces.getSelection()<1 || nbTroncon.getSelection()<1 || vehicule.getText().isBlank() ) {
+					return ;
+				}
 				int k = nbTroncon.getSelection();
+				ChangeWindow();
 				ArrayList<AjoutTroncon> tr = new ArrayList<AjoutTroncon>();
 				for(int i=1;i<=k;i++) {
 					AjoutTroncon window = new AjoutTroncon(myco);
 					tr.add(window);
 					window.open();
 				}
+				//we add sql instructions
+				MenuPrincipal window = new MenuPrincipal(myco);
+				window.open();
 				
 			}
 		});
@@ -176,8 +182,9 @@ public class AjoutTrajet {
 		btnAnnuler.setBounds(590, 436, 96, 27);
 	}
 	
-	protected boolean ajoutTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart, ArrayList<AjoutTroncon> tr){
-		return ajoutTrajet( placeDepart,  immatriculation,  email,  dateArrive,  dateDepart,  tr);
+	protected boolean ajoutTrajet(ArrayList<AjoutTroncon> tr){
+		//TODO : gestion des dates arrive/depart
+		return myco.ajoutTrajet( nbPlaces.getSelection(),  vehicule.getText(), 10, 0 ,  tr);
 	}
 	
 	protected void ChangeWindow() {

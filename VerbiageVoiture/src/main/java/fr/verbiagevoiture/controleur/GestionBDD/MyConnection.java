@@ -96,14 +96,14 @@ public class MyConnection {
     public boolean deleteTrajet(int idTrajet) {
     	return trajet.deleteTrajet(idTrajet);
     }
-    public int addTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart) {
+    public int addTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart) {
     	return trajet.addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     }
     public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
-    	return trajet.addTroncon(numTroncon,idTrajet, gpsDep, gpsAr, villeDep, villeAr, temps, tempsAttente);
+    	return troncon.addTroncon(numTroncon,idTrajet, gpsDep, gpsAr, villeDep, villeAr, temps, tempsAttente);
     }
     public boolean deleteTroncon(int numTroncon, int idTrajet) {
-    	return trajet.deleteTroncon(numTroncon, idTrajet);
+    	return troncon.deleteTroncon(numTroncon, idTrajet);
     }
     public int getNumberTroncon(int idTrajet) {
     	return troncon.getNumberTroncon(idTrajet);
@@ -147,6 +147,15 @@ public class MyConnection {
     	return troncon.coutTroncon(numTroncon, idTrajet);
     }
     
+    public boolean validerMonteeTroncon(int numTroncon, int idTrajet ){
+        return troncon.validerMonteeTroncon(idTrajet, numTroncon);
+    }
+
+    public boolean validerDescenteTroncon(int numTroncon, int idTrajet ){
+        return troncon.validerDescenteTroncon(idTrajet, numTroncon);
+    }
+
+
     //multi controller
     public boolean deleteTrajetwithTroncon(int idTrajet) {
     	boolean success = deleteTrajet(idTrajet);
@@ -161,7 +170,7 @@ public class MyConnection {
     	return success;
     }
     
-    public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, int dateArrive,int dateDepart, ArrayList<AjoutTroncon> tr){
+    public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart, ArrayList<AjoutTroncon> tr){
     	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     	if(idTrajet==1) {
     		return false;
@@ -170,7 +179,11 @@ public class MyConnection {
     	AjoutTroncon actualTr;
     	while(!tr.isEmpty()) {
     		actualTr = tr.remove(0);
-    		if(-1==addTroncon( k, idTrajet, actualTr.gpsDep.getText(), actualTr.gpsAr.getText(), actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
+    		String gpsDep = new String();String gpsAr = new String();
+    		gpsDep.concat(actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection());
+    		gpsAr.concat(actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection());
+    		
+    		if(-1==addTroncon( k, idTrajet, gpsDep, gpsAr, actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
     			return false;
     		}
     		k++;
@@ -178,5 +191,10 @@ public class MyConnection {
     	
 		return true;
 	}
+    public boolean ajoutTrajet(int placeDepart, String immatriculation, int dateArrive,int dateDepart, ArrayList<AjoutTroncon> tr) {
+    	return ajoutTrajet(placeDepart, immatriculation, user.myEmail, dateArrive, dateDepart, tr);
+    }
+    
+
 
 }
