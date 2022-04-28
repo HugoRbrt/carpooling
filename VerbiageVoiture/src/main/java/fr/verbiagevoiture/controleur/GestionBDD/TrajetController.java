@@ -225,11 +225,11 @@ public class TrajetController{
     	ArrayList<String []> myTrajet = new ArrayList<String []>();
     	PreparedStatement pstmt = null;
     	try {
-    		pstmt = conn.prepareStatement("SELECT T1.IDTRAJET, T1.NUMERO_TRONCON, T2.NUMERO_TRONCON  FROM TRONCON T1, TRONCONT T2 WHERE T1.IDTRAJET = T2.IDTRAJET AND T1.VILLE_DEPART = ? AND T2.VILLE_ARRIVEE = ?");
+    		pstmt = conn.prepareStatement("SELECT T1.IDTRAJET, T1.NUMERO_TRONCON, T2.NUMERO_TRONCON  FROM TRONCON T1, TRONCON T2 WHERE (T1.IDTRAJET = T2.IDTRAJET) AND (T1.VILLE_DEPART = ?) AND (T2.VILLE_ARRIVEE = ?)");
     		pstmt.setString(1, villeDep);
-    		pstmt.setString(1, villeAr);
+    		pstmt.setString(2, villeAr);
     	} catch (SQLException e1) {
-    	    System.err.println("failed to create new prepareStatement (getMyTrajet)");
+    	    System.err.println("failed to create new prepareStatement (findTrajet)");
     		e1.printStackTrace();
     	}
     	
@@ -238,7 +238,7 @@ public class TrajetController{
     	try {
     	    rset =  pstmt.executeQuery();
     	} catch (SQLException e) {
-    	    System.err.println("failed to executeQuery (getMyTrajet)");
+    	    System.err.println("failed to executeQuery (findTrajet)");
     		e.printStackTrace();
     	}
     	int i=0;
@@ -254,14 +254,14 @@ public class TrajetController{
         		i++;
         	}
     	}  catch (SQLException e) {
-            System.err.println("failed for the access to  ResultSet (getMyTrajet)");
+            System.err.println("failed for the access to  ResultSet (findTrajet)");
             e.printStackTrace(System.err);
         }
     	//close
     	try {
     		rset.close();
     	} catch (SQLException e) {
-    	    System.err.println("failed to close (getMyTrajet)");
+    	    System.err.println("failed to close (findTrajet)");
     		e.printStackTrace();
     	}
     	return myTrajet;
