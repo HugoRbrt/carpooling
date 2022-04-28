@@ -258,7 +258,7 @@ public class TronconController{
     	//query creation
     	PreparedStatement pstmt = null;
     	try {
-    		pstmt = conn.prepareStatement("INSERT INTO TRONCON VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    		pstmt = conn.prepareStatement("INSERT INTO TRONCON VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
 			pstmt.setInt(1, numTroncon);
 			pstmt.setInt(2, idTrajet);
 			pstmt.setString(3, gpsDep);
