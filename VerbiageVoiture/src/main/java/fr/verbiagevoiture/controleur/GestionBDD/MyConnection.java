@@ -96,7 +96,7 @@ public class MyConnection {
     public boolean deleteTrajet(int idTrajet) {
     	return trajet.deleteTrajet(idTrajet);
     }
-    public int addTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart) {
+    public int addTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart) {
     	return trajet.addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     }
     public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
@@ -147,6 +147,15 @@ public class MyConnection {
     	return troncon.coutTroncon(numTroncon, idTrajet);
     }
     
+    public boolean validerMonteeTroncon(int numTroncon, int idTrajet ){
+        return troncon.validerMonteeTroncon(idTrajet, numTroncon);
+    }
+
+    public boolean validerDescenteTroncon(int numTroncon, int idTrajet ){
+        return troncon.validerDescenteTroncon(idTrajet, numTroncon);
+    }
+
+
     //multi controller
     public boolean deleteTrajetwithTroncon(int idTrajet) {
     	boolean success = deleteTrajet(idTrajet);
@@ -161,7 +170,7 @@ public class MyConnection {
     	return success;
     }
     
-    public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, int dateArrive,int dateDepart, ArrayList<AjoutTroncon> tr){
+    public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart, ArrayList<AjoutTroncon> tr){
     	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     	if(idTrajet==1) {
     		return false;
@@ -186,5 +195,6 @@ public class MyConnection {
     	return ajoutTrajet(placeDepart, immatriculation, user.myEmail, dateArrive, dateDepart, tr);
     }
     
+
 
 }
