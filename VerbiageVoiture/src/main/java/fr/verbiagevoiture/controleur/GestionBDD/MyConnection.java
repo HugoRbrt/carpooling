@@ -191,7 +191,7 @@ public class MyConnection {
     	
 		return true;
 	}
-    public boolean ajoutTrajet(int placeDepart, String immatriculation, int dateArrive,int dateDepart, ArrayList<AjoutTroncon> tr) {
+    public boolean ajoutTrajet(int placeDepart, String immatriculation, Timestamp dateArrive,Timestamp dateDepart, ArrayList<AjoutTroncon> tr) {
     	return ajoutTrajet(placeDepart, immatriculation, user.myEmail, dateArrive, dateDepart, tr);
     }
     
