@@ -112,10 +112,12 @@ public class Solde {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				//TODO : clear le champ, incrementer le porte monnaie puis reafficher le solde actuel
-				boolean success = Recharger();
-				if(success) {
-					ChangeWindow();
-					open();
+				if(monSolde.getSelection()>0 ) {
+					boolean success = Recharger();
+					if(success) {
+						ChangeWindow();
+						open();
+					}
 				}
 			}
 		});

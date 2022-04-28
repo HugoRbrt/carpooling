@@ -171,20 +171,22 @@ public class MyConnection {
     }
     
     public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart, ArrayList<AjoutTroncon> tr){
+    	System.out.print("debut...");
     	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     	
     	if(idTrajet==1) {
     		return false;
     	}
-    	System.out.println("trajet added");
+    	System.out.println("trajet added:"+idTrajet);
     	AjoutTroncon actualTr;
     	for(int k=1;k<=tr.size();k++ ) {
     		actualTr = tr.get(k-1);
     		String gpsDep = new String();String gpsAr = new String();
-    		gpsDep.concat(actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection());
-    		gpsAr.concat(actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection());
-    		
+    		gpsDep+=actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection();
+    		gpsAr+=actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection();
+    		System.out.println("gpsDep:"+gpsDep+", gpsAr:"+gpsAr);
     		if(-1==addTroncon( k, idTrajet, gpsDep, gpsAr, actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
+    			System.out.println("pbm !");
     			return false;
     		}
     	}

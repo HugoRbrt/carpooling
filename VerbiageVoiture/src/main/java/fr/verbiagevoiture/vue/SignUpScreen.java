@@ -37,7 +37,7 @@ public class SignUpScreen {
 	 * Launch the application.
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void Main(String[] args) {
 		myco = new MyConnection();
 		try {
 			SignUpScreen window = new SignUpScreen(myco);
