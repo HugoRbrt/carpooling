@@ -148,11 +148,11 @@ public class MyConnection {
     }
     
     public boolean validerMonteeTroncon(int numTroncon, int idTrajet ){
-        return troncon.validerMonteeTroncon(idTrajet, numTroncon);
+        return troncon.validerMonteeTroncon(numTroncon, idTrajet);
     }
 
     public boolean validerDescenteTroncon(int numTroncon, int idTrajet ){
-        return troncon.validerDescenteTroncon(idTrajet, numTroncon);
+        return troncon.validerDescenteTroncon(numTroncon, idTrajet);
     }
 
 
@@ -195,6 +195,14 @@ public class MyConnection {
     	return ajoutTrajet(placeDepart, immatriculation, user.myEmail, dateArrive, dateDepart, tr);
     }
     
+    
+    public boolean validerDebutTrajet(int idTrajet ){
+        return trajet.validerDebutTrajet(idTrajet);
+    }
+
+    public boolean validerFinTrajet(int idTrajet ){
+        return trajet.validerFinTrajet(idTrajet);
+    }
 
 
 }
