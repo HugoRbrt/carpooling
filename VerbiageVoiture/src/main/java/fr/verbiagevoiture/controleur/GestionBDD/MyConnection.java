@@ -100,10 +100,10 @@ public class MyConnection {
     	return trajet.addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     }
     public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
-    	return trajet.addTroncon(numTroncon,idTrajet, gpsDep, gpsAr, villeDep, villeAr, temps, tempsAttente);
+    	return troncon.addTroncon(numTroncon,idTrajet, gpsDep, gpsAr, villeDep, villeAr, temps, tempsAttente);
     }
     public boolean deleteTroncon(int numTroncon, int idTrajet) {
-    	return trajet.deleteTroncon(numTroncon, idTrajet);
+    	return troncon.deleteTroncon(numTroncon, idTrajet);
     }
     public int getNumberTroncon(int idTrajet) {
     	return troncon.getNumberTroncon(idTrajet);
