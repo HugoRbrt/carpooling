@@ -23,9 +23,9 @@ public class RechercheParcours {
 
 	protected Shell shlRechercheParcours;
 	private Text villeDep;
-	private Text villeAr;/*
-	private Text text_2;
-	private Text text_3;*/
+	private Text villeAr;
+	// private Text text_2;
+	// private Text text_3;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
 	
@@ -152,7 +152,7 @@ public class RechercheParcours {
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlRechercheParcours.close();
+				ChangeWindow();
 				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}

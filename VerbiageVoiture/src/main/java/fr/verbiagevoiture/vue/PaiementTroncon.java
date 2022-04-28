@@ -1,17 +1,29 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+import java.sql.SQLException;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 public class PaiementTroncon {
 
 	protected Shell shlPaiementTroncon;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+
+	public PaiementTroncon (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -19,7 +31,7 @@ public class PaiementTroncon {
 	 */
 	public static void main(String[] args) {
 		try {
-			PaiementTroncon window = new PaiementTroncon();
+			PaiementTroncon window = new PaiementTroncon(new MyConnection());
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,6 +58,21 @@ public class PaiementTroncon {
 	 */
 	protected void createContents() {
 		shlPaiementTroncon = new Shell();
+		shlPaiementTroncon.addListener(SWT.Close, new Listener() {
+			public void handleEvent(Event event) {
+				if(!changeWindow) {
+					//we add the event "close the connection to DB" only if
+					//we close definitively the app (and not when we change the window)
+					try {
+						myco.closeConnection();
+					} catch (SQLException e) {
+						System.err.println("failed");
+						e.printStackTrace(System.err);
+						myco.conn = null;
+					}
+				}
+			}
+		  });
 		shlPaiementTroncon.setSize(700, 500);
 		shlPaiementTroncon.setText("Paiement Tronçon - VerbiageVoiture");
 		
@@ -92,7 +119,8 @@ public class PaiementTroncon {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				shlPaiementTroncon.close();
-				Solde window = new Solde();
+				ChangeWindow();
+				Solde window = new Solde(myco);
 				window.open();
 			}
 		});
@@ -104,13 +132,20 @@ public class PaiementTroncon {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				shlPaiementTroncon.close();
-				ListeTroncons window = new ListeTroncons();
+				ChangeWindow();
+				ListeTroncons window = new ListeTroncons(myco);
 				window.open();
 			}
 		});
 		btnAnnuler.setBounds(590, 430, 96, 27);
 		btnAnnuler.setText("Annuler");
 
+	}
+
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlPaiementTroncon.close();
+		changeWindow = false;
 	}
 
 }
