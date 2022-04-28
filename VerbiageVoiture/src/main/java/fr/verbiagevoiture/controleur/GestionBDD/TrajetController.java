@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class TrajetController{
@@ -44,8 +45,8 @@ public class TrajetController{
         		value[0]= Integer.toString(rset.getInt(1));
         		value[1]= rset.getString(2);
         		value[2]= rset.getString(3);
-        		value[3]= Integer.toString(rset.getInt(4));
-        		value[4]= Integer.toString(rset.getInt(5));
+				value[3] = rset.getTimestamp(4).toString();
+				value[4] = rset.getTimestamp(5).toString();
         		i++;
         	}
     	}  catch (SQLException e) {
@@ -89,7 +90,7 @@ public class TrajetController{
     }
     
     //return the IDtrajet which was created (-1 if it was impossible)
-    public int addTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart) {
+    public int addTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart) {
     	int b = -1;
     	int idTrajet = 0;
     	//get idTrajet not used
@@ -123,8 +124,8 @@ public class TrajetController{
 			pstmt.setInt(2, placeDepart);
 			pstmt.setString(3, immatriculation);
 			pstmt.setString(4, email);
-			pstmt.setInt(5, dateArrive);
-			pstmt.setInt(6, dateDepart);
+			pstmt.setTimestamp(5, dateArrive);
+			pstmt.setTimestamp(6, dateDepart);
     	} catch (SQLException e1) {
     	    System.err.println("failed to create new prepareStatement (addTrajet)");
     		e1.printStackTrace();
@@ -141,79 +142,6 @@ public class TrajetController{
     	if(rset==1) {//if the line was add rset==1
     		b = idTrajet;
     	}
-    	
-    	//return 
-    	return b;
-    }
-
-	  //return the numero_troncon which was created (-1 if it was impossible)
-	  public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
-    	//coordonnees gps : degre:minute:degre:minute
-    	if(idTrajet<0 || gpsDep.isBlank() || gpsAr.isBlank() || villeDep.isBlank() || villeAr.isBlank() || temps<0 || tempsAttente<0) {
-    		return -1;
-    	}
-    	int b = -1;
-    	//TODO : calculer la distance à partir des coordonnéesGPS
-    	int distance = 
-    	
-    	//query creation
-    	PreparedStatement pstmt = null;
-    	try {
-    		pstmt = conn.prepareStatement("INSERT INTO TRONCON VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			pstmt.setInt(1, numTroncon);
-			pstmt.setInt(2, idTrajet);
-			pstmt.setString(3, gpsDep);
-			pstmt.setString(4, gpsAr);
-			pstmt.setString(5, villeDep);
-			pstmt.setString(6, villeAr);
-			pstmt.setInt(7, distance);
-			pstmt.setInt(8, temps);
-			pstmt.setInt(9, tempsAttente);
-    	} catch (SQLException e1) {
-    	    System.err.println("failed to create new prepareStatement2 (addTroncon)");
-    		e1.printStackTrace();
-    	}
-    	//query execution
-    	int rset2=0;
-    	try {
-    	    rset2 =  pstmt.executeUpdate();
-    	} catch (SQLException e) {
-    	    System.err.println("failed to executeQuery (addTroncon)");
-    		e.printStackTrace();
-    	}
-    	//response analysis
-    	if(rset2==1) {//if the line was add rset==1
-    		b = idTrajet;
-    	}
-    	
-    	//return 
-    	return b;
-    }
-    
-
-
-    public boolean deleteTroncon(int numTroncon, int idTrajet) {
-    	boolean b = false;
-    	//query creation
-    	PreparedStatement pstmt = null;
-    	try {
-    		pstmt = conn.prepareStatement("DELETE FROM TRONCON WHERE IDTRAJET = ? AND NUMERO_TRONCON = ?");
-    		pstmt.setInt(1, idTrajet);
-    		pstmt.setInt(2, numTroncon);
-    	} catch (SQLException e1) {
-    	    System.err.println("failed to create new prepareStatement (deleteTrajet)");
-    		e1.printStackTrace();
-    	}
-    	//query execution
-    	int rset=0;
-    	try {
-    	    rset =  pstmt.executeUpdate();
-    	} catch (SQLException e) {
-    	    System.err.println("failed to executeQuery (deleteTrajet)");
-    		e.printStackTrace();
-    	}
-    	//response analysis
-    	b = rset==1; //if the line was deleted rset==1
     	
     	//return 
     	return b;
