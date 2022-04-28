@@ -3,6 +3,8 @@ package fr.verbiagevoiture.controleur.GestionBDD;
 import java.sql.*;
 import java.util.ArrayList;
 
+import fr.verbiagevoiture.vue.AjoutTroncon;
+
 /**
  * Réaliser la connexion et l'authentification à la base de données.
  */
@@ -158,5 +160,23 @@ public class MyConnection {
     	deleteEmprunte(idTrajet);	//if one of this troncon was booked, we delete the booking
     	return success;
     }
+    
+    public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, int dateArrive,int dateDepart, ArrayList<AjoutTroncon> tr){
+    	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
+    	if(idTrajet==1) {
+    		return false;
+    	}
+    	int k=1;
+    	AjoutTroncon actualTr;
+    	while(!tr.isEmpty()) {
+    		actualTr = tr.remove(0);
+    		if(-1==addTroncon( k, idTrajet, actualTr.gpsDep.getText(), actualTr.gpsAr.getText(), actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
+    			return false;
+    		}
+    		k++;
+    	}
+    	
+		return true;
+	}
 
 }
