@@ -122,14 +122,6 @@ public class ListeTroncons {
 		btnPayer.setBounds(242, 430, 96, 27);
 		btnPayer.setText("Payer");
 		
-		Button btnValiderMontee = new Button(shlMesTroncons, SWT.NONE);
-		btnValiderMontee.setText("Valider Montée");
-		btnValiderMontee.setBounds(10, 430, 110, 27);
-		
-		Button btnValiderDescente = new Button(shlMesTroncons, SWT.NONE);
-		btnValiderDescente.setText("Valider Descente");
-		btnValiderDescente.setBounds(126, 430, 110, 27);
-		
 		Label lblTrajetN = new Label(shlMesTroncons, SWT.NONE);
 		lblTrajetN.setFont(SWTResourceManager.getFont("Arial", 16, SWT.NORMAL));
 		lblTrajetN.setBounds(10, 397, 65, 18);
@@ -146,6 +138,31 @@ public class ListeTroncons {
 		Spinner troncon_number = new Spinner(shlMesTroncons, SWT.BORDER);
 		troncon_number.setBounds(276, 397, 80, 22);
 
+
+		Button btnValiderMontee = new Button(shlMesTroncons, SWT.NONE);
+		btnValiderMontee.setText("Valider Montée");
+		btnValiderMontee.setBounds(10, 430, 110, 27);
+		
+		btnValiderMontee.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				boolean OK=myco.validerMonteeTroncon(troncon_number.getSelection(), trajet_number.getSelection());
+				return;
+			}
+		}); 
+
+		Button btnValiderDescente = new Button(shlMesTroncons, SWT.NONE);
+		btnValiderDescente.setText("Valider Descente");
+		btnValiderDescente.setBounds(126, 430, 110, 27);
+		
+		btnValiderDescente.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseUp(MouseEvent e) {
+				boolean OK=myco.validerDescenteTroncon(troncon_number.getSelection(), trajet_number.getSelection());
+			}
+		}); 
+
+		
 	}
 	
 	protected void ChangeWindow() {
