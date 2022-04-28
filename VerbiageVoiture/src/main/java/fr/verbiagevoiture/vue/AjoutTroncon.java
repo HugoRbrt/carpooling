@@ -123,9 +123,11 @@ public class AjoutTroncon {
 		gpsDepLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		gpsDepLat.setBounds(307, 208, 125, 20);
 		gpsDepLat.setDigits(6);
+		gpsDepLat.setMaximum(999999999);
 		gpsDepLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		gpsDepLong.setBounds(433, 208, 125, 20);
 		gpsDepLong.setDigits(6);
+		gpsDepLong.setMaximum(999999999);
 		
 		Label lblCoordonnesGpsDarrive = new Label(shlNouveauTroncon, SWT.NONE);
 		lblCoordonnesGpsDarrive.setText("Coordonnées GPS d'arrivée");
@@ -136,18 +138,20 @@ public class AjoutTroncon {
 		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		gpsArLat.setBounds(307, 253, 125, 20);
 		gpsArLat.setDigits(6);
+		gpsArLat.setMaximum(999999999);
 		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		gpsArLong.setBounds(433, 253, 125, 20);
 		gpsArLong.setDigits(6);
+		gpsArLat.setMaximum(999999999);
+
+		// Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
+		// lblDistanceParcourue.setText("Distance parcourue");
+		// lblDistanceParcourue.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
+		// lblDistanceParcourue.setAlignment(SWT.RIGHT);
+		// lblDistanceParcourue.setBounds(65, 293, 236, 29);
 		
-		Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
-		lblDistanceParcourue.setText("Distance parcourue");
-		lblDistanceParcourue.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
-		lblDistanceParcourue.setAlignment(SWT.RIGHT);
-		lblDistanceParcourue.setBounds(65, 293, 236, 29);
-		
-		distance = new Text(shlNouveauTroncon, SWT.BORDER);
-		distance.setBounds(307, 298, 250, 20);
+		// distance = new Text(shlNouveauTroncon, SWT.BORDER);
+		// distance.setBounds(307, 298, 250, 20);
 		
 		Label lblTempsDeParcours = new Label(shlNouveauTroncon, SWT.NONE);
 		lblTempsDeParcours.setText("Temps de parcours estimé");
