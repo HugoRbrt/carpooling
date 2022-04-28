@@ -1,11 +1,8 @@
 package fr.verbiagevoiture;
 
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 import fr.verbiagevoiture.vue.WelcomeScreen;
 
-/**
- * Hello world!
- *
- */
 public class App {
     /**
      * Launch the application.
@@ -13,8 +10,10 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
+        MyConnection myco = new MyConnection();
+
         try {
-            WelcomeScreen window = new WelcomeScreen();
+            WelcomeScreen window = new WelcomeScreen(myco);
             window.open();
         } catch (Exception e) {
             e.printStackTrace();
