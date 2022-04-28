@@ -69,10 +69,10 @@ public class MyConnection {
     public boolean CheckEmail(String email) {
     	return user.CheckEmail(email);
     }
-    public boolean RechargerSolde(int valeur) {
+    public boolean RechargerSolde(float valeur) {
     	return user.RechargerSolde(valeur);
     }
-    public boolean RechargerSolde(int valeur, String email) {
+    public boolean RechargerSolde(float valeur, String email) {
     	return user.RechargerSolde(valeur, email);
     }
     public String AfficherSolde(String email) {
@@ -126,6 +126,9 @@ public class MyConnection {
     public boolean deleteEmprunte(int idTrajet) {
     	return troncon.deleteEmprunte(idTrajet);
     }
+    public boolean deleteEmprunte(int numTroncon, int idTrajet) {
+    	return troncon.deleteEmprunte(numTroncon, idTrajet);
+    }
     public boolean addEmprunte(int numTroncon, int idTrajet, String email) {
     	return troncon.addEmprunte(numTroncon, idTrajet, email);
     }
@@ -137,6 +140,9 @@ public class MyConnection {
     }
     public ArrayList<int []> getTronconEmprunte(){
     	return troncon.getTronconEmprunte(user.myEmail);
+    }
+    public float coutTroncon(int numTroncon, int idTrajet ) {
+    	return troncon.coutTroncon(numTroncon, idTrajet);
     }
     
     //multi controller

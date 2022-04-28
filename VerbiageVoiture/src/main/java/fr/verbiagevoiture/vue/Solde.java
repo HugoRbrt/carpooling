@@ -137,7 +137,7 @@ public class Solde {
 	}
 	
 	protected boolean Recharger() {
-		return myco.RechargerSolde(Integer.parseInt(monSolde.getText()));
+		return myco.RechargerSolde(Float.parseFloat(monSolde.getText()));
 	}
 	
 	protected String AfficherSolde() {
