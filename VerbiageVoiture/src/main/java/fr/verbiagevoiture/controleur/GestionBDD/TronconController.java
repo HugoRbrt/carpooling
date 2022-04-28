@@ -194,6 +194,7 @@ public class TronconController{
 		res = 6371 * Math.acos( Math.sin(latd)*Math.sin(lata) + Math.cos(latd)*Math.cos(lata)*Math.cos(lona-lond) );
 		return (int) res;
 	}
+
     
     public float coutTroncon(int numTroncon, int idTrajet ) {
     	float prix = 0;
