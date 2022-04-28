@@ -174,7 +174,7 @@ public class ListeTrajets {
 				if(success) {
 					ChangeWindow();
 					ListeTrajets window = new ListeTrajets(myco);
-					open();
+					window.open();
 				}
 			}
 		});
