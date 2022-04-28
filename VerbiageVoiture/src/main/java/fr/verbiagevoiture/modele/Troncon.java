@@ -17,6 +17,8 @@ public class Troncon extends Modele implements Statement{
     private double distanceParcourue;              //méthode de calcul avec loi des sinus
     private int tempsEstime;                       //en minutes
     private int nbPassager;
+    private boolean monteeValidee;
+    private boolean descenteValidee;
     //private int tempsAttenteDepart;
     private LinkedList<Utilisateur> empruntePar;
 
@@ -33,6 +35,8 @@ public class Troncon extends Modele implements Statement{
         this.distanceParcourue = 6371 * Math.acos( Math.sin(gpsDepart[0])*Math.sin(gpsArrivee[0]) + Math.cos(gpsDepart[0])*Math.cos(gpsArrivee[0])*Math.cos(gpsArrivee[1]-gpsDepart[1]) );
         this.tempsEstime = tempsEstime;
         this.nbPassager = 0;
+        this.monteeValidee = false;
+        this.descenteValidee = false;
     }
 
     public void printTroncon(int idTrajet, int numTroncon) {
@@ -47,6 +51,7 @@ public class Troncon extends Modele implements Statement{
         System.out.println("Distance parcourue = " + this.distanceParcourue);
         System.out.println("Temps estimé = " + this.tempsEstime);
         System.out.println("Nombre de passager(s) = " + this.nbPassager);
+        System.out.println("tronçon validé ? = " + (this.monteeValidee && this.descenteValidee));
     }
 
     public int getIdTrajet() {
