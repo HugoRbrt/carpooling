@@ -3,6 +3,7 @@ package fr.verbiagevoiture.vue;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
@@ -13,7 +14,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -21,7 +21,7 @@ import org.eclipse.swt.events.MouseEvent;
 public class Solde {
 
 	protected Shell shlMonSolde;
-	private Text monSolde;
+	private Spinner monSolde;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
 	
@@ -99,7 +99,7 @@ public class Solde {
 		lblRecharger.setAlignment(SWT.CENTER);
 		lblRecharger.setBounds(212, 229, 259, 57);
 		
-		monSolde = new Text(shlMonSolde, SWT.BORDER);
+		monSolde = new Spinner(shlMonSolde, SWT.BORDER);
 		monSolde.setBounds(234, 302, 64, 19);
 		
 		Label label = new Label(shlMonSolde, SWT.NONE);
@@ -137,6 +137,7 @@ public class Solde {
 	}
 	
 	protected boolean Recharger() {
+		
 		return myco.RechargerSolde(Float.parseFloat(monSolde.getText()));
 	}
 	
