@@ -3,6 +3,7 @@ package fr.verbiagevoiture;
 import java.sql.*;
 import java.util.ArrayList;
 
+import fr.verbiagevoiture.controleur.IntToTimestamp;
 //import oracle.jdbc.*;
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 //import oracle.jdbc.dcn.*;
@@ -13,7 +14,7 @@ public class TrajetControllerTest
         
     	MyConnection myUser = new MyConnection();
         System.out.println(" ajout du trajet de BB123BB  ");
-        int newId = myUser.addTrajet(3, "BB123BB", "BB123BB@gmail.com", 1, 10);
+        int newId = myUser.addTrajet(3, "BB123BB", "BB123BB@gmail.com", IntToTimestamp.convert(2022,6,17,9,30), IntToTimestamp.convert(2022,6,17,7,0));
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -41,7 +42,7 @@ public class TrajetControllerTest
         
 
         System.out.println(" ajout du trajet de ima  ");
-        int newId2 = myUser.addTrajet(3, "ima", "test", 1, 10);
+        int newId2 = myUser.addTrajet(3, "ima", "test", IntToTimestamp.convert(2022,6,19,19,30), IntToTimestamp.convert(2022,6,19,18,0));
         if(newId2 != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
