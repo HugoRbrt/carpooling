@@ -1,10 +1,18 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+
+import java.sql.SQLException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
@@ -13,9 +21,15 @@ import org.eclipse.swt.events.MouseEvent;
 public class ListeTroncons {
 
 	protected Shell shlMesTroncons;
-	private Text text;
-	private Text text_1;
-	private Text text_2;
+	private Text numTronconPaiement;
+	private Text numTronconMonte;
+	private Text numTronconDescente;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public ListeTroncons (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -23,7 +37,7 @@ public class ListeTroncons {
 	 */
 	public static void main(String[] args) {
 		try {
-			ListeTroncons window = new ListeTroncons();
+			ListeTroncons window = new ListeTroncons(myco);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,6 +64,21 @@ public class ListeTroncons {
 	 */
 	protected void createContents() {
 		shlMesTroncons = new Shell();
+		shlMesTroncons.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlMesTroncons.setSize(700, 500);
 		shlMesTroncons.setText("Mes tronçons - VerbiageVoiture");
 		
@@ -69,7 +98,7 @@ public class ListeTroncons {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				shlMesTroncons.close();
-				MenuPrincipal window = new MenuPrincipal();
+				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}
 		});
@@ -81,11 +110,11 @@ public class ListeTroncons {
 		lblPayerLeTronon.setBounds(10, 432, 140, 19);
 		lblPayerLeTronon.setText("Payer le tronçon n°");
 		
-		text = new Text(shlMesTroncons, SWT.BORDER);
-		text.setBounds(144, 438, 100, 19);
+		numTronconPaiement = new Text(shlMesTroncons, SWT.BORDER);
+		numTronconPaiement.setBounds(144, 438, 100, 19);
 		
-		Button btnNewButton = new Button(shlMesTroncons, SWT.NONE);
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		Button btnPayer = new Button(shlMesTroncons, SWT.NONE);
+		btnPayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				shlMesTroncons.close();
@@ -93,16 +122,16 @@ public class ListeTroncons {
 				window.open();
 			}
 		});
-		btnNewButton.setBounds(250, 430, 96, 27);
-		btnNewButton.setText("Payer");
+		btnPayer.setBounds(250, 430, 96, 27);
+		btnPayer.setText("Payer");
 		
 		Label lblConfirmationMonteTronon = new Label(shlMesTroncons, SWT.NONE);
 		lblConfirmationMonteTronon.setText("Confirmation montée tronçon n°");
 		lblConfirmationMonteTronon.setAlignment(SWT.RIGHT);
 		lblConfirmationMonteTronon.setBounds(10, 404, 193, 20);
 		
-		text_1 = new Text(shlMesTroncons, SWT.BORDER);
-		text_1.setBounds(209, 403, 64, 19);
+		numTronconMonte = new Text(shlMesTroncons, SWT.BORDER);
+		numTronconMonte.setBounds(209, 403, 64, 19);
 		
 		Button btnValider = new Button(shlMesTroncons, SWT.NONE);
 		btnValider.setText("Valider");
@@ -113,13 +142,19 @@ public class ListeTroncons {
 		lblConfirmationDescenteTronon.setAlignment(SWT.RIGHT);
 		lblConfirmationDescenteTronon.setBounds(352, 404, 195, 20);
 		
-		text_2 = new Text(shlMesTroncons, SWT.BORDER);
-		text_2.setBounds(553, 403, 64, 19);
+		numTronconDescente = new Text(shlMesTroncons, SWT.BORDER);
+		numTronconDescente.setBounds(553, 403, 64, 19);
 		
 		Button btnValider_1 = new Button(shlMesTroncons, SWT.NONE);
 		btnValider_1.setText("Valider");
 		btnValider_1.setBounds(620, 397, 70, 27);
 
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlMesTroncons.close();
+		changeWindow = false;
 	}
 
 }

@@ -116,7 +116,7 @@ public class UtilisateurController{
     	return nb!=0; //return true only if we have 1 or more line with the right email/mdp
 	}
     
-    public boolean RechargerSolde(int valeur) {
+    public boolean RechargerSolde(float valeur) {
     	if(myEmail.isBlank() || valeur<=0) {
     		return false;
     	}
@@ -125,7 +125,7 @@ public class UtilisateurController{
     	PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement("UPDATE UTILISATEUR SET PORTE_MONNAIE = PORTE_MONNAIE + ? WHERE EMAIL = ?");
-			pstmt.setInt(1, valeur);
+			pstmt.setFloat(1, valeur);
 			pstmt.setString(2, myEmail);
 		} catch (SQLException e1) {
             System.err.println("failed to create new prepareStatement (RechargerSolde)");
@@ -148,7 +148,7 @@ public class UtilisateurController{
 		}
     	return nb==1;
     }
-    public boolean RechargerSolde(int valeur, String email) {
+    public boolean RechargerSolde(float valeur, String email) {
     	myEmail = email;
     	return RechargerSolde(valeur);
     }

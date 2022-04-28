@@ -3,6 +3,7 @@ package fr.verbiagevoiture.vue;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
@@ -14,7 +15,6 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Button;
@@ -24,8 +24,8 @@ import org.eclipse.swt.events.MouseEvent;
 public class AjoutTrajet {
 
 	protected Shell shlNouveauTrajet;
-	private Text nbPlaces;
-	private Text nbTroncon;
+	private Spinner nbPlaces;
+	private Spinner nbTroncon;
 	private Combo vehicule;
 	private DateTime dateDep;
 	private DateTime timeDep;
@@ -111,7 +111,7 @@ public class AjoutTrajet {
 		lblEmail_1_1.setAlignment(SWT.RIGHT);
 		lblEmail_1_1.setBounds(10, 223, 286, 29);
 		
-		nbPlaces = new Text(shlNouveauTrajet, SWT.BORDER);
+		nbPlaces = new Spinner(shlNouveauTrajet, SWT.BORDER);
 		nbPlaces.setBounds(302, 228, 270, 20);
 		
 		Label lblEmail_1_2 = new Label(shlNouveauTrajet, SWT.NONE);
@@ -126,7 +126,7 @@ public class AjoutTrajet {
 		lblEmail_1_3.setAlignment(SWT.RIGHT);
 		lblEmail_1_3.setBounds(10, 323, 286, 29);
 		
-		nbTroncon = new Text(shlNouveauTrajet, SWT.BORDER);
+		nbTroncon = new Spinner(shlNouveauTrajet, SWT.BORDER);
 		nbTroncon.setBounds(302, 328, 270, 20);
 		
 		vehicule = new Combo(shlNouveauTrajet, SWT.READ_ONLY);
@@ -150,8 +150,14 @@ public class AjoutTrajet {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				ChangeWindow();
-				AjoutTroncon window = new AjoutTroncon();
-				window.open();
+				int k = nbTroncon.getSelection();
+				ArrayList<AjoutTroncon> tr = new ArrayList<AjoutTroncon>();
+				for(int i=1;i<=k;i++) {
+					AjoutTroncon window = new AjoutTroncon(myco);
+					tr.add(window);
+					window.open();
+				}
+				
 			}
 		});
 		btnSuivant.setText("Suivant");
@@ -168,7 +174,10 @@ public class AjoutTrajet {
 		});
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setBounds(590, 436, 96, 27);
-
+	}
+	
+	protected boolean ajoutTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart, ArrayList<AjoutTroncon> tr){
+		return ajoutTrajet( placeDepart,  immatriculation,  email,  dateArrive,  dateDepart,  tr);
 	}
 	
 	protected void ChangeWindow() {

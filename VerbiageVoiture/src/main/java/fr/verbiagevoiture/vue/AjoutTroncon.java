@@ -1,10 +1,19 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+
+import java.sql.SQLException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -13,13 +22,19 @@ import org.eclipse.swt.events.MouseEvent;
 public class AjoutTroncon {
 
 	protected Shell shlNouveauTroncon;
-	private Text text;
-	private Text text_1;
-	private Text text_2;
-	private Text text_3;
-	private Text text_4;
-	private Text text_5;
-	private Text text_6;
+	public Text villeDep;
+	public Text villeAr;
+	public Text gpsDep;
+	public Text gpsAr;
+	public Text distance;
+	public Spinner temps;
+	public Spinner attenteDep;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public AjoutTroncon (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -27,7 +42,7 @@ public class AjoutTroncon {
 	 */
 	public static void main(String[] args) {
 		try {
-			AjoutTroncon window = new AjoutTroncon();
+			AjoutTroncon window = new AjoutTroncon(myco);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,6 +69,21 @@ public class AjoutTroncon {
 	 */
 	protected void createContents() {
 		shlNouveauTroncon = new Shell();
+		shlNouveauTroncon.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlNouveauTroncon.setSize(700, 500);
 		shlNouveauTroncon.setText("Nouveau tronçon - VerbiageVoiture");
 		
@@ -69,8 +99,8 @@ public class AjoutTroncon {
 		lblVilleDeDpart.setAlignment(SWT.RIGHT);
 		lblVilleDeDpart.setBounds(65, 111, 236, 29);
 		
-		text = new Text(shlNouveauTroncon, SWT.BORDER);
-		text.setBounds(307, 116, 250, 20);
+		villeDep = new Text(shlNouveauTroncon, SWT.BORDER);
+		villeDep.setBounds(307, 116, 250, 20);
 		
 		Label lblVilleDarrive = new Label(shlNouveauTroncon, SWT.NONE);
 		lblVilleDarrive.setText("Ville d'arrivée");
@@ -78,8 +108,8 @@ public class AjoutTroncon {
 		lblVilleDarrive.setAlignment(SWT.RIGHT);
 		lblVilleDarrive.setBounds(65, 157, 236, 29);
 		
-		text_1 = new Text(shlNouveauTroncon, SWT.BORDER);
-		text_1.setBounds(307, 162, 250, 20);
+		villeAr = new Text(shlNouveauTroncon, SWT.BORDER);
+		villeAr.setBounds(307, 162, 250, 20);
 		
 		Label lblCoordonnesGpsDe = new Label(shlNouveauTroncon, SWT.NONE);
 		lblCoordonnesGpsDe.setText("Coordonnées GPS de départ");
@@ -87,8 +117,8 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDe.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDe.setBounds(10, 203, 291, 29);
 		
-		text_2 = new Text(shlNouveauTroncon, SWT.BORDER);
-		text_2.setBounds(307, 208, 250, 20);
+		gpsDep = new Text(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsDep.setBounds(307, 208, 250, 20);
 		
 		Label lblCoordonnesGpsDarrive = new Label(shlNouveauTroncon, SWT.NONE);
 		lblCoordonnesGpsDarrive.setText("Coordonnées GPS d'arrivée");
@@ -96,8 +126,8 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDarrive.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDarrive.setBounds(10, 248, 291, 29);
 		
-		text_3 = new Text(shlNouveauTroncon, SWT.BORDER);
-		text_3.setBounds(307, 253, 250, 20);
+		gpsAr = new Text(shlNouveauTroncon, SWT.BORDER);
+		gpsAr.setBounds(307, 253, 250, 20);
 		
 		Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
 		lblDistanceParcourue.setText("Distance parcourue");
@@ -105,8 +135,8 @@ public class AjoutTroncon {
 		lblDistanceParcourue.setAlignment(SWT.RIGHT);
 		lblDistanceParcourue.setBounds(65, 293, 236, 29);
 		
-		text_4 = new Text(shlNouveauTroncon, SWT.BORDER);
-		text_4.setBounds(307, 298, 250, 20);
+		distance = new Text(shlNouveauTroncon, SWT.BORDER);
+		distance.setBounds(307, 298, 250, 20);
 		
 		Label lblTempsDeParcours = new Label(shlNouveauTroncon, SWT.NONE);
 		lblTempsDeParcours.setText("Temps de parcours estimé");
@@ -114,16 +144,14 @@ public class AjoutTroncon {
 		lblTempsDeParcours.setAlignment(SWT.RIGHT);
 		lblTempsDeParcours.setBounds(31, 338, 270, 29);
 		
-		text_5 = new Text(shlNouveauTroncon, SWT.BORDER);
-		text_5.setBounds(307, 343, 250, 20);
+		temps = new Spinner(shlNouveauTroncon, SWT.BORDER);
+		temps.setBounds(307, 343, 250, 20);
 		
 		Button btnNewButton = new Button(shlNouveauTroncon, SWT.NONE);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				shlNouveauTroncon.close();
-				MenuPrincipal window = new MenuPrincipal();
-				window.open();
 			}
 		});
 		btnNewButton.setBounds(590, 430, 96, 27);
@@ -135,9 +163,15 @@ public class AjoutTroncon {
 		lblDureDattenteMax.setAlignment(SWT.RIGHT);
 		lblDureDattenteMax.setBounds(31, 381, 270, 29);
 		
-		text_6 = new Text(shlNouveauTroncon, SWT.BORDER);
-		text_6.setBounds(307, 386, 250, 20);
+		attenteDep = new Spinner(shlNouveauTroncon, SWT.BORDER);
+		attenteDep.setBounds(307, 386, 250, 20);
 
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlNouveauTroncon.close();
+		changeWindow = false;
 	}
 
 }

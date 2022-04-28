@@ -3,6 +3,8 @@ package fr.verbiagevoiture.controleur.GestionBDD;
 import java.sql.*;
 import java.util.ArrayList;
 
+import fr.verbiagevoiture.vue.AjoutTroncon;
+
 /**
  * Réaliser la connexion et l'authentification à la base de données.
  */
@@ -69,10 +71,10 @@ public class MyConnection {
     public boolean CheckEmail(String email) {
     	return user.CheckEmail(email);
     }
-    public boolean RechargerSolde(int valeur) {
+    public boolean RechargerSolde(float valeur) {
     	return user.RechargerSolde(valeur);
     }
-    public boolean RechargerSolde(int valeur, String email) {
+    public boolean RechargerSolde(float valeur, String email) {
     	return user.RechargerSolde(valeur, email);
     }
     public String AfficherSolde(String email) {
@@ -126,6 +128,9 @@ public class MyConnection {
     public boolean deleteEmprunte(int idTrajet) {
     	return troncon.deleteEmprunte(idTrajet);
     }
+    public boolean deleteEmprunte(int numTroncon, int idTrajet) {
+    	return troncon.deleteEmprunte(numTroncon, idTrajet);
+    }
     public boolean addEmprunte(int numTroncon, int idTrajet, String email) {
     	return troncon.addEmprunte(numTroncon, idTrajet, email);
     }
@@ -137,6 +142,9 @@ public class MyConnection {
     }
     public ArrayList<int []> getTronconEmprunte(){
     	return troncon.getTronconEmprunte(user.myEmail);
+    }
+    public float coutTroncon(int numTroncon, int idTrajet ) {
+    	return troncon.coutTroncon(numTroncon, idTrajet);
     }
     
     //multi controller
@@ -152,5 +160,23 @@ public class MyConnection {
     	deleteEmprunte(idTrajet);	//if one of this troncon was booked, we delete the booking
     	return success;
     }
+    
+    public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, int dateArrive,int dateDepart, ArrayList<AjoutTroncon> tr){
+    	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
+    	if(idTrajet==1) {
+    		return false;
+    	}
+    	int k=1;
+    	AjoutTroncon actualTr;
+    	while(!tr.isEmpty()) {
+    		actualTr = tr.remove(0);
+    		if(-1==addTroncon( k, idTrajet, actualTr.gpsDep.getText(), actualTr.gpsAr.getText(), actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
+    			return false;
+    		}
+    		k++;
+    	}
+    	
+		return true;
+	}
 
 }

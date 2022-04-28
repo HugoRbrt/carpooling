@@ -49,7 +49,7 @@ public class TrajetControllerTest
         }
         
         System.out.println(" ajout du 1er troncon associé  ");
-        newId = myUser.addTroncon(1, newId2, "49:51:2:19", "48:23:4:30", "Paris", "Brest", 6*60*60 , 100);
+        newId = myUser.addTroncon(1, newId2, "49.51:2.19", "48.23:4.30", "Paris", "Brest", 6*60*60 , 100);
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -57,7 +57,7 @@ public class TrajetControllerTest
         }
         
         System.out.println(" ajout du 2eme troncon associé  ");
-        newId = myUser.addTroncon(2, newId2, "48:23:4:30", "20:12:13:49", "Brest", "Lille", 4*60*60 , 0);
+        newId = myUser.addTroncon(2, newId2, "48.23:4.30", "20.12:13.49", "Brest", "Lille", 4*60*60 , 0);
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -72,11 +72,20 @@ public class TrajetControllerTest
         	System.out.println("[KO] echec de l'ajout ");
         }
         
+        System.out.println("calcul cout de troncon 2 : ");
+        float f = myUser.coutTroncon(2, newId2);
+        int distance = 0;
+        if(f == 0.1*0.5*distance*1) {
+        	System.out.println("[OK] le cout est de 0");
+        }else {
+        	System.out.println("[KO] echec du calcul de cout ");
+        }
+        
         System.out.println("affichage des troncon emprunte par test");
         ArrayList<int []> value2 = myUser.getTronconEmprunte("test");
     	System.out.print("test emprunte :");
         for(int i=0;i<value2.size();i++) {
-        	System.out.print("\nTrajet "+value2.get(i)[0]+" troncon n°"+value2.get(i)[1]);
+        	System.out.print("\n  Trajet "+value2.get(i)[0]+" troncon n°"+value2.get(i)[1]);
         }
     	System.out.println(".");
         

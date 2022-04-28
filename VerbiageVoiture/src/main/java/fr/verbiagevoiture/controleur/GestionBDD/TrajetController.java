@@ -145,16 +145,16 @@ public class TrajetController{
     	//return 
     	return b;
     }
-    
-  //return the numero_troncon which was created (-1 if it was impossible)
-    public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
+
+	  //return the numero_troncon which was created (-1 if it was impossible)
+	  public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
     	//coordonnees gps : degre:minute:degre:minute
     	if(idTrajet<0 || gpsDep.isBlank() || gpsAr.isBlank() || villeDep.isBlank() || villeAr.isBlank() || temps<0 || tempsAttente<0) {
     		return -1;
     	}
     	int b = -1;
     	//TODO : calculer la distance à partir des coordonnéesGPS
-    	int distance = 0;
+    	int distance = 
     	
     	//query creation
     	PreparedStatement pstmt = null;
@@ -218,6 +218,5 @@ public class TrajetController{
     	//return 
     	return b;
     }
-    
     
 }  
