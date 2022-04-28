@@ -147,6 +147,15 @@ public class MyConnection {
     	return troncon.coutTroncon(numTroncon, idTrajet);
     }
     
+    public boolean validerMonteeTroncon(int numTroncon, int idTrajet ){
+        return troncon.validerMonteeTroncon(idTrajet, numTroncon);
+    }
+
+    public boolean validerDescenteTroncon(int numTroncon, int idTrajet ){
+        return troncon.validerDescenteTroncon(idTrajet, numTroncon);
+    }
+
+
     //multi controller
     public boolean deleteTrajetwithTroncon(int idTrajet) {
     	boolean success = deleteTrajet(idTrajet);
@@ -178,5 +187,6 @@ public class MyConnection {
     	
 		return true;
 	}
+
 
 }

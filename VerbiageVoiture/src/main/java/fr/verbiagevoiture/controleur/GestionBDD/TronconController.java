@@ -317,4 +317,61 @@ public class TronconController{
     	//return 
     	return b;
     }
+
+	public boolean validerMonteeTroncon(int idTrajet,int numTroncon){
+		PreparedStatement pstmt=null;
+		boolean b=false;
+		try {
+    		pstmt = conn.prepareStatement("UPDATE TRONCON" + "SET MONTEE_VALIDEE=1"
+    										+" WHERE IDTRAJET = ? "
+    										+" AND NUMERO_TRONCON = ? "
+										);
+    		pstmt.setInt(1, numTroncon);
+    		pstmt.setInt(2, idTrajet);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement (validerMonteeTroncon)");
+    		e1.printStackTrace();
+    	}
+		//query execution
+    	int rset=0;
+    	try {
+    	    rset =  pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (validerMonteeTroncon)");
+    		e.printStackTrace();
+    	}
+    	//response analysis
+    	b = rset==1; //if the line was deleted rset==1
+    	
+    	//return 
+    	return b;
+	}
+
+	public boolean validerDescenteTroncon(int idTrajet,int numTroncon){
+		PreparedStatement pstmt=null;
+		boolean b=false;
+		try {
+    		pstmt = conn.prepareStatement("UPDATE TRONCON" + "SET DESCENTE_VALIDEE=1"
+											+" WHERE IDTRAJET = ? "
+											+" AND NUMERO_TRONCON = ? ");
+    		pstmt.setInt(1, numTroncon);
+    		pstmt.setInt(2, idTrajet);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement (validerDescenteTroncon)");
+    		e1.printStackTrace();
+    	}
+		//query execution
+    	int rset=0;
+    	try {
+    	    rset =  pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (validerDescenteTroncon)");
+    		e.printStackTrace();
+    	}
+    	//response analysis
+    	b = rset==1; //if the line was deleted rset==1
+    	
+    	//return 
+    	return b;
+	}
 }
