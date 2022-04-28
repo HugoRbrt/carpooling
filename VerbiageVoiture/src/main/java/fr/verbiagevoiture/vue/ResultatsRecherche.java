@@ -3,9 +3,11 @@ package fr.verbiagevoiture.vue;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
+import org.eclipse.swt.graphics.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ import org.eclipse.swt.events.MouseEvent;
 public class ResultatsRecherche {
 
 	protected Shell shlResultatsRecherche;
-	private Text text;
+	private Spinner value;
 	private ArrayList<String []> res;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
@@ -65,6 +67,7 @@ public class ResultatsRecherche {
 	 */
 	protected void createContents() {
 		shlResultatsRecherche = new Shell();
+		shlResultatsRecherche.setBackground(new Color(70, 150, 230));
 		shlResultatsRecherche.addListener(SWT.Close, new Listener() {
 		      public void handleEvent(Event event) {
 		    	  if(!changeWindow) {
@@ -117,16 +120,35 @@ public class ResultatsRecherche {
 		lblRserverLeParcours.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		lblRserverLeParcours.setBounds(10, 425, 174, 19);
 		
-		text = new Text(shlResultatsRecherche, SWT.BORDER);
-		text.setBounds(190, 431, 100, 19);
+		value = new Spinner(shlResultatsRecherche, SWT.BORDER);
+		value.setBounds(190, 431, 100, 19);
 		
 		Button btnNewButton = new Button(shlResultatsRecherche, SWT.NONE);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				ChangeWindow();
-				MenuPrincipal window = new MenuPrincipal(myco);
-				window.open();
+				if(!value.getText().isBlank()) {
+					int idTrajet = value.getSelection();
+					int indice = -1;
+					for(int i=0;i<res.size();i++) {
+						if(Integer.valueOf(res.get(i)[0])==idTrajet){
+							indice = i;
+						}
+					}
+					System.out.println("indice:"+indice);
+					if(indice>=0) {
+						for(int k=Integer.valueOf(res.get(indice)[1]);k<=Integer.valueOf(res.get(indice)[2]);k++) {
+							if(Emprunte(k,idTrajet)) {
+								System.out.println("ajoute!");
+							}
+						}
+						ChangeWindow();
+						MenuPrincipal window = new MenuPrincipal(myco);
+						window.open();
+					}
+					
+					
+				}
 			}
 		});
 		btnNewButton.setText("Réserver");
@@ -138,6 +160,10 @@ public class ResultatsRecherche {
 		changeWindow = true;
 		shlResultatsRecherche.close();
 		changeWindow = false;
+	}
+	
+	protected boolean Emprunte(int num, int idTrajet) {
+		return myco.addEmprunte(num, idTrajet);
 	}
 
 }
