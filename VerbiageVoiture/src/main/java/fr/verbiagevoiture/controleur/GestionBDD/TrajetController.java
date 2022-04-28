@@ -119,7 +119,7 @@ public class TrajetController{
     	//query creation
     	PreparedStatement pstmt = null;
     	try {
-    		pstmt = conn.prepareStatement("INSERT INTO TRAJET VALUES (?, ?, ?, ?, ?, ?)");
+    		pstmt = conn.prepareStatement("INSERT INTO TRAJET VALUES (?, ?, ?, ?, ?, ?, 0, 0)");
 			pstmt.setInt(1, idTrajet);
 			pstmt.setInt(2, placeDepart);
 			pstmt.setString(3, immatriculation);
