@@ -161,12 +161,12 @@ public class AjoutTrajet {
 					AjoutTroncon window = new AjoutTroncon(myco);
 					tr.add(window);
 					window.open();
-				}/*
+				}
 				for(int i=1;i<=k;i++) {//we verify that each troncon were validated
 					if(!tr.get(i).validate) {
 						return;
 					}
-				}*/
+				}
 				//we add sql instructions
 				ajoutTrajet(tr);
 				System.out.println("taille:"+tr.size());
