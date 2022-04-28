@@ -128,7 +128,7 @@ public class MenuPrincipal {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				ChangeWindow();
-				ListeTroncons window = new ListeTroncons();
+				ListeTroncons window = new ListeTroncons(myco);
 				window.open();
 			}
 		});
