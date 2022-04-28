@@ -94,7 +94,7 @@ public class ListeTroncons {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMesTroncons.close();
+				ChangeWindow();
 				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}
@@ -111,8 +111,8 @@ public class ListeTroncons {
 		btnPayer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlMesTroncons.close();
-				PaiementTroncon window = new PaiementTroncon();
+				ChangeWindow();
+				PaiementTroncon window = new PaiementTroncon(myco);
 				window.open();
 			}
 		});

@@ -103,7 +103,7 @@ public class ResultatsRecherche {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlResultatsRecherche.close();
+				ChangeWindow();
 				RechercheParcours window = new RechercheParcours(myco);
 				window.open();
 			}
@@ -124,7 +124,7 @@ public class ResultatsRecherche {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlResultatsRecherche.close();
+				ChangeWindow();
 				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}
