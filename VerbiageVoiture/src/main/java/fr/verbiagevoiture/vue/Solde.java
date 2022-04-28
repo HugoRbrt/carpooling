@@ -101,6 +101,7 @@ public class Solde {
 		
 		monSolde = new Spinner(shlMonSolde, SWT.BORDER);
 		monSolde.setBounds(234, 302, 64, 19);
+		monSolde.setDigits(2);
 		
 		Label label = new Label(shlMonSolde, SWT.NONE);
 		label.setBounds(303, 305, 33, 14);

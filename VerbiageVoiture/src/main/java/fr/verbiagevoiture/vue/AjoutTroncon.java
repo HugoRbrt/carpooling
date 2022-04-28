@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -24,8 +25,10 @@ public class AjoutTroncon {
 	protected Shell shlNouveauTroncon;
 	public Text villeDep;
 	public Text villeAr;
-	public Text gpsDep;
-	public Text gpsAr;
+	public Spinner gpsDepLat;
+	public Spinner gpsDepLong;
+	public Spinner gpsArLat;
+	public Spinner gpsArLong;
 	public Text distance;
 	public Spinner temps;
 	public Spinner attenteDep;
@@ -117,8 +120,12 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDe.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDe.setBounds(10, 203, 291, 29);
 		
-		gpsDep = new Text(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
-		gpsDep.setBounds(307, 208, 250, 20);
+		gpsDepLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsDepLat.setBounds(307, 208, 125, 20);
+		gpsDepLat.setDigits(6);
+		gpsDepLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsDepLong.setBounds(433, 208, 125, 20);
+		gpsDepLong.setDigits(6);
 		
 		Label lblCoordonnesGpsDarrive = new Label(shlNouveauTroncon, SWT.NONE);
 		lblCoordonnesGpsDarrive.setText("Coordonnées GPS d'arrivée");
@@ -126,8 +133,12 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDarrive.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDarrive.setBounds(10, 248, 291, 29);
 		
-		gpsAr = new Text(shlNouveauTroncon, SWT.BORDER);
-		gpsAr.setBounds(307, 253, 250, 20);
+		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLat.setBounds(307, 253, 125, 20);
+		gpsArLat.setDigits(6);
+		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLong.setBounds(433, 253, 125, 20);
+		gpsArLong.setDigits(6);
 		
 		Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
 		lblDistanceParcourue.setText("Distance parcourue");
@@ -151,7 +162,10 @@ public class AjoutTroncon {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlNouveauTroncon.close();
+				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() || temps.getSelection()<=0) {
+					return;
+				}
+				ChangeWindow();
 			}
 		});
 		btnNewButton.setBounds(590, 430, 96, 27);
