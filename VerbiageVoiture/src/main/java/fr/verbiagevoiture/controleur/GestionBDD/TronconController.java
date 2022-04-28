@@ -178,6 +178,25 @@ public class TronconController{
     	return value;
     }
     
+    public float getDistanceTroncon(String gpsDepart, String gpsArrivee){
+		String strlatd, strlond, strlata, strlona;
+		float latd, lond, lata, lona;
+		double res;
+		String[] tokensd = gpsDepart.split(":");
+		String[] tokensa = gpsArrivee.split(":");
+		strlatd = tokensd[0]; strlond = tokensd[1];
+		strlata = tokensa[0]; strlona = tokensa[1];
+		latd = Float.parseFloat(strlatd);
+		lond = Float.parseFloat(strlond);
+		lata = Float.parseFloat(strlata);
+		lona = Float.parseFloat(strlona);
+		
+		res = 6371 * Math.acos( Math.sin(latd)*Math.sin(lata) + Math.cos(latd)*Math.cos(lata)*Math.cos(lona-lond) );
+		return (float) res;
+		
+	}
+
+    
     public float coutTroncon(int numTroncon, int idTrajet ) {
     	float prix = 0;
     	
