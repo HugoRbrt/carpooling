@@ -172,12 +172,13 @@ public class MyConnection {
     
     public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart, ArrayList<AjoutTroncon> tr){
     	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
+    	
     	if(idTrajet==1) {
     		return false;
     	}
-    	int k=1;
+    	System.out.println("trajet added");
     	AjoutTroncon actualTr;
-    	while(!tr.isEmpty()) {
+    	for(int k=1;k<=tr.size();k++ ) {
     		actualTr = tr.get(k-1);
     		String gpsDep = new String();String gpsAr = new String();
     		gpsDep.concat(actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection());
@@ -186,8 +187,8 @@ public class MyConnection {
     		if(-1==addTroncon( k, idTrajet, gpsDep, gpsAr, actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
     			return false;
     		}
-    		k++;
     	}
+    	System.out.println("troncon added");
     	
 		return true;
 	}
@@ -195,6 +196,8 @@ public class MyConnection {
     	return ajoutTrajet(placeDepart, immatriculation, user.myEmail, dateArrive, dateDepart, tr);
     }
     
-
+    public ArrayList<String []> findTrajet(String villeDep, String villeAr){
+    	return trajet.findTrajet(villeDep, villeAr);
+    }
 
 }

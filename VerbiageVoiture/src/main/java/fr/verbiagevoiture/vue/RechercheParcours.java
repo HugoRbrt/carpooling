@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -138,9 +139,9 @@ public class RechercheParcours {
 				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() ) {
 					return;
 				}
-				
-				shlRechercheParcours.close();
-				ResultatsRecherche window = new ResultatsRecherche();
+				ArrayList<String []> resultats = myco.findTrajet(villeDep.getText(), villeAr.getText());
+				ChangeWindow();
+				ResultatsRecherche window = new ResultatsRecherche(myco, resultats);
 				window.open();
 			}
 		});

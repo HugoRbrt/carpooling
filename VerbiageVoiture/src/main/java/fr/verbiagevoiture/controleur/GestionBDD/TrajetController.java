@@ -147,4 +147,126 @@ public class TrajetController{
     	return b;
     }
     
+<<<<<<< HEAD
+  //return the numero_troncon which was created (-1 if it was impossible)
+    public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
+    	//coordonnees gps : degre:minute:degre:minute
+    	if(idTrajet<0 || gpsDep.isBlank() || gpsAr.isBlank() || villeDep.isBlank() || villeAr.isBlank() || temps<0 || tempsAttente<0) {
+    		return -1;
+    	}
+    	int b = -1;
+    	//TODO : calculer la distance à partir des coordonnéesGPS
+    	int distance = 0;
+    	
+    	//query creation
+    	PreparedStatement pstmt = null;
+    	try {
+    		pstmt = conn.prepareStatement("INSERT INTO TRONCON VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
+			pstmt.setInt(1, numTroncon);
+			pstmt.setInt(2, idTrajet);
+			pstmt.setString(3, gpsDep);
+			pstmt.setString(4, gpsAr);
+			pstmt.setString(5, villeDep);
+			pstmt.setString(6, villeAr);
+			pstmt.setInt(7, distance);
+			pstmt.setInt(8, temps);
+			pstmt.setInt(9, tempsAttente);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement2 (addTroncon)");
+    		e1.printStackTrace();
+    	}
+    	//query execution
+    	int rset2=0;
+    	try {
+    	    rset2 =  pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (addTroncon)");
+    		e.printStackTrace();
+    	}
+    	//response analysis
+    	if(rset2==1) {//if the line was add rset==1
+    		b = idTrajet;
+    	}
+    	
+    	//return 
+    	return b;
+    }
+    
+
+
+    public boolean deleteTroncon(int numTroncon, int idTrajet) {
+    	boolean b = false;
+    	//query creation
+    	PreparedStatement pstmt = null;
+    	try {
+    		pstmt = conn.prepareStatement("DELETE FROM TRONCON WHERE IDTRAJET = ? AND NUMERO_TRONCON = ?");
+    		pstmt.setInt(1, idTrajet);
+    		pstmt.setInt(2, numTroncon);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement (deleteTrajet)");
+    		e1.printStackTrace();
+    	}
+    	//query execution
+    	int rset=0;
+    	try {
+    	    rset =  pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (deleteTrajet)");
+    		e.printStackTrace();
+    	}
+    	//response analysis
+    	b = rset==1; //if the line was deleted rset==1
+    	
+    	//return 
+    	return b;
+    }
+    
+    public ArrayList<String []> findTrajet(String villeDep, String villeAr){
+    	//query creation
+    	ArrayList<String []> myTrajet = new ArrayList<String []>();
+    	PreparedStatement pstmt = null;
+    	try {
+    		pstmt = conn.prepareStatement("SELECT T1.IDTRAJET, T1.NUMERO_TRONCON, T2.NUMERO_TRONCON  FROM TRONCON T1, TRONCON T2 WHERE (T1.IDTRAJET = T2.IDTRAJET) AND (T1.VILLE_DEPART = ?) AND (T2.VILLE_ARRIVEE = ?)");
+    		pstmt.setString(1, villeDep);
+    		pstmt.setString(2, villeAr);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement (findTrajet)");
+    		e1.printStackTrace();
+    	}
+    	
+    	//query execution
+    	ResultSet rset = null;
+    	try {
+    	    rset =  pstmt.executeQuery();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (findTrajet)");
+    		e.printStackTrace();
+    	}
+    	int i=0;
+    	String[] value;
+    	//response analysis
+    	try {
+        	while(rset.next()) {
+        		myTrajet.add(new String[3]);
+        		value = myTrajet.get(i);
+        		value[0]= rset.getString(1);
+        		value[1]= rset.getString(2);
+        		value[2]= rset.getString(3);
+        		i++;
+        	}
+    	}  catch (SQLException e) {
+            System.err.println("failed for the access to  ResultSet (findTrajet)");
+            e.printStackTrace(System.err);
+        }
+    	//close
+    	try {
+    		rset.close();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to close (findTrajet)");
+    		e.printStackTrace();
+    	}
+    	return myTrajet;
+    	
+    }
+    
 }  
