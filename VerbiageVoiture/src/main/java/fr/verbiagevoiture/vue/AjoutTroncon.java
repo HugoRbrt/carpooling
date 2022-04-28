@@ -168,7 +168,7 @@ public class AjoutTroncon {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() || temps.getSelection()<=0) {
+				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() || temps.getSelection()<=0 || gpsDepLat.getText().isBlank() || gpsDepLong.getText().isBlank() || gpsArLat.getText().isBlank() || gpsArLong.getText().isBlank() ) {
 					return;
 				}
 				validate = true;
