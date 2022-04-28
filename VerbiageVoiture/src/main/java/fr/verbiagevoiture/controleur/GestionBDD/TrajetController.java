@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class TrajetController{
@@ -44,8 +45,8 @@ public class TrajetController{
         		value[0]= Integer.toString(rset.getInt(1));
         		value[1]= rset.getString(2);
         		value[2]= rset.getString(3);
-        		value[3]= Integer.toString(rset.getInt(4));
-        		value[4]= Integer.toString(rset.getInt(5));
+				value[3] = rset.getTimestamp(4).toString();
+				value[4] = rset.getTimestamp(5).toString();
         		i++;
         	}
     	}  catch (SQLException e) {
@@ -89,7 +90,7 @@ public class TrajetController{
     }
     
     //return the IDtrajet which was created (-1 if it was impossible)
-    public int addTrajet(int placeDepart, String immatriculation, String email, int dateArrive, int dateDepart) {
+    public int addTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart) {
     	int b = -1;
     	int idTrajet = 0;
     	//get idTrajet not used
@@ -123,8 +124,8 @@ public class TrajetController{
 			pstmt.setInt(2, placeDepart);
 			pstmt.setString(3, immatriculation);
 			pstmt.setString(4, email);
-			pstmt.setInt(5, dateArrive);
-			pstmt.setInt(6, dateDepart);
+			pstmt.setTimestamp(5, dateArrive);
+			pstmt.setTimestamp(6, dateDepart);
     	} catch (SQLException e1) {
     	    System.err.println("failed to create new prepareStatement (addTrajet)");
     		e1.printStackTrace();
