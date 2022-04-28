@@ -178,7 +178,7 @@ public class MyConnection {
     	int k=1;
     	AjoutTroncon actualTr;
     	while(!tr.isEmpty()) {
-    		actualTr = tr.remove(0);
+    		actualTr = tr.get(k-1);
     		String gpsDep = new String();String gpsAr = new String();
     		gpsDep.concat(actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection());
     		gpsAr.concat(actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection());

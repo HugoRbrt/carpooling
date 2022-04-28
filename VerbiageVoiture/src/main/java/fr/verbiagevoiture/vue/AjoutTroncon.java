@@ -34,6 +34,9 @@ public class AjoutTroncon {
 	public Spinner attenteDep;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
+	protected boolean hide = false;
+	public boolean validate = false;
+	private boolean end=false;
 	
 	public AjoutTroncon (MyConnection m) {
 		myco = m;
@@ -60,9 +63,11 @@ public class AjoutTroncon {
 		createContents();
 		shlNouveauTroncon.open();
 		shlNouveauTroncon.layout();
-		while (!shlNouveauTroncon.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
+		while (!shlNouveauTroncon.isDisposed() && !end) {
+			if(!hide) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
 			}
 		}
 	}
@@ -165,7 +170,9 @@ public class AjoutTroncon {
 				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() || temps.getSelection()<=0) {
 					return;
 				}
-				ChangeWindow();
+				validate = true;
+				end = true;
+				hide = true;
 			}
 		});
 		btnNewButton.setBounds(590, 430, 96, 27);
@@ -184,6 +191,7 @@ public class AjoutTroncon {
 	
 	protected void ChangeWindow() {
 		changeWindow = true;
+		hide = false;
 		shlNouveauTroncon.close();
 		changeWindow = false;
 	}

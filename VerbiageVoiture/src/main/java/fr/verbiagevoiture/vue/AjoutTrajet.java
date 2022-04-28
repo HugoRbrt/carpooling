@@ -153,18 +153,29 @@ public class AjoutTrajet {
 				if(nbPlaces.getSelection()<1 || nbTroncon.getSelection()<1 || vehicule.getText().isBlank() ) {
 					return ;
 				}
+
+				shlNouveauTrajet.setEnabled(false);
 				int k = nbTroncon.getSelection();
-				ChangeWindow();
 				ArrayList<AjoutTroncon> tr = new ArrayList<AjoutTroncon>();
 				for(int i=1;i<=k;i++) {
 					AjoutTroncon window = new AjoutTroncon(myco);
 					tr.add(window);
 					window.open();
-				}
+				}/*
+				for(int i=1;i<=k;i++) {//we verify that each troncon were validated
+					if(!tr.get(i).validate) {
+						return;
+					}
+				}*/
 				//we add sql instructions
-				
-				MenuPrincipal window = new MenuPrincipal(myco);
-				window.open();
+				ajoutTrajet(tr);
+				System.out.println("taille:"+tr.size());
+				for(int i=0;i<tr.size();i++) {
+					tr.get(i).ChangeWindow();
+				}
+				ChangeWindow();
+				ListeTrajets window2 = new ListeTrajets(myco);
+				window2.open();
 				
 			}
 		});
