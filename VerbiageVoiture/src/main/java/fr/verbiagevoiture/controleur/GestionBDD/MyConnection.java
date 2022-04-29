@@ -2,6 +2,7 @@ package fr.verbiagevoiture.controleur.GestionBDD;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.lang.Math;
 
 import fr.verbiagevoiture.vue.AjoutTroncon;
 
@@ -186,8 +187,8 @@ public class MyConnection {
     	for(int k=1;k<=tr.size();k++ ) {
     		actualTr = tr.get(k-1);
     		String gpsDep = new String();String gpsAr = new String();
-    		gpsDep+=actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection();
-    		gpsAr+=actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection();
+    		gpsDep+=actualTr.gpsDepLat.getSelection()/(Math.pow(10,Double.valueOf(actualTr.gpsDepLat.getDigits())))+":"+actualTr.gpsDepLong.getSelection()/(Math.pow(10,Double.valueOf(actualTr.gpsDepLat.getDigits())));
+    		gpsAr+=actualTr.gpsArLat.getSelection()/(Math.pow(10,Double.valueOf(actualTr.gpsDepLat.getDigits())))+":"+actualTr.gpsArLong.getSelection()/(Math.pow(10,Double.valueOf(actualTr.gpsDepLat.getDigits())));
     		if(-1==addTroncon( k, idTrajet, gpsDep, gpsAr, actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
     			return false;
     		}

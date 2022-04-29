@@ -190,7 +190,7 @@ public class TronconController{
 		lata = Float.parseFloat(strlata);
 		lona = Float.parseFloat(strlona);
 		
-		res = 6371 * Math.acos( Math.sin(latd)*Math.sin(lata) + Math.cos(latd)*Math.cos(lata)*Math.cos(lona-lond) );
+		res = 6371.0 * Math.acos( Math.sin(latd)*Math.sin(lata) + Math.cos(latd)*Math.cos(lata)*Math.cos(lona-lond) );
 		return (int) res;
 	}
 
