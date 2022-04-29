@@ -124,16 +124,13 @@ public class ListeTroncons {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				if(!trajet_number.getText().isBlank()) {
-					System.out.print("go...");
 					int idTrajet = trajet_number.getSelection();
-					System.out.println("idTrajet:"+idTrajet);
 					float prix = 0;
 					for(int i=0;i<res.size();i++) {
 						if(res.get(i)[0]==idTrajet){
 							prix+=myco.coutTroncon(res.get(i)[1],res.get(i)[0]);
 						}
 					}
-					System.out.print("prix:"+prix);
 					if(prix>0) {
 						
 						ChangeWindow();

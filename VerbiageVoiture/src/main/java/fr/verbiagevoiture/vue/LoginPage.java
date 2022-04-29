@@ -110,8 +110,13 @@ public class LoginPage {
 					window.open();
 				}
 				else {
-					System.out.println("connexion impossible : adresse mail ou mot de passe incorrect");
-					//TODO : afficher un message d'erreur du type (creation impossible car...)
+					
+					Message window = new Message("connexion impossible : adresse mail ou mot de passe incorrect");
+					window.open();
+
+					ChangeWindow();
+					Solde window2 = new Solde(myco);
+					window2.open();
 				}
 			}
 		});

@@ -169,7 +169,6 @@ public class AjoutTrajet {
 				}
 				//we add sql instructions
 				ajoutTrajet(tr);
-				System.out.println("taille:"+tr.size());
 				for(int i=0;i<tr.size();i++) {
 					tr.get(i).ChangeWindow();
 				}

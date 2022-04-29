@@ -120,7 +120,6 @@ public class UtilisateurController{
     	if(myEmail.isBlank() || valeur<=0) {
     		return false;
     	}
-    	System.out.println("debut..");
 
     	PreparedStatement pstmt = null;
 		try {
@@ -131,7 +130,6 @@ public class UtilisateurController{
             System.err.println("failed to create new prepareStatement (RechargerSolde)");
 			e1.printStackTrace();
 		}
-    	System.out.println("milieu..");
 		int nb = 0;
     	try {
 			nb = pstmt.executeUpdate();
@@ -139,7 +137,6 @@ public class UtilisateurController{
             System.err.println("failed to executeUpdate (RechargerSolde)");
 			e.printStackTrace();
 		}
-    	System.out.println("fin..");
 		try {
 		    conn.commit(); // on valide les modifications de la base
 		} catch (SQLException e) {
@@ -156,7 +153,6 @@ public class UtilisateurController{
     	if(myEmail.isBlank() || valeur<=0) {
     		return false;
     	}
-    	System.out.println("debut..");
 
     	PreparedStatement pstmt = null;
 		try {
@@ -167,7 +163,6 @@ public class UtilisateurController{
             System.err.println("failed to create new prepareStatement (RechargerSolde)");
 			e1.printStackTrace();
 		}
-    	System.out.println("milieu..");
 		int nb = 0;
     	try {
 			nb = pstmt.executeUpdate();
@@ -175,7 +170,6 @@ public class UtilisateurController{
             System.err.println("failed to executeUpdate (RechargerSolde)");
 			e.printStackTrace();
 		}
-    	System.out.println("fin..");
 		try {
 		    conn.commit(); // on valide les modifications de la base
 		} catch (SQLException e) {

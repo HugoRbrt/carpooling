@@ -111,14 +111,10 @@ public class Solde {
 		btnRecharger.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				System.out.println("debut!");
 				if(monSolde.getText().isBlank()) {
-					System.out.println("vide!");
 					return;
 				}
-				System.out.println("solldeSelect:"+monSolde.getText());
 				if(Float.parseFloat(monSolde.getText())>0 ) {
-					System.out.println("rechargement...!");
 					boolean success = Recharger();
 					if(success) {
 						ChangeWindow();
