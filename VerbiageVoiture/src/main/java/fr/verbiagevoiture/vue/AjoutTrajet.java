@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import fr.verbiagevoiture.controleur.IntToTimestamp;
+import fr.verbiagevoiture.controleur.ToTimestamp;
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
 import org.eclipse.swt.widgets.Combo;
@@ -153,18 +153,29 @@ public class AjoutTrajet {
 				if(nbPlaces.getSelection()<1 || nbTroncon.getSelection()<1 || vehicule.getText().isBlank() ) {
 					return ;
 				}
+
+				shlNouveauTrajet.setEnabled(false);
 				int k = nbTroncon.getSelection();
-				ChangeWindow();
 				ArrayList<AjoutTroncon> tr = new ArrayList<AjoutTroncon>();
-				for(int i=1;i<=k;i++) {
+				for(int i=0;i<k;i++) {
 					AjoutTroncon window = new AjoutTroncon(myco);
 					tr.add(window);
 					window.open();
 				}
+				for(int i=0;i<k;i++) {//we verify that each troncon were validated
+					if(!tr.get(i).validate) {
+						return;
+					}
+				}
 				//we add sql instructions
-				
-				MenuPrincipal window = new MenuPrincipal(myco);
-				window.open();
+				ajoutTrajet(tr);
+				System.out.println("taille:"+tr.size());
+				for(int i=0;i<tr.size();i++) {
+					tr.get(i).ChangeWindow();
+				}
+				ChangeWindow();
+				ListeTrajets window2 = new ListeTrajets(myco);
+				window2.open();
 				
 			}
 		});
@@ -186,7 +197,7 @@ public class AjoutTrajet {
 	
 	protected boolean ajoutTrajet(ArrayList<AjoutTroncon> tr){
 		//TODO : gestion des dates arrive/depart
-		return myco.ajoutTrajet( nbPlaces.getSelection(),  vehicule.getText(), IntToTimestamp.convert(2022,6,17,9,30), IntToTimestamp.convert(dateDep.getYear(),dateDep.getMonth(),dateDep.getDay(),dateDep.getHours(),dateDep.getMinutes()), tr);
+		return myco.ajoutTrajet( nbPlaces.getSelection(),  vehicule.getText(), ToTimestamp.fromInt(2022,6,17,9,30), ToTimestamp.fromDateTime(dateDep, timeDep), tr);
 	}
 	
 	protected void ChangeWindow() {

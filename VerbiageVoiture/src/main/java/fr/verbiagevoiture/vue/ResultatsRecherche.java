@@ -1,19 +1,34 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
 public class ResultatsRecherche {
 
 	protected Shell shlResultatsRecherche;
-	private Text text;
+	private Spinner value;
+	private ArrayList<String []> res;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public ResultatsRecherche (MyConnection m, ArrayList<String []> resultats) {
+		res = resultats;
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -21,7 +36,7 @@ public class ResultatsRecherche {
 	 */
 	public static void main(String[] args) {
 		try {
-			ResultatsRecherche window = new ResultatsRecherche();
+			ResultatsRecherche window = new ResultatsRecherche(myco, null);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,6 +63,21 @@ public class ResultatsRecherche {
 	 */
 	protected void createContents() {
 		shlResultatsRecherche = new Shell();
+		shlResultatsRecherche.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlResultatsRecherche.setSize(700, 500);
 		shlResultatsRecherche.setText("Résultats recherche - VerbiageVoiture");
 		
@@ -57,7 +87,13 @@ public class ResultatsRecherche {
 		lblRsultatsRecherche.setText("Résultats recherche");
 		
 		Label lblListeDesTrajets = new Label(shlResultatsRecherche, SWT.WRAP);
-		lblListeDesTrajets.setText("Liste des parcours possibles retournée grâce à la méthode toString()");
+		String MyTrajets = new String();
+		for(int i = 0; i < res.size(); i++) {
+			MyTrajets+="id : ";MyTrajets+=res.get(i)[0];
+			MyTrajets+="du troncon : ";MyTrajets+=res.get(i)[1];
+			MyTrajets+=" jusqu'à : ";MyTrajets+=res.get(i)[2];MyTrajets+=".\n";
+		}
+		lblListeDesTrajets.setText(MyTrajets);
 		lblListeDesTrajets.setFont(SWTResourceManager.getFont("Arial", 11, SWT.NORMAL));
 		lblListeDesTrajets.setBounds(10, 84, 680, 300);
 		
@@ -65,8 +101,8 @@ public class ResultatsRecherche {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlResultatsRecherche.close();
-				RechercheParcours window = new RechercheParcours();
+				ChangeWindow();
+				RechercheParcours window = new RechercheParcours(myco);
 				window.open();
 			}
 		});
@@ -79,21 +115,47 @@ public class ResultatsRecherche {
 		lblRserverLeParcours.setFont(SWTResourceManager.getFont("Arial", 15, SWT.NORMAL));
 		lblRserverLeParcours.setBounds(10, 425, 174, 19);
 		
-		text = new Text(shlResultatsRecherche, SWT.BORDER);
-		text.setBounds(190, 431, 100, 19);
+		value = new Spinner(shlResultatsRecherche, SWT.BORDER);
+		value.setBounds(190, 431, 100, 19);
 		
 		Button btnNewButton = new Button(shlResultatsRecherche, SWT.NONE);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlResultatsRecherche.close();
-				MenuPrincipal window = new MenuPrincipal();
-				window.open();
+				if(!value.getText().isBlank()) {
+					int idTrajet = value.getSelection();
+					int indice = -1;
+					for(int i=0;i<res.size();i++) {
+						if(Integer.valueOf(res.get(i)[0])==idTrajet){
+							indice = i;
+						}
+					}
+					if(indice>=0) {
+						for(int k=Integer.valueOf(res.get(indice)[1]);k<=Integer.valueOf(res.get(indice)[2]);k++) {
+							Emprunte(k,idTrajet);
+						}
+						ChangeWindow();
+						MenuPrincipal window = new MenuPrincipal(myco);
+						window.open();
+					}
+					
+					
+				}
 			}
 		});
 		btnNewButton.setText("Réserver");
 		btnNewButton.setBounds(296, 423, 96, 27);
 
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlResultatsRecherche.close();
+		changeWindow = false;
+	}
+	
+	protected boolean Emprunte(int num, int idTrajet) {
+		return myco.addEmprunte(num, idTrajet);
 	}
 
 }

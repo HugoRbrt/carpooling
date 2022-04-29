@@ -77,6 +77,12 @@ public class MyConnection {
     public boolean RechargerSolde(float valeur, String email) {
     	return user.RechargerSolde(valeur, email);
     }
+    public boolean DebiterSolde(float valeur) {
+    	return user.DebiterSolde(valeur);
+    }
+    public boolean DebiterSolde(float valeur, String email) {
+    	return user.DebiterSolde(valeur, email);
+    }
     public String AfficherSolde(String email) {
     	return user.AfficherSolde(email);
     }
@@ -171,23 +177,26 @@ public class MyConnection {
     }
     
     public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart, ArrayList<AjoutTroncon> tr){
+    	System.out.print("debut...");
     	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
+    	
     	if(idTrajet==1) {
     		return false;
     	}
-    	int k=1;
+    	System.out.println("trajet added:"+idTrajet);
     	AjoutTroncon actualTr;
-    	while(!tr.isEmpty()) {
-    		actualTr = tr.remove(0);
+    	for(int k=1;k<=tr.size();k++ ) {
+    		actualTr = tr.get(k-1);
     		String gpsDep = new String();String gpsAr = new String();
-    		gpsDep.concat(actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection());
-    		gpsAr.concat(actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection());
-    		
+    		gpsDep+=actualTr.gpsDepLat.getSelection()+":"+actualTr.gpsDepLong.getSelection();
+    		gpsAr+=actualTr.gpsArLat.getSelection()+":"+actualTr.gpsArLong.getSelection();
+    		System.out.println("gpsDep:"+gpsDep+", gpsAr:"+gpsAr);
     		if(-1==addTroncon( k, idTrajet, gpsDep, gpsAr, actualTr.villeDep.getText(), actualTr.villeAr.getText(), actualTr.temps.getSelection(), actualTr.attenteDep.getSelection())) {
+    			System.out.println("pbm !");
     			return false;
     		}
-    		k++;
     	}
+    	System.out.println("troncon added");
     	
 		return true;
 	}
@@ -204,5 +213,8 @@ public class MyConnection {
         return trajet.validerFinTrajet(idTrajet);
     }
 
+    public ArrayList<String []> findTrajet(String villeDep, String villeAr){
+    	return trajet.findTrajet(villeDep, villeAr);
+    }
 
 }

@@ -1,10 +1,19 @@
 package fr.verbiagevoiture.vue;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
@@ -13,10 +22,16 @@ import org.eclipse.swt.events.MouseEvent;
 public class RechercheParcours {
 
 	protected Shell shlRechercheParcours;
-	private Text text;
-	private Text text_1;
-	private Text text_2;
-	private Text text_3;
+	private Text villeDep;
+	private Text villeAr;
+	// private Text text_2;
+	// private Text text_3;
+	protected static MyConnection myco;
+	protected boolean changeWindow = false;
+	
+	public RechercheParcours (MyConnection m) {
+		myco = m;
+	}
 
 	/**
 	 * Launch the application.
@@ -24,7 +39,7 @@ public class RechercheParcours {
 	 */
 	public static void main(String[] args) {
 		try {
-			RechercheParcours window = new RechercheParcours();
+			RechercheParcours window = new RechercheParcours(myco);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,6 +66,21 @@ public class RechercheParcours {
 	 */
 	protected void createContents() {
 		shlRechercheParcours = new Shell();
+		shlRechercheParcours.addListener(SWT.Close, new Listener() {
+		      public void handleEvent(Event event) {
+		    	  if(!changeWindow) {
+		    		  //we add the event "close the connection to DB" only if
+		    		  //we close definitively the app (and not when we change the window)
+			    	  try {
+				    	  myco.closeConnection();
+			    	  } catch (SQLException e) {
+			              System.err.println("failed");
+			              e.printStackTrace(System.err);
+			              myco.conn = null;
+			          }
+		    	  }
+		      }
+		    });
 		shlRechercheParcours.setSize(700, 500);
 		shlRechercheParcours.setText("Recherche parcours - VerbiageVoiture");
 		
@@ -66,8 +96,8 @@ public class RechercheParcours {
 		lblVilleDeDpart.setAlignment(SWT.RIGHT);
 		lblVilleDeDpart.setBounds(116, 117, 236, 29);
 		
-		text = new Text(shlRechercheParcours, SWT.BORDER);
-		text.setBounds(358, 122, 250, 20);
+		villeDep = new Text(shlRechercheParcours, SWT.BORDER);
+		villeDep.setBounds(358, 122, 250, 20);
 		
 		Label lblVilleDarrive = new Label(shlRechercheParcours, SWT.NONE);
 		lblVilleDarrive.setText("Ville d'arrivée");
@@ -75,9 +105,9 @@ public class RechercheParcours {
 		lblVilleDarrive.setAlignment(SWT.RIGHT);
 		lblVilleDarrive.setBounds(116, 163, 236, 29);
 		
-		text_1 = new Text(shlRechercheParcours, SWT.BORDER);
-		text_1.setBounds(358, 168, 250, 20);
-		
+		villeAr = new Text(shlRechercheParcours, SWT.BORDER);
+		villeAr.setBounds(358, 168, 250, 20);
+		/*
 		Label lblCoordonnesGpsDe = new Label(shlRechercheParcours, SWT.NONE);
 		lblCoordonnesGpsDe.setText("Coordonnées GPS de départ");
 		lblCoordonnesGpsDe.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
@@ -101,13 +131,17 @@ public class RechercheParcours {
 		lblEtou.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
 		lblEtou.setBounds(328, 212, 70, 28);
 		lblEtou.setText("ET/OU");
-		
+		*/
 		Button btnRechercher = new Button(shlRechercheParcours, SWT.NONE);
 		btnRechercher.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlRechercheParcours.close();
-				ResultatsRecherche window = new ResultatsRecherche();
+				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() ) {
+					return;
+				}
+				ArrayList<String []> resultats = myco.findTrajet(villeDep.getText(), villeAr.getText());
+				ChangeWindow();
+				ResultatsRecherche window = new ResultatsRecherche(myco, resultats);
 				window.open();
 			}
 		});
@@ -118,14 +152,20 @@ public class RechercheParcours {
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				shlRechercheParcours.close();
-				MenuPrincipal window = new MenuPrincipal();
+				ChangeWindow();
+				MenuPrincipal window = new MenuPrincipal(myco);
 				window.open();
 			}
 		});
 		btnAnnuler.setBounds(590, 430, 96, 27);
 		btnAnnuler.setText("Annuler");
 
+	}
+	
+	protected void ChangeWindow() {
+		changeWindow = true;
+		shlRechercheParcours.close();
+		changeWindow = false;
 	}
 
 }

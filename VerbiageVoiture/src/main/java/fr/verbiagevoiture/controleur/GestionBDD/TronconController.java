@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class TronconController{
@@ -225,9 +224,10 @@ public class TronconController{
     	//response analysis
     	try {
     		while(rset.next()) {
+    			System.out.println("next...");
         		value[0] = rset.getFloat(1);
         		value[1] = rset.getInt(2);
-        		value[1] = rset.getInt(3);
+        		value[2] = rset.getFloat(3);
     		}
     	}  catch (SQLException e) {
             System.err.println("failed for the access to  ResultSet (coutTroncon)");
@@ -240,8 +240,8 @@ public class TronconController{
     	    System.err.println("failed to close (coutTroncon)");
     		e.printStackTrace();
     	}
-    	
-    	prix = (float) (value[0]*value[1]*0.1*value[2]);
+    	System.out.println("NRJ:"+value[0]+" P:"+value[1]+" dist:"+value[2]);
+    	prix = (value[0]*value[1]*(float)0.1*value[2]);
     	
     	return prix;
     }
@@ -250,6 +250,7 @@ public class TronconController{
 	  public int addTroncon(int numTroncon, int idTrajet, String gpsDep,  String gpsAr,String villeDep,  String villeAr, int temps, int tempsAttente) {
     	//coordonnees gps : degre:minute:degre:minute
     	if(idTrajet<0 || gpsDep.isBlank() || gpsAr.isBlank() || villeDep.isBlank() || villeAr.isBlank() || temps<0 || tempsAttente<0) {
+    		System.out.println("-1!!!");
     		return -1;
     	}
     	int b = -1;
@@ -281,6 +282,7 @@ public class TronconController{
     		e.printStackTrace();
     	}
     	//response analysis
+    	System.out.print("nb modif:"+rset2);
     	if(rset2==1) {//if the line was add rset==1
     		b = idTrajet;
     	}

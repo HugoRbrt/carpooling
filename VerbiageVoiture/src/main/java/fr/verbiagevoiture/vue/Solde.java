@@ -111,11 +111,19 @@ public class Solde {
 		btnRecharger.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				//TODO : clear le champ, incrementer le porte monnaie puis reafficher le solde actuel
-				boolean success = Recharger();
-				if(success) {
-					ChangeWindow();
-					open();
+				System.out.println("debut!");
+				if(monSolde.getText().isBlank()) {
+					System.out.println("vide!");
+					return;
+				}
+				System.out.println("solldeSelect:"+monSolde.getText());
+				if(Float.parseFloat(monSolde.getText())>0 ) {
+					System.out.println("rechargement...!");
+					boolean success = Recharger();
+					if(success) {
+						ChangeWindow();
+						open();
+					}
 				}
 			}
 		});

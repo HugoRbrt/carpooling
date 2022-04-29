@@ -4,7 +4,7 @@ import java.lang.ModuleLayer.Controller;
 import java.sql.*;
 import java.util.ArrayList;
 
-import fr.verbiagevoiture.controleur.IntToTimestamp;
+import fr.verbiagevoiture.controleur.ToTimestamp;
 //import oracle.jdbc.*;
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 import fr.verbiagevoiture.controleur.GestionBDD.TronconController;
@@ -16,7 +16,7 @@ public class TrajetControllerTest
         
     	MyConnection myUser = new MyConnection();
         System.out.println(" ajout du trajet de BB123BB  ");
-        int newId = myUser.addTrajet(3, "BB123BB", "BB123BB@gmail.com", IntToTimestamp.convert(2022,6,17,9,30), IntToTimestamp.convert(2022,6,17,7,0));
+        int newId = myUser.addTrajet(3, "BB123BB", "BB123BB@gmail.com", ToTimestamp.fromInt(2022,6,17,9,30), ToTimestamp.fromInt(2022,6,17,7,0));
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -44,7 +44,7 @@ public class TrajetControllerTest
         
 
         System.out.println(" ajout du trajet de ima  ");
-        int newId2 = myUser.addTrajet(3, "ima", "test", IntToTimestamp.convert(2022,6,19,19,30), IntToTimestamp.convert(2022,6,19,18,0));
+        int newId2 = myUser.addTrajet(3, "ima", "test", ToTimestamp.fromInt(2022,6,19,19,30), ToTimestamp.fromInt(2022,6,19,18,0));
         if(newId2 != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -52,7 +52,7 @@ public class TrajetControllerTest
         }
         
         System.out.println(" ajout du 1er troncon associé  ");
-        newId = myUser.addTroncon(1, newId2, "49:51:2:19", "48:23:4:30", "Paris", "Brest", 6*60*60 , 100);
+        newId = myUser.addTroncon(1, newId2, "49:51:2:19", "48:23:4:30", "Paris", "Strasbourg", 6*60*60 , 100);
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {
@@ -60,7 +60,7 @@ public class TrajetControllerTest
         }
         
         System.out.println(" ajout du 2eme troncon associé  ");
-        newId = myUser.addTroncon(2, newId2, "48:23:4:30", "20:12:13:49", "Brest", "Lille", 4*60*60 , 0);
+        newId = myUser.addTroncon(2, newId2, "48:23:4:30", "20:12:13:49", "Strasbourg", "Lille", 4*60*60 , 0);
         if(newId != -1) {
         	System.out.println("[OK] ajout effectué");
         }else {

@@ -21,14 +21,17 @@ public class WelcomeScreen {
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
 
+	public WelcomeScreen(MyConnection m) {
+		myco = m;
+	}
+
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		myco = new MyConnection();
 		try {
-			WelcomeScreen window = new WelcomeScreen();
+			WelcomeScreen window = new WelcomeScreen(new MyConnection());
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();

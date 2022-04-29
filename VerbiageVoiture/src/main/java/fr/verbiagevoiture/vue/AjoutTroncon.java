@@ -6,19 +6,16 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
-
-import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
-
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+
+import java.sql.SQLException;
+
+import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
 
 public class AjoutTroncon {
 
@@ -34,6 +31,9 @@ public class AjoutTroncon {
 	public Spinner attenteDep;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
+	protected boolean hide = false;
+	public boolean validate = false;
+	private boolean end=false;
 	
 	public AjoutTroncon (MyConnection m) {
 		myco = m;
@@ -60,9 +60,11 @@ public class AjoutTroncon {
 		createContents();
 		shlNouveauTroncon.open();
 		shlNouveauTroncon.layout();
-		while (!shlNouveauTroncon.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
+		while (!shlNouveauTroncon.isDisposed() && !end) {
+			if(!hide) {
+				if (!display.readAndDispatch()) {
+					display.sleep();
+				}
 			}
 		}
 	}
@@ -123,9 +125,11 @@ public class AjoutTroncon {
 		gpsDepLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		gpsDepLat.setBounds(307, 208, 125, 20);
 		gpsDepLat.setDigits(6);
+		gpsDepLat.setMaximum(999999999);
 		gpsDepLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
 		gpsDepLong.setBounds(433, 208, 125, 20);
 		gpsDepLong.setDigits(6);
+		gpsDepLong.setMaximum(999999999);
 		
 		Label lblCoordonnesGpsDarrive = new Label(shlNouveauTroncon, SWT.NONE);
 		lblCoordonnesGpsDarrive.setText("Coordonnées GPS d'arrivée");
@@ -133,21 +137,23 @@ public class AjoutTroncon {
 		lblCoordonnesGpsDarrive.setAlignment(SWT.RIGHT);
 		lblCoordonnesGpsDarrive.setBounds(10, 248, 291, 29);
 		
-		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLat = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLat.setBounds(307, 253, 125, 20);
 		gpsArLat.setDigits(6);
-		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER); //TODO ajouter 4 champs de texte plutôt pour coordonnée GPS
+		gpsArLat.setMaximum(999999999);
+		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLong.setBounds(433, 253, 125, 20);
 		gpsArLong.setDigits(6);
+		gpsArLat.setMaximum(999999999);
+
+		// Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
+		// lblDistanceParcourue.setText("Distance parcourue");
+		// lblDistanceParcourue.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
+		// lblDistanceParcourue.setAlignment(SWT.RIGHT);
+		// lblDistanceParcourue.setBounds(65, 293, 236, 29);
 		
-		Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
-		lblDistanceParcourue.setText("Distance parcourue");
-		lblDistanceParcourue.setFont(SWTResourceManager.getFont("Arial", 20, SWT.NORMAL));
-		lblDistanceParcourue.setAlignment(SWT.RIGHT);
-		lblDistanceParcourue.setBounds(65, 293, 236, 29);
-		
-		distance = new Text(shlNouveauTroncon, SWT.BORDER);
-		distance.setBounds(307, 298, 250, 20);
+		// distance = new Text(shlNouveauTroncon, SWT.BORDER);
+		// distance.setBounds(307, 298, 250, 20);
 		
 		Label lblTempsDeParcours = new Label(shlNouveauTroncon, SWT.NONE);
 		lblTempsDeParcours.setText("Temps de parcours estimé");
@@ -162,10 +168,12 @@ public class AjoutTroncon {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() || temps.getSelection()<=0) {
+				if(villeDep.getText().isBlank() || villeAr.getText().isBlank() || temps.getSelection()<=0 || gpsDepLat.getText().isBlank() || gpsDepLong.getText().isBlank() || gpsArLat.getText().isBlank() || gpsArLong.getText().isBlank() ) {
 					return;
 				}
-				ChangeWindow();
+				validate = true;
+				end = true;
+				hide = true;
 			}
 		});
 		btnNewButton.setBounds(590, 430, 96, 27);
@@ -184,6 +192,7 @@ public class AjoutTroncon {
 	
 	protected void ChangeWindow() {
 		changeWindow = true;
+		hide = false;
 		shlNouveauTroncon.close();
 		changeWindow = false;
 	}

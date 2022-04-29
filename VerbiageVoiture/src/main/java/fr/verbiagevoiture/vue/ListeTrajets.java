@@ -95,13 +95,11 @@ public class ListeTrajets {
 		Label lblListeDesTrajets = new Label(shlMesTrajets, SWT.WRAP);
 		ArrayList<String []> listMyTrajet = myco.getMyTrajet();
 		String MyTrajets = new String();
-		System.out.print("valeur : " + listMyTrajet.size());
 		for(int i = 0; i < listMyTrajet.size(); i++) {
 			MyTrajets+="numero : ";MyTrajets+=listMyTrajet.get(i)[0];
 			MyTrajets+=", à : ";MyTrajets+=listMyTrajet.get(i)[4];
 			MyTrajets+=", immatriculé : ";MyTrajets+=listMyTrajet.get(i)[2];MyTrajets+=".\n";
 		}
-		System.out.print("string : " + MyTrajets);
 		
 		lblListeDesTrajets.setText(MyTrajets.toString());
 		lblListeDesTrajets.setFont(SWTResourceManager.getFont("Arial", 11, SWT.NORMAL));
@@ -188,7 +186,7 @@ public class ListeTrajets {
 				if(success) {
 					ChangeWindow();
 					ListeTrajets window = new ListeTrajets(myco);
-					open();
+					window.open();
 				}
 			}
 		});
