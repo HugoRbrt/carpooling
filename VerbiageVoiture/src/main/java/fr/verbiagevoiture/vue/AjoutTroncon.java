@@ -144,7 +144,7 @@ public class AjoutTroncon {
 		gpsArLong = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		gpsArLong.setBounds(433, 253, 125, 20);
 		gpsArLong.setDigits(6);
-		gpsArLat.setMaximum(999999999);
+		gpsArLong.setMaximum(999999999);
 
 		// Label lblDistanceParcourue = new Label(shlNouveauTroncon, SWT.NONE);
 		// lblDistanceParcourue.setText("Distance parcourue");
