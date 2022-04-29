@@ -90,7 +90,7 @@ public class PaiementTroncon {
 		Label lblPaiementTrononXxx = new Label(shlPaiementTroncon, SWT.NONE);
 		lblPaiementTrononXxx.setFont(SWTResourceManager.getFont("Arial", 30, SWT.NORMAL));
 		lblPaiementTrononXxx.setBounds(206, 39, 293, 34);
-		lblPaiementTrononXxx.setText("Paiement tronçon xxx");
+		lblPaiementTrononXxx.setText("Paiement tronçon " + idTrajet + "." + num_troncon);
 		
 		Label lblSolde = new Label(shlPaiementTroncon, SWT.NONE);
 		lblSolde.setAlignment(SWT.RIGHT);

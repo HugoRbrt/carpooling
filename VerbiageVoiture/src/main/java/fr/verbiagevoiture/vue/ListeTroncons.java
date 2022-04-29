@@ -144,7 +144,7 @@ public class ListeTroncons {
 				}
 			}
 		});
-		btnPayer.setBounds(242, 430, 96, 27);
+		btnPayer.setBounds(322, 430, 150, 27);
 		btnPayer.setText("Payer");
 		
 		Label lblTrajetN = new Label(shlMesTroncons, SWT.NONE);
@@ -166,7 +166,7 @@ public class ListeTroncons {
 
 		Button btnValiderMontee = new Button(shlMesTroncons, SWT.NONE);
 		btnValiderMontee.setText("Valider Montée");
-		btnValiderMontee.setBounds(10, 430, 110, 27);
+		btnValiderMontee.setBounds(10, 430, 150, 27);
 		
 		btnValiderMontee.addMouseListener(new MouseAdapter() {
 			@Override
@@ -178,7 +178,7 @@ public class ListeTroncons {
 
 		Button btnValiderDescente = new Button(shlMesTroncons, SWT.NONE);
 		btnValiderDescente.setText("Valider Descente");
-		btnValiderDescente.setBounds(126, 430, 110, 27);
+		btnValiderDescente.setBounds(166, 430, 150, 27);
 		
 		btnValiderDescente.addMouseListener(new MouseAdapter(){
 			@Override
