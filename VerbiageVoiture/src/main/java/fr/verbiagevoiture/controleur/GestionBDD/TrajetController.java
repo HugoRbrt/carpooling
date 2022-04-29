@@ -220,6 +220,59 @@ public class TrajetController{
     	return b;
     }
     
+	public boolean validerDebutTrajet(int idTrajet){
+		PreparedStatement pstmt=null;
+		boolean b=false;
+		try {
+    		pstmt = conn.prepareStatement("UPDATE TRAJET" + " SET DEBUT_TRAJET=1"
+    										+" WHERE IDTRAJET = ? "
+										);
+    		pstmt.setInt(1, idTrajet);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement (validerDebutTrajet)");
+    		e1.printStackTrace();
+    	}
+		//query execution
+    	int rset=0;
+    	try {
+    	    rset =  pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (validerDebutTrajet)");
+    		e.printStackTrace();
+    	}
+    	//response analysis
+    	b = rset==1; //if the line was deleted rset==1
+    	
+    	//return 
+    	return b;
+	}
+
+	public boolean validerFinTrajet(int idTrajet){
+		PreparedStatement pstmt=null;
+		boolean b=false;
+		try {
+    		pstmt = conn.prepareStatement("UPDATE TRAJET" + " SET FIN_TRAJET=1"
+    										+" WHERE IDTRAJET = ? "
+										);
+    		pstmt.setInt(1, idTrajet);
+    	} catch (SQLException e1) {
+    	    System.err.println("failed to create new prepareStatement (validerFinTrajet)");
+    		e1.printStackTrace();
+    	}
+		//query execution
+    	int rset=0;
+    	try {
+    	    rset =  pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    	    System.err.println("failed to executeQuery (validerFinTrajet)");
+    		e.printStackTrace();
+    	}
+    	//response analysis
+    	b = rset==1; //if the line was deleted rset==1
+    	
+    	//return 
+    	return b;
+	}
     public ArrayList<String []> findTrajet(String villeDep, String villeAr){
     	//query creation
     	ArrayList<String []> myTrajet = new ArrayList<String []>();

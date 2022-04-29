@@ -1,11 +1,13 @@
 package fr.verbiagevoiture;
 
+import java.lang.ModuleLayer.Controller;
 import java.sql.*;
 import java.util.ArrayList;
 
 import fr.verbiagevoiture.controleur.ToTimestamp;
 //import oracle.jdbc.*;
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
+import fr.verbiagevoiture.controleur.GestionBDD.TronconController;
 //import oracle.jdbc.dcn.*;
 //import java.util.*;
 public class TrajetControllerTest
@@ -96,7 +98,39 @@ public class TrajetControllerTest
         }else {
         	System.out.println("[KO] echec de la supression");
         }
+
+
+    
         
+       if(myUser.validerDebutTrajet(4) == true){
+            System.out.println("[OK] la validation du trajet est un succès");
+       }
+       else{
+           System.out.println("[K0] echec de la validation du trajet");
+       }
+
+       if(myUser.validerFinTrajet(4) == true){
+            System.out.println("[OK] la validation de fin du trajet est un succès");
+        }
+        else{
+            System.out.println("[K0] echec de la validation de fin du trajet");
+        }
+
+
+
+        if(myUser.validerMonteeTroncon(2,1) == true){
+            System.out.println("[OK] la validation de début du tronçon est un succès");
+       }
+       else{
+           System.out.println("[K0] echec de la validation du tronçon");
+       }
+
+       if(myUser.validerDescenteTroncon(2,1) == true){
+            System.out.println("[OK] la validation de fin du tronçon est un succès");
+        }
+        else{
+            System.out.println("[K0] echec de la validation de fin du tronçon");
+        }
         
         
         /*

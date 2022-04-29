@@ -316,16 +316,16 @@ public class TronconController{
     	return b;
     }
 
-	public boolean validerMonteeTroncon(int idTrajet,int numTroncon){
+	public boolean validerMonteeTroncon(int numTroncon,int idTrajet){
 		PreparedStatement pstmt=null;
 		boolean b=false;
 		try {
-    		pstmt = conn.prepareStatement("UPDATE TRONCON" + "SET MONTEE_VALIDEE=1"
+    		pstmt = conn.prepareStatement("UPDATE TRONCON" + " SET MONTEE_VALIDEE=1"
     										+" WHERE IDTRAJET = ? "
     										+" AND NUMERO_TRONCON = ? "
 										);
-    		pstmt.setInt(1, numTroncon);
-    		pstmt.setInt(2, idTrajet);
+    		pstmt.setInt(1, idTrajet);
+    		pstmt.setInt(2, numTroncon);
     	} catch (SQLException e1) {
     	    System.err.println("failed to create new prepareStatement (validerMonteeTroncon)");
     		e1.printStackTrace();
@@ -345,15 +345,15 @@ public class TronconController{
     	return b;
 	}
 
-	public boolean validerDescenteTroncon(int idTrajet,int numTroncon){
+	public boolean validerDescenteTroncon(int numTroncon,int idTrajet){
 		PreparedStatement pstmt=null;
 		boolean b=false;
 		try {
-    		pstmt = conn.prepareStatement("UPDATE TRONCON" + "SET DESCENTE_VALIDEE=1"
+    		pstmt = conn.prepareStatement("UPDATE TRONCON" + " SET DESCENTE_VALIDEE=1"
 											+" WHERE IDTRAJET = ? "
 											+" AND NUMERO_TRONCON = ? ");
-    		pstmt.setInt(1, numTroncon);
-    		pstmt.setInt(2, idTrajet);
+    		pstmt.setInt(1, idTrajet);
+    		pstmt.setInt(2, numTroncon);
     	} catch (SQLException e1) {
     	    System.err.println("failed to create new prepareStatement (validerDescenteTroncon)");
     		e1.printStackTrace();

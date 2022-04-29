@@ -3,6 +3,7 @@ package fr.verbiagevoiture.vue;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
@@ -24,8 +25,8 @@ import org.eclipse.swt.events.MouseEvent;
 public class ListeTrajets {
 
 	protected Shell shlMesTrajets;
-	private Text confirmationDep;
-	private Text confirmationAr;
+	private Spinner confirmationDep;
+	private Spinner confirmationAr;
 	private Text annulation;
 	protected static MyConnection myco;
 	protected boolean changeWindow = false;
@@ -138,25 +139,36 @@ public class ListeTrajets {
 		lblConfirmationDpartTrajet.setBounds(10, 407, 170, 20);
 		lblConfirmationDpartTrajet.setText("Confirmation départ trajet n°");
 		
-		confirmationDep = new Text(shlMesTrajets, SWT.BORDER);
+		confirmationDep = new Spinner(shlMesTrajets, SWT.BORDER);
 		confirmationDep.setBounds(186, 406, 64, 19);
 		
-		Button btnValider = new Button(shlMesTrajets, SWT.NONE);
-		btnValider.setBounds(253, 400, 70, 27);
-		btnValider.setText("Valider");
+		Button btnValiderDebutTrajet = new Button(shlMesTrajets, SWT.NONE);
+		btnValiderDebutTrajet.setBounds(253, 400, 70, 27);
+		btnValiderDebutTrajet.setText("Valider");
+		btnValiderDebutTrajet.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseUp(MouseEvent e) {
+				boolean OK=myco.validerDebutTrajet(confirmationDep.getSelection());
+			}
+		}); 
 		
 		Label lblConfirmationArriveTrajet = new Label(shlMesTrajets, SWT.NONE);
 		lblConfirmationArriveTrajet.setAlignment(SWT.RIGHT);
 		lblConfirmationArriveTrajet.setText("Confirmation arrivée trajet n°");
 		lblConfirmationArriveTrajet.setBounds(387, 407, 170, 20);
 		
-		confirmationAr = new Text(shlMesTrajets, SWT.BORDER);
+		confirmationAr = new Spinner(shlMesTrajets, SWT.BORDER);
 		confirmationAr.setBounds(563, 406, 64, 19);
 		
-		Button btnValider_1 = new Button(shlMesTrajets, SWT.NONE);
-		btnValider_1.setText("Valider");
-		btnValider_1.setBounds(630, 400, 70, 27);
-		
+		Button btnValiderFinTrajet = new Button(shlMesTrajets, SWT.NONE);
+		btnValiderFinTrajet.setText("Valider");
+		btnValiderFinTrajet.setBounds(630, 400, 70, 27);
+		btnValiderFinTrajet.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseUp(MouseEvent e) {
+				boolean OK=myco.validerFinTrajet(confirmationAr.getSelection());
+			}
+		});
 		Label lblAnnulationTrajetN = new Label(shlMesTrajets, SWT.NONE);
 		lblAnnulationTrajetN.setText("Annulation trajet n°");
 		lblAnnulationTrajetN.setAlignment(SWT.RIGHT);
