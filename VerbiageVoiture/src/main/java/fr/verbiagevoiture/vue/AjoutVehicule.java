@@ -163,7 +163,10 @@ public class AjoutVehicule {
 					ListeVehicules window = new ListeVehicules(myco);
 					window.open();
 				}
-				//TODO : ajouter message d'erreur "un champ est vide ET/OU rentrer un entier dans les champs 'puissance fiscale' et 'nombre de places'"
+				else {
+					Message window = new Message("un champ est vide ET/OU rentrer un entier dans les champs 'puissance fiscale' et 'nombre de places'");
+					window.open();
+				}
 			}
 		});
 		btnAjouter.setBounds(10, 431, 96, 27);
