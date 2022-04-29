@@ -1,15 +1,11 @@
 package fr.verbiagevoiture;
 
-import java.lang.ModuleLayer.Controller;
 import java.sql.*;
 import java.util.ArrayList;
 
 import fr.verbiagevoiture.controleur.ToTimestamp;
-//import oracle.jdbc.*;
 import fr.verbiagevoiture.controleur.GestionBDD.MyConnection;
-import fr.verbiagevoiture.controleur.GestionBDD.TronconController;
-//import oracle.jdbc.dcn.*;
-//import java.util.*;
+
 public class TrajetControllerTest
 {
     public static void main(String[] args) {
