@@ -113,10 +113,6 @@ public class LoginPage {
 					
 					Message window = new Message("connexion impossible : adresse mail ou mot de passe incorrect");
 					window.open();
-
-					ChangeWindow();
-					Solde window2 = new Solde(myco);
-					window2.open();
 				}
 			}
 		});
