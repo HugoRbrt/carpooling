@@ -22,11 +22,13 @@ public class PaiementTroncon {
 	protected static MyConnection myco;
 	private ArrayList<int []> res;
 	private int idTrajet;
+	private int num_troncon;
 	protected float prix;
 	float monSolde;
 	protected boolean changeWindow = false;
 
-	public PaiementTroncon (MyConnection m, float value, ArrayList<int []> r, int id) {
+	public PaiementTroncon (MyConnection m, float value, ArrayList<int []> r, int id, int num) {
+		num_troncon = num;
 		idTrajet = id;
 		res = r;
 		prix = value;
@@ -40,7 +42,7 @@ public class PaiementTroncon {
 	 */
 	public static void main(String[] args) {
 		try {
-			PaiementTroncon window = new PaiementTroncon(new MyConnection(), 0, null, -1);
+			PaiementTroncon window = new PaiementTroncon(new MyConnection(), 0, null, -1, 0);
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,7 +124,7 @@ public class PaiementTroncon {
 
 					myco.DebiterSolde(prix);
 					for(int i=0;i<res.size();i++) {
-						if(res.get(i)[0]==idTrajet){
+						if(res.get(i)[0]==idTrajet && res.get(i)[1]==num_troncon){
 							myco.deleteEmprunte(res.get(i)[1],res.get(i)[0]);
 						}
 					}
