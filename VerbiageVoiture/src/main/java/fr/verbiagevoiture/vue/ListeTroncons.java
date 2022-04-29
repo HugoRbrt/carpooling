@@ -125,16 +125,17 @@ public class ListeTroncons {
 			public void mouseUp(MouseEvent e) {
 				if(!trajet_number.getText().isBlank()) {
 					int idTrajet = trajet_number.getSelection();
+					int num_troncon = troncon_number.getSelection();
 					float prix = 0;
 					for(int i=0;i<res.size();i++) {
-						if(res.get(i)[0]==idTrajet){
-							prix+=myco.coutTroncon(res.get(i)[1],res.get(i)[0]);
+						if(res.get(i)[0]==idTrajet && res.get(i)[1]==num_troncon){
+							prix=myco.coutTroncon(res.get(i)[1],res.get(i)[0]);
 						}
 					}
 					if(prix>0) {
 						
 						ChangeWindow();
-						PaiementTroncon window = new PaiementTroncon(myco, prix, res, idTrajet);
+						PaiementTroncon window = new PaiementTroncon(myco, prix, res, idTrajet, num_troncon);
 						window.open();
 						
 					}
