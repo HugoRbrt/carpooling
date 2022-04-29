@@ -148,6 +148,16 @@ public class ListeTrajets {
 		btnValiderDebutTrajet.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseUp(MouseEvent e) {
+				ArrayList<String []> listeTrajet = myco.getMyTrajet();
+				boolean existe = false;
+				for(int i=0;i<listeTrajet.size();i++) {
+					if(Integer.valueOf(listeTrajet.get(i)[0])==Integer.valueOf(confirmationDep.getText())) {
+						existe = true;
+					}
+				}
+				if(!existe) {
+					return ;
+				}
 				myco.validerDebutTrajet(Integer.valueOf(confirmationDep.getText()));
 			}
 		}); 
@@ -166,6 +176,16 @@ public class ListeTrajets {
 		btnValiderFinTrajet.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseUp(MouseEvent e) {
+				ArrayList<String []> listeTrajet = myco.getMyTrajet();
+				boolean existe = false;
+				for(int i=0;i<listeTrajet.size();i++) {
+					if(Integer.valueOf(listeTrajet.get(i)[0])==Integer.valueOf(confirmationAr.getText())) {
+						existe = true;
+					}
+				}
+				if(!existe) {
+					return ;
+				}
 				myco.validerFinTrajet(Integer.valueOf(confirmationAr.getText()));
 			}
 		});
