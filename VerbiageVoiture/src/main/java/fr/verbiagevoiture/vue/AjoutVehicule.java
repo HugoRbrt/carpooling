@@ -158,12 +158,16 @@ public class AjoutVehicule {
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				if(AjouterVehicule()) {
-					ChangeWindow();
-					ListeVehicules window = new ListeVehicules(myco);
+				try {
+					if(AjouterVehicule()) {
+						ChangeWindow();
+						ListeVehicules window = new ListeVehicules(myco);
+						window.open();
+					}	
+				} catch (Exception excep) {
+					Message window = new Message("un champ est vide ET/OU rentrer un entier dans les champs 'puissance fiscale' et 'nombre de places'");
 					window.open();
 				}
-				//TODO : ajouter message d'erreur "un champ est vide ET/OU rentrer un entier dans les champs 'puissance fiscale' et 'nombre de places'"
 			}
 		});
 		btnAjouter.setBounds(10, 431, 96, 27);
