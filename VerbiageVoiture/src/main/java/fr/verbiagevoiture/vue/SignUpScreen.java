@@ -141,14 +141,8 @@ public class SignUpScreen {
 					window.open();
 				}
 				else {
-
-					
 					Message window = new Message("creation de compte impossible (un champ est vide ET/OU l'adresse email existe déjà pour un autre compte)");
 					window.open();
-
-					ChangeWindow();
-					Solde window2 = new Solde(myco);
-					window2.open();
 				}
 			}
 		});
