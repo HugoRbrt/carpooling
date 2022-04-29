@@ -114,12 +114,17 @@ public class Solde {
 				if(monSolde.getText().isBlank()) {
 					return;
 				}
-				if(Float.parseFloat(monSolde.getText())>0 ) {
-					boolean success = Recharger();
-					if(success) {
-						ChangeWindow();
-						open();
-					}
+				try {
+					if(Float.parseFloat(monSolde.getText())>0 ) {
+						boolean success = Recharger();
+						if(success) {
+							ChangeWindow();
+							open();
+						}
+					}	
+				} catch (Exception excep) {
+					Message window = new Message("La séparation entre la partie entière et la partie décimale d'un nombre doit se faire avec un point et non virgule");
+					window.open();
 				}
 			}
 		});
