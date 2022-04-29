@@ -148,7 +148,7 @@ public class ListeTrajets {
 		btnValiderDebutTrajet.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseUp(MouseEvent e) {
-				myco.validerDebutTrajet(confirmationDep.getSelection());
+				myco.validerDebutTrajet(Integer.valueOf(confirmationDep.getText()));
 			}
 		}); 
 		
@@ -166,7 +166,7 @@ public class ListeTrajets {
 		btnValiderFinTrajet.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseUp(MouseEvent e) {
-				myco.validerFinTrajet(confirmationAr.getSelection());
+				myco.validerFinTrajet(Integer.valueOf(confirmationAr.getText()));
 			}
 		});
 		Label lblAnnulationTrajetN = new Label(shlMesTrajets, SWT.NONE);

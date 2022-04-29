@@ -171,7 +171,7 @@ public class ListeTroncons {
 		btnValiderMontee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				myco.validerMonteeTroncon(troncon_number.getSelection(), trajet_number.getSelection());
+				myco.validerMonteeTroncon(Integer.valueOf(troncon_number.getText()), Integer.valueOf(trajet_number.getText()));
 				return;
 			}
 		}); 
@@ -183,7 +183,7 @@ public class ListeTroncons {
 		btnValiderDescente.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseUp(MouseEvent e) {
-				myco.validerDescenteTroncon(troncon_number.getSelection(), trajet_number.getSelection());
+				myco.validerDescenteTroncon(Integer.valueOf(troncon_number.getText()), Integer.valueOf(trajet_number.getText()));
 			}
 		}); 
 
