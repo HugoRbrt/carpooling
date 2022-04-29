@@ -179,7 +179,7 @@ public class MyConnection {
     public boolean ajoutTrajet(int placeDepart, String immatriculation, String email, Timestamp dateArrive, Timestamp dateDepart, ArrayList<AjoutTroncon> tr){
     	int idTrajet = addTrajet(placeDepart, immatriculation, email, dateArrive, dateDepart);
     	
-    	if(idTrajet==1) {
+    	if(idTrajet==-1) {
     		return false;
     	}
     	AjoutTroncon actualTr;
