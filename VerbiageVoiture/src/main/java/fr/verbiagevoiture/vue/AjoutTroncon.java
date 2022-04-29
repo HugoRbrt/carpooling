@@ -163,6 +163,8 @@ public class AjoutTroncon {
 		
 		temps = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		temps.setBounds(307, 343, 250, 20);
+		temps.setMaximum(36000);
+		temps.setMinimum(0);
 		
 		Button btnNewButton = new Button(shlNouveauTroncon, SWT.NONE);
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -187,6 +189,8 @@ public class AjoutTroncon {
 		
 		attenteDep = new Spinner(shlNouveauTroncon, SWT.BORDER);
 		attenteDep.setBounds(307, 386, 250, 20);
+		attenteDep.setMaximum(36000);
+		attenteDep.setMinimum(0);
 
 	}
 	
